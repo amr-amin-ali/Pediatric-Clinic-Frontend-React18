@@ -15,7 +15,7 @@ const Navbar = () => {
       className={`navbar navbar-expand-lg p-0 rounded ${styles.navbarDashboard}`}
     >
       <div className="container">
-        <NavLink to="/" className="navbar-brand-img">
+        <NavLink to="/Dashboard" className="navbar-brand-img">
           <img
             style={{ width: "40px" }}
             src="https://www.drrajeshclinic.com/images/logo.png"
@@ -38,7 +38,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className={`nav-item ${styles.navitemDashboard}`}>
               <NavLink
-                to="/"
+                to="/Dashboard"
                 className={`nav-link fw-bold ${styles.navlinkDashboard}`}
                 href="/Doctor/Home"
               >

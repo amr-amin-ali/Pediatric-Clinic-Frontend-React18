@@ -26,14 +26,14 @@ const Files = () => {
               </div>
               <div className="col-4">
                 <ShowModalButton
-                color="blue"
-                modalId="#createNewFileModal"
-                title="إنشاء ملف جديد"
+                  color="blue"
+                  modalId="#createNewFileModal"
+                  title="إنشاء ملف جديد"
                 />
               </div>
               <div className="col-4">
                 <ShowModalButton
-                color="green"
+                  color="green"
                   modalId="#searchForPatientFileModal"
                   title="بحث عن ملف"
                 />

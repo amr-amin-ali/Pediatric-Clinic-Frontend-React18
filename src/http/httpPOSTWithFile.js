@@ -1,6 +1,6 @@
-export const httpPUTWithFile = async (url = "", data = {}) => {
+export const httpPOSTWithFile = async (url = "", data = {}) => {
   const response = await fetch(url, {
-    method: "PUT",
+    method: "POST",
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",

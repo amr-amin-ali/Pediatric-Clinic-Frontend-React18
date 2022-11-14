@@ -1,7 +1,7 @@
 const ModalHeader=( {title} )=>{
     return (
         <div className="row m-0 rounded">
-        <h4 style={{color:"#9aafff"}} className="text-center  text-grey-light  p-0 bg-gradient rounded-top py-2 position-relative">
+        <h4 style={{color:"#9aafff"}} className="text-center rounded text-grey-light  p-0 bg-gradient rounded-top py-2 position-relative">
             {title}
             <button className="btn p-0 border-0 text-white position-absolute p-0"
                     style={{left:"0%",top:"-15%"}} type="button" data-bs-dismiss="modal">

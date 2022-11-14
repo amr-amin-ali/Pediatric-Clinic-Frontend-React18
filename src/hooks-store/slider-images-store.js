@@ -23,13 +23,7 @@ const configureSliderImagessStore = () => {
       return globalState;
     },
     DELETE_IMAGE: (globalState, imageId) => {
-      const img = globalState.sliderImages.images.filter(
-        (c) => c.id === imageId
-      );
-      const index = globalState.sliderImages.images.indexOf(img[0]);
       globalState.sliderImages.images=globalState.sliderImages.images.filter(c=>c.id !== imageId);
-      console.log("\\\\\\\\\\\\", globalState.sliderImages.images.length);
-      console.log("\\\\\\\\\\\\", globalState.sliderImages.images);
       return globalState;
     },
   };

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import WebsiteManagementSideMenuOptions from "../../../components/dashboard/website-management/side-menu-options";
+import WebsiteManagementSideMenuOptions from "../../../components/dashboard/website-management/website-mgmt-side-menu";
 
 const WebsiteManagement = () => {
   return (

@@ -1,5 +1,5 @@
 import styles from "./site-loading-spinner.module.css";
-const LoadindSpiner = ({ text }) => {
+const SiteLoadindSpiner = ({ text }) => {
   return (
     <div className={styles.loaderContainer}>
         <div className={styles.loader}></div>
@@ -7,4 +7,4 @@ const LoadindSpiner = ({ text }) => {
     </div>
   );
 };
-export default LoadindSpiner;
+export default SiteLoadindSpiner;

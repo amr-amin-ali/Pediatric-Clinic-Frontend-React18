@@ -6,8 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 //
 import configureAccountsStore from "./hooks-store/accounts-store";
 import configureSliderImagessStore from "./hooks-store/slider-images-store";
+import configureClinicServicesStore from "./hooks-store/clinic-services-store";
 configureAccountsStore();
 configureSliderImagessStore();
+configureClinicServicesStore();
 //
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -18,6 +18,7 @@ const TextInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChangeHandler}
+        
       />
       <label className={styles.label} htmlFor={name}>
         {placeholder}
