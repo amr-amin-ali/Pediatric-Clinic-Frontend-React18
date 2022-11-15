@@ -9,7 +9,7 @@ import ButtonWithPressEffect from "../../buttons/button-withPressEffect";
 import ResetButton from "../../buttons/reset-button";
 import SubmmitButton from "../../buttons/submit-button";
 import DashboardLoader from "../../loader/dashboardLoader";
-import ModalFooter from "../../modal-footer";
+import ModalFooter from "../../../modal-lg/modal-lg-footer";
 import TextInput from "../../text-input";
 import TextareaInput from "../../textarea-input";
 import ServiceItemPreview from "./service-item-preview";

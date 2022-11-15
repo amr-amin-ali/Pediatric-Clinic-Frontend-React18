@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
+import { api } from "../../../utility/api";
 
-const Article = () => {
+const ArticleItem = ({ article }) => {
   return (
-    <div
-      className="article mb-3 rounded-3 row m-md-0"
-      style={{ overflow: "hidden" }}
-    >
+    <div className="article mb-3 rounded-3 row m-md-0 overflow-hidden">
       <div className="col-sm-5 p-0">
-        <img
-          src="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/56/2012/10/Medical.jpg"
-          alt=""
-        />
+        <img src={api.base_url + article.image} alt="" />
       </div>
       <div className="col-sm-7 blog-content-tab p-1">
-        <h2 className="fs-4">الكشف المبكر</h2>
+        <h2 className="fs-4">{article.title}</h2>
         <p>
           <small>
             <svg
@@ -64,13 +59,12 @@ const Article = () => {
             2530
           </small>
         </p>
-        <p style={{ fontSize: "12px", textIndent: "20px" }}>
-          عند موافقه العميل المبدئيه على التصميم يتم ازالة هذا النص من التصميم
-          ويتم وضع النصوص النهائية المطلوبة للتصميم ويقول البعض ان وضع النصوص
-          التجريبية
-        </p>
+        <p style={{ fontSize: "12px", textIndent: "20px" }}>{article.text} </p>
 
-        <Link to="/Articles/1" className="text-decoration-none fw-bold fs-6">
+        <Link
+          to={`/Articles/${article.id}`}
+          className="text-decoration-none fw-bold fs-6"
+        >
           إقرأ أكثر
           <svg
             className="bi bi-arrow-left-circle"
@@ -91,4 +85,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default ArticleItem;

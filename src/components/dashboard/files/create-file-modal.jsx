@@ -2,8 +2,8 @@ import ResetButton from "../buttons/reset-button";
 import SubmmitButton from "../buttons/submit-button";
 
 import DateInput from "../date-input";
-import ModalFooter from "../modal-footer";
-import ModalHeader from "../modal-header";
+import ModalFooter from "../bootstrap-modal/modal-footer";
+import ModalHeader from "../bootstrap-modal/modal-header";
 import NumberInput from "../number-input";
 import RadioInput from "../radio-input";
 import SelectInput from "../select-input";

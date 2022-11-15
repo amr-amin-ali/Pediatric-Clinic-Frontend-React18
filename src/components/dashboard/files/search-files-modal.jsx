@@ -1,4 +1,4 @@
-import ModalHeader from "../modal-header";
+import ModalHeader from "../../modal-lg/modal-header";
 import TextInput from "../text-input";
 import SubmitButton from '../buttons/submit-button'
 const SearchFilesModal = () => {

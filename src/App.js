@@ -22,10 +22,10 @@ import WebsiteManagement from "./pages/dashboard/website/website-management";
 import NameAndLogoMgmt from "./components/dashboard/website-management/name-and-logo-mgmt";
 import SliderManagement from "./components/dashboard/website-management/slider-mgmt";
 import ServicesManagement from "./components/dashboard/website-management/services/services-management";
-import ArticlesMgmt from "./components/dashboard/website-management/articles-mgmt";
-import NewsMgmt from "./components/dashboard/website-management/news-mgmt";
-import VaccinesMgmt from "./components/dashboard/website-management/vaccines-mgmt";
+import ArticlesManagement from "./components/dashboard/website-management/articles/articles-management";
 import { useStore } from "./hooks-store/store";
+import NewsManagement from "./components/dashboard/website-management/news/news-management";
+import VaccinesManagemt from "./components/dashboard/website-management/vaccins/vaccin-management";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -89,9 +89,9 @@ function App() {
                   <Route path="Name-and-Logo" element={<NameAndLogoMgmt />} />
                   <Route path="SliderManagement" element={<SliderManagement />} />
                   <Route path="Services" element={<ServicesManagement />} />
-                  <Route path="Articles" element={<ArticlesMgmt />} />
-                  <Route path="News" element={<NewsMgmt />} />
-                  <Route path="Vaccines" element={<VaccinesMgmt />} />
+                  <Route path="Articles" element={<ArticlesManagement />} />
+                  <Route path="News" element={<NewsManagement />} />
+                  <Route path="Vaccines" element={<VaccinesManagemt />} />
                 </Route>
               </Route>
             )}

@@ -1,5 +1,5 @@
 import SubmitButton from "../buttons/submit-button";
-import ModalHeader from "../modal-header";
+import ModalHeader from "../../modal-lg/modal-header";
 import NumberInput from "../number-input";
 const SearchPaymentsModal = () => {
   return (

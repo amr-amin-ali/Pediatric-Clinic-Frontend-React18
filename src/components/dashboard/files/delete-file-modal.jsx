@@ -1,7 +1,7 @@
 import HideModalButton from "../buttons/hide-modal-button";
 import SubmitButton from "../buttons/submit-button";
-import ModalFooter from "../modal-footer";
-import ModalHeader from "../modal-header";
+import ModalFooter from "../../modal-lg/modal-lg-footer";
+import ModalHeader from "../../modal-lg/modal-header";
 
 const DeleteFileModal = ({fileData,modalId}) => {
   const submitFormHandler = (event) => {

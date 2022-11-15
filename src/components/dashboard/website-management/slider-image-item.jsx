@@ -1,11 +1,12 @@
 import { useStore } from "../../../hooks-store/store";
 import styles from "./slider-image-item.module.css";
 import { httpDELETE } from "../../../http/httpDELETE";
+import { api } from "../../../utility/api";
 const SliderImageItem = ({ imageUrl, imageId = 0, itemKey }) => {
   const dispatch = useStore()[1];
   const deleteImage = async (imageId) => {
     const response = await httpDELETE(
-      localStorage.getItem('DELETE_IMG_URL') + imageId
+      api.slider_images.delete_slider_image + imageId
     );
     if (response.status===400) {
       const data=await response.json();

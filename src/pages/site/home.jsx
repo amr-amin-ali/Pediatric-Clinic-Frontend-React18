@@ -1,9 +1,10 @@
 import { Fragment, useEffect } from "react";
 import Slider from "../../components/home-page/slider";
-import Services from "../../components/home-page/services";
-import BookRole from "../../components/home-page/book-role/book-role";
-import ArticlesSection from "../../components/home-page/articles-section";
+import BookRole from "../../components/home-page/booking-section/booking-section";
 import SendMessage from "../../components/home-page/send-message";
+import ServicesSection from "../../components/home-page/services-section/services-section";
+import ArticlesSection from "../../components/home-page/articles-section/articles-section";
+import NewsSection from "../../components/home-page/news-section/news-section";
 
 const Home = () => {
   // console.log(localStorage.getItem("token") === null);
@@ -16,8 +17,9 @@ const Home = () => {
   return (
     <Fragment>
       <Slider />
-      <Services />
+      <ServicesSection />
       <BookRole />
+      <NewsSection/>
       <ArticlesSection />
       <SendMessage />
     </Fragment>

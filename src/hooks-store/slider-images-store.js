@@ -1,20 +1,4 @@
 import { initStore } from "./store";
-localStorage.setItem(
-  "GET_ALL_SLIDER_IMGS_URL",
-  localStorage.getItem("BASE_URL") + "/WebSiteManagement/GetAllSliderImages"
-);
-localStorage.setItem(
-  "UPLOIAD_SLIDER_IMG_URL",
-  localStorage.getItem("BASE_URL") + "/WebSiteManagement/UploadSliderImage"
-);
-localStorage.setItem(
-  "SHOW_SLIDER_IMG_URL",
-  localStorage.getItem("BASE_URL") + "/StaticFiles/SliderImages/"
-);
-localStorage.setItem(
-  "DELETE_IMG_URL",
-  localStorage.getItem("BASE_URL") + "/WebSiteManagement/DeleteSliderImage/"
-);
 
 const configureSliderImagessStore = () => {
   const actions = {

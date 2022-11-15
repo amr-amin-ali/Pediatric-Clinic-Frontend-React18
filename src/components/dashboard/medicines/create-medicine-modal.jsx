@@ -1,6 +1,6 @@
 import ResetButton from "../buttons/reset-button";
-import ModalFooter from "../modal-footer";
-import ModalHeader from "../modal-header";
+import ModalFooter from "../../modal-lg/modal-lg-footer";
+import ModalHeader from "../../modal-lg/modal-header";
 import TextInput from "../text-input";
 import SubmitButton from "../buttons/submit-button";
 

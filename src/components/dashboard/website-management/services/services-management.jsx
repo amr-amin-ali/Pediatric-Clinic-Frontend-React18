@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../../../hooks-store/store";
 import { httpDELETE } from "../../../../http/httpDELETE";
 import { httpGET } from "../../../../http/httpGET";
@@ -119,7 +119,7 @@ const ServicesManagement = () => {
             </span>
             {servc.image && (
               <img
-                src={api.base_url + "/" + servc.image}
+                src={api.base_url +  servc.image}
                 className="service-image img-fluid rounded-top"
                 style={{ height: "13rem", width: "100%" }}
               />

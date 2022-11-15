@@ -1,8 +1,8 @@
 import ResetButton from "../buttons/reset-button";
 import SubmitButton from "../buttons/submit-button";
 import DateInput from "../date-input";
-import ModalFooter from "../modal-footer";
-import ModalHeader from "../modal-header";
+import ModalFooter from "../../modal-lg/modal-lg-footer";
+import ModalHeader from "../../modal-lg/modal-header";
 import NumberInput from "../number-input";
 
 const CreatePaymentModal = () => {

@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
+import { api } from "../../utility/api";
 
 const Slider = () => {
   const [state, dispatch] = useStore(false);
@@ -20,7 +21,6 @@ const Slider = () => {
 
   let buttonsCounter = 0;
   let carouseItemsCounter = 0;
-  // console.log(state.sliderImages.images.length);
   return (
     <Fragment>
       {state.sliderImages.images.length >
@@ -42,7 +42,7 @@ const Slider = () => {
                 ></button>
               ))}
             </div>
-            <div className="carousel-inner">
+            <div className="carousel-inner gallery-slider">
               {state.sliderImages.images.map((img) => (
                 <div
                   key={img.id}
@@ -54,7 +54,7 @@ const Slider = () => {
                 >
                   <img
                     src={`${
-                      localStorage.getItem("SHOW_SLIDER_IMG_URL") + img.imageUrl
+                      api.base_url + img.imageUrl
                     }`}
                     className="d-block w-100 home-carousel-image"
                     alt="..."

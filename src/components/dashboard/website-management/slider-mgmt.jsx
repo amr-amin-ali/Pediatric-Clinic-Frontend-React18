@@ -4,6 +4,7 @@ import SliderImageItem from "./slider-image-item";
 import { httpPOSTFile } from "../../../http/httpPOSTFile";
 import { useStore } from "../../../hooks-store/store";
 import { httpGET } from "../../../http/httpGET";
+import {api} from '../../../utility/api'
 
 const SliderManagement = () => {
   const [state, dispatch] = useStore();
@@ -26,10 +27,11 @@ const SliderManagement = () => {
     formData.append("myFile", selectedImage, selectedImage.name);
     //const response =
     await httpPOSTFile(
-      localStorage.getItem("UPLOIAD_SLIDER_IMG_URL"),
+      api.slider_images.upload_slider_image,
       formData
     );
-    httpGET(localStorage.getItem("GET_ALL_SLIDER_IMGS_URL")).then((result) =>
+    
+    httpGET(api.slider_images.get_all_slider_images).then((result) =>
     dispatch("INITIATE_SLIDER_IMAGES", result)
   );
     setShowSaveImgBtn(false);
@@ -39,7 +41,7 @@ const SliderManagement = () => {
   let isSliderImagesInitiated = false;
   useEffect(() => {
     if (state.sliderImages.images.length < 1 && isSliderImagesInitiated === false) {
-      httpGET(localStorage.getItem("GET_ALL_SLIDER_IMGS_URL")).then((result) =>
+      httpGET(api.slider_images.get_all_slider_images).then((result) =>
         dispatch("INITIATE_SLIDER_IMAGES", result)
       );
     }
@@ -100,7 +102,7 @@ const SliderManagement = () => {
                   itemKey={c.id}
                   imageId={c.id}
                   imageUrl={
-                    localStorage.getItem("SHOW_SLIDER_IMG_URL") + c.imageUrl
+                    api.base_url+c.imageUrl
                   }
                 />
               </div>

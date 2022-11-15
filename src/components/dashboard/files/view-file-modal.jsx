@@ -1,5 +1,5 @@
-import ModalFooter from "../modal-footer";
-import ModalHeader from "../modal-header";
+import ModalFooter from "../../modal-lg/modal-lg-footer";
+import ModalHeader from "../../modal-lg/modal-header";
 import HideModalButton from "../buttons/hide-modal-button";
 const ViewFileModal = ({ fileData, modalId }) => {
   return (
