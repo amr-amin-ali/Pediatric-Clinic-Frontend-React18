@@ -1,11 +1,12 @@
 import styles from "./edit-delete-buttons.module.css";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useStore } from "../../../../hooks-store/store";
 import { httpGET } from "../../../../http/httpGET";
 import { httpDELETE } from "../../../../http/httpDELETE";
 import { api } from "../../../../utility/api";
 import ShowModalButton from "../../buttons/show-modal-button";
 import CreateVaccineModal from "./create-vaccine-modal";
+import EditVaccineModal from "./edit-vaccine-modal";
 
 const VaccinesManagemt = () => {
   const [state, dispatch] = useStore();
@@ -18,9 +19,7 @@ const VaccinesManagemt = () => {
   }
 
   const deleteVaccin = async (vaccinId) => {
-    const response = await httpDELETE(
-      api.vaccins.delete_vaccin + vaccinId
-    );
+    const response = await httpDELETE(api.vaccins.delete_vaccin + vaccinId);
     if (response.status === 400) {
       const data = await response.json();
       console.log(data);
@@ -28,6 +27,10 @@ const VaccinesManagemt = () => {
     }
     dispatch("DELETE_VACCINS", vaccinId);
   };
+
+  //////////////////////Edit////////////////////////////////////
+  const [vaccinToEdit, setVaccinToEdit] = useState({});
+  //////////////////////Edit////////////////////////////////////
   return (
     <Fragment>
       <div className="card text-center">
@@ -51,8 +54,6 @@ const VaccinesManagemt = () => {
         </div>
         <div className="card-footer text-muted">لا تنسى أن تحظى بيوم سعيد</div>
       </div>
-
-      <CreateVaccineModal />
 
       {state.vaccins.length > 0 && (
         <table className="table table-striped bg-white mt-3 rounded">
@@ -80,17 +81,17 @@ const VaccinesManagemt = () => {
                     <svg
                       className={styles.deleteButton}
                       onClick={() => deleteVaccin(vaccin.id)}
-
                       viewBox="0 0 16 16"
                     >
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                     </svg>
-
                     <svg
                       className={styles.editButton}
                       onClick={() => {
-                        // setServiceToEdit(servc);
-                        // showEditModal();
+                        setVaccinToEdit(vaccin);
+                        document
+                          .getElementById("showWditVaccinModelBtn")
+                          .click();
                       }}
                       viewBox="0 0 16 16"
                     >
@@ -103,6 +104,8 @@ const VaccinesManagemt = () => {
           </tbody>
         </table>
       )}
+      <CreateVaccineModal />
+      <EditVaccineModal vaccin={vaccinToEdit} />
     </Fragment>
   );
 };

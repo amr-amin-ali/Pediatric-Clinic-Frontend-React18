@@ -6,69 +6,65 @@ import TextInput from "../../text-input";
 import { useEffect, useState } from "react";
 import { vaccinModel } from "../../../../models/vaccin-model";
 import { api } from "../../../../utility/api";
-import { httpPOST } from "../../../../http/httpPOST";
+import { httpPUT } from "../../../../http/httpPUT";
 import { useStore } from "../../../../hooks-store/store";
 
-const CreateVaccineModal = () => {
-  const [state, dispatch] = useStore();
-
+const EditVaccineModal = ( {vaccin} ) => {
+  const dispatch = useStore()[1];
+  
+  const [model, setModel] = useState(vaccin);
+  const [closeModal, setCloseModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormClickHandler = (event) => {
     setModel(vaccinModel);
   };
-  /////////////////////////////////////////////////////////////////////
-  const [model, setModel] = useState(vaccinModel);
   const [errors, setErrors] = useState({});
-  
+
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name, " : ", value);
 
     if (name === "name") {
+      setModel({ ...model, name: value });
       if (!value.trim()) {
         setErrors({ ...errors, name: "أدخل إسم اللقاح." });
-      } else {
-        setModel({ ...model, name: value });
-      }
+      } 
+      
     }
-    
+
     if (name === "age") {
+      setModel({ ...model, age: value });
       if (!value.trim()) {
         setErrors({ ...errors, age: "أدخل العمر المناسب." });
-      } else {
-        setModel({ ...model, age: value });
       }
+      
     }
-    
+
     if (name === "description") {
+      setModel({ ...model, description: value });
       if (!value.trim()) {
         setErrors({ ...errors, description: "أدخل وصف اللقاح." });
-      } else {
-        setModel({ ...model, description: value });
       }
     }
-    
+
     if (name === "dates") {
+      setModel({ ...model, dates: value });
       if (!value.trim()) {
         setErrors({ ...errors, dates: "أدخل مواعيد الذهاب للتلقيح." });
-      } else {
-        setModel({ ...model, dates: value });
-      }
+      } 
     }
-    
+
     if (value) {
       const ers = { ...errors };
       delete ers[name];
       setErrors({ ...ers });
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////
-  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
     if (!model.name) {
       setErrors({ ...errors, name: "أدخل إسم اللقاح." });
       return;
@@ -77,20 +73,21 @@ const CreateVaccineModal = () => {
       setErrors({ ...errors, age: "أدخل العمر المناسب." });
       return;
     }
-    
+
     if (!model.dates) {
       setErrors({ ...errors, dates: "أدخل مواعيد الذهاب للتلقيح." });
       return;
     }
-    
+
     if (!model.description) {
       setErrors({ ...errors, description: "أدخل وصف اللقاح." });
       return;
     }
-    
+
     if (errors && Object.keys(errors).length === 0) {
       setIsSubmitting(true);
-      const response = await httpPOST(api.vaccins.add_new_vaccin, {
+      const response = await httpPUT(api.vaccins.update_vaccin, {
+        id: model.id,
         name: model.name,
         age: model.age,
         description: model.description,
@@ -98,7 +95,7 @@ const CreateVaccineModal = () => {
       });
       if (response.status === 201) {
         const result = await response.json();
-        dispatch("ADD_VACCINS_TO_STORE", result);
+        dispatch("UPDATE_VACCINS_IN_STORE", result);
         setModel(vaccinModel);
         setCloseModal(true);
       } else {
@@ -110,23 +107,32 @@ const CreateVaccineModal = () => {
   };
   useEffect(() => {
     setCloseModal(false);
-  }, [closeModal]);
+    setModel(vaccin)
+  }, [closeModal,vaccin]);
+
   return (
     <div>
+      <button
+      id="showWditVaccinModelBtn"
+        hidden
+        data-bs-toggle="modal"
+        data-bs-target="#editVaccinModel"
+      ></button>
+
       <div
         className="modal  fade bg-blue-dark"
         data-bs-backdrop="static"
-        id="createNewFileModal"
-        tabIndex="-1"
-        aria-labelledby="createNewFileModalLabel"
+        id="editVaccinModel"
+        tabIndex="-2"
+        aria-labelledby="editVaccinModelLabel"
         aria-hidden="true"
-        >
+      >
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader
                 clickCloseButton={closeModal}
-                title="إضافة لقاح جديد"
+                title="تعديل بيانات اللقاح"
               />
               <div className="row m-0 p-2">
                 <div className="col-6">
@@ -192,4 +198,4 @@ const CreateVaccineModal = () => {
     </div>
   );
 };
-export default CreateVaccineModal;
+export default EditVaccineModal;

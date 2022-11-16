@@ -7,22 +7,20 @@ import { useEffect, useState } from "react";
 import { api } from "../../../../utility/api";
 import { useStore } from "../../../../hooks-store/store";
 import { httpPUTWithFile } from "../../../../http/httpPUTWithFile";
+import ServiceItemPreview from "./service-item-preview";
 import ButtonWithPressEffect from "../../buttons/button-withPressEffect";
 import TextareaInput from "../../textarea-input";
 import DashboardLoader from "../../loader/dashboardLoader";
-import NewsItemPreview from "./news-item-preview";
-import { newsModel } from "../../../../models/news-model";
+import { serviceModel } from "../../../../models/clinic-service-model";
 
-const EditNewsModal = ({ news }) => {
+const EditServiceModal = ({ service }) => {
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [newsToEdit, setNewsToEdit] = useState(news);
-
+  const [serviceToEdit, setServiceToEdit] = useState(service);
   /////////Image////////////////////////
   const [buttonText, setButtonText] = useState("إضافة صورة");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(api.base_url + news.image);
-
+  const [imageUrl, setImageUrl] = useState(null);
   const imgInputChangeHandler = (event) => {
     if (event.target.files[0]) {
       setButtonText("تغيير الصورة");
@@ -31,10 +29,10 @@ const EditNewsModal = ({ news }) => {
   };
   useEffect(() => {
     if (selectedImage) {
-      newsToEdit.image = URL.createObjectURL(selectedImage);
+      serviceToEdit.image = URL.createObjectURL(selectedImage);
       setImageUrl(URL.createObjectURL(selectedImage));
     }
-  }, [selectedImage, news]);
+  }, [selectedImage, service]);
 
   ///////End Image/////////////////////////////
 
@@ -43,13 +41,13 @@ const EditNewsModal = ({ news }) => {
     const name = event.target.name;
     const value = event.target.value;
     if (name === "title") {
-      setNewsToEdit({ ...newsToEdit, title: value });
+      setServiceToEdit({ ...serviceToEdit, title: value });
       if (!value) {
         setErrors({ ...errors, title: "يجب إدخال إسم الخدمة" });
       }
     }
     if (name === "text") {
-      setNewsToEdit({ ...newsToEdit, text: value });
+      setServiceToEdit({ ...serviceToEdit, text: value });
       if (!value) {
         setErrors({ ...errors, text: "يجب إدخال وصف الخدمة" });
       }
@@ -63,11 +61,11 @@ const EditNewsModal = ({ news }) => {
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
-    if (!newsToEdit.title) {
+    if (!serviceToEdit.title) {
       setErrors({ ...errors, title: "يجب إدخال إسم الخدمة" });
       return;
     }
-    if (!newsToEdit.text) {
+    if (!serviceToEdit.text) {
       setErrors({ ...errors, text: "يجب إدخال وصف للخدمة" });
       return;
     }
@@ -79,12 +77,12 @@ const EditNewsModal = ({ news }) => {
       if (selectedImage) {
         formData.append("image", selectedImage, selectedImage.name);
       }
-      formData.append("id", newsToEdit.id);
-      formData.append("title", newsToEdit.title);
-      formData.append("text", newsToEdit.text);
+      formData.append("id", serviceToEdit.id);
+      formData.append("title", serviceToEdit.title);
+      formData.append("text", serviceToEdit.text);
       //const response =
       const response = await httpPUTWithFile(
-        api.news.update_news,
+        api.clinic_services.update_service,
         formData
       );
       const responseStatusCode = (await response).status;
@@ -93,11 +91,11 @@ const EditNewsModal = ({ news }) => {
         dispatch("LOGOUT");
       } else {
         const data = await response.json();
-        dispatch("UPDATE_NEWS_IN_STORE", data);
+        dispatch("UPDATE_SERVICE_IN_STORE", data);
         setCloseModal(true);
       }
 
-      setNewsToEdit({});
+      setServiceToEdit({});
       setErrors({});
       //AFTER SUCCESS
       setButtonText("إضافة صورة");
@@ -111,20 +109,20 @@ const EditNewsModal = ({ news }) => {
   };
   const [closeModal, setCloseModal] = useState(false);
   const resetFormClickHandler = (event) => {
-    setNewsToEdit(newsModel);
+    setServiceToEdit(serviceModel);
   };
   useEffect(() => {
     setCloseModal(false);
-    setNewsToEdit(news);
-    if (news.image) {
-      setImageUrl(api.base_url + news.image);
+    setServiceToEdit(service);
+    if (service.image) {
+      setImageUrl(api.base_url + service.image);
     }
-  }, [closeModal, news]);
+  }, [closeModal, service]);
 
   return (
     <div>
       <button
-        id="showEditNewsModelBtn"
+        id="showEditServiceModelBtn"
         hidden
         data-bs-toggle="modal"
         data-bs-target="#editVaccinModel"
@@ -146,67 +144,55 @@ const EditNewsModal = ({ news }) => {
                 title="تعديل بيانات الخدمة"
               />
 
-             
-             
-
-
-
-
-{isSubmitting && <DashboardLoader />}
-        {!isSubmitting && (
-          <div className="row justify-content-between m-0 px-3">
-            <div className="col-6 text-warning">
-              <div className="mx-0 my-1">
-                <TextInput
-                  onChangeHandler={inputsChangeHandler}
-                  name="title"
-                  placeholder="عنوان الخبر"
-                  required={true}
-                  value={newsToEdit.title ?? ""}
-                />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <TextareaInput
-                  name="text"
-                  placeholder="نص الخبر"
-                  onChangeHandler={inputsChangeHandler}
-                  value={newsToEdit.text ?? ""}
-                />
-                {errors.text && (
-                  <span style={{ color: "red" }}>{errors.text}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <div className="my-3">
-                  <label htmlFor="updateNewsImage">
-                    <ButtonWithPressEffect text={buttonText} />
-                  </label>
-                  <input
-                    onChange={imgInputChangeHandler}
-                    type="file"
-                    name="clinicLogoUpdate"
-                    id="updateNewsImage"
-                    hidden
+              {isSubmitting && <DashboardLoader />}
+              {!isSubmitting && (
+                <div className="row justify-content-between m-0 px-3">
+                  <div className="col-6 text-warning">
+                    <div className="mx-0 my-1">
+                      <TextInput
+                        onChangeHandler={inputsChangeHandler}
+                        name="title"
+                        placeholder="إسم الخدمة"
+                        required={true}
+                        value={serviceToEdit.title ?? ""}
+                      />
+                      {errors.title && (
+                        <span style={{ color: "red" }}>{errors.title}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <TextareaInput
+                        name="text"
+                        placeholder="وصف الخدمة"
+                        onChangeHandler={inputsChangeHandler}
+                        value={serviceToEdit.text ?? ""}
+                      />
+                      {errors.text && (
+                        <span style={{ color: "red" }}>{errors.text}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <div className="my-3">
+                        <label htmlFor="updatedServiceImage">
+                          <ButtonWithPressEffect text={buttonText} />
+                        </label>
+                        <input
+                          onChange={imgInputChangeHandler}
+                          type="file"
+                          name="clinicLogoUpdate"
+                          id="updatedServiceImage"
+                          hidden
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <ServiceItemPreview
+                    image={imageUrl}
+                    title={serviceToEdit.title}
+                    text={serviceToEdit.text}
                   />
                 </div>
-              </div>
-            </div>
-            <div className="col-6">
-              <NewsItemPreview
-                image={imageUrl}
-                title={newsToEdit.title}
-                text={newsToEdit.text}
-              />
-            </div>
-          </div>
-        )}
-
-
-
-
+              )}
 
               <ModalFooter>
                 <SubmitButton
@@ -225,4 +211,4 @@ const EditNewsModal = ({ news }) => {
     </div>
   );
 };
-export default EditNewsModal;
+export default EditServiceModal;

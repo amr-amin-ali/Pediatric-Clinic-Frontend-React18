@@ -3,10 +3,10 @@ import { useStore } from "../../../../hooks-store/store";
 import { httpDELETE } from "../../../../http/httpDELETE";
 import { httpGET } from "../../../../http/httpGET";
 import { api } from "../../../../utility/api";
-import Button from "../../buttons/button";
+import ShowModalButton from "../../buttons/show-modal-button";
 import AddNewsModal from "./add-news-modal";
-import EditNewsModal from "./edit-news-modal";
 import NewsItem from "./news-item";
+import EditNewsModal from "./edit-news-modal";
 
 const NewsManagement = () => {
   const [state, dispatch] = useStore();
@@ -28,28 +28,11 @@ const NewsManagement = () => {
     dispatch("DELETE_NEWS", newsId);
   };
 
-  const [newsToEdit, setNewsToEdit] = useState(null);
-  const editArticle = (news) => {
+  const [newsToEdit, setNewsToEdit] = useState({});
+  const editNews = (news) => {
     setNewsToEdit(news);
-    showEditModal();
-  };
-  ///////////////////////////////////////////////////
-  const [showMyEditModal, setShowMyEditModal] = useState(false);
-  const showEditModal = () => {
-    setShowMyEditModal(true);
-  };
-  const closeEditModal = () => {
-    setShowMyEditModal(false);
-    setNewsToEdit(null);
-  };
-  const [showMyAddModal, setShowMyAddModal] = useState(false);
-  const showAddModal = () => {
-    setShowMyAddModal(true);
-  };
-  const closeAddModal = () => {
-    setShowMyAddModal(false);
-  };
-  ///////////////////////////////////////////////////
+    document.getElementById("showEditNewsModelBtn").click();
+};
 
   return (
     <div className="container">
@@ -58,24 +41,24 @@ const NewsManagement = () => {
         <div className="card-body">
           <h5 className="card-title mt-4">هذه الإجراءات خاصة بأخبار العيادة</h5>
           <p className="card-text mb-4">
-            يمكنك الإختيار ما بين نشر خبر جديد أو حذف وتعديل الأخبار التى سبق
-            نشرها
+            يمكنك الإختيار ما بين نشر خبر أو إستعراض الأخبار الحالية أو حذف خبر
+            أو تعديله.
           </p>
-          <hr />
-          <div className="row mt-5 mb-5 justify-content-around">
+          {/* <hr /> */}
+          <div className="d-flex justify-content-around">
             <div className="col-4">
-              <Button
+              <ShowModalButton
                 color="blue"
+                modalId="#addNewsModalB"
                 title="نشر خبر"
-                clickHandler={showAddModal}
               />
             </div>
           </div>
         </div>
         <div className="card-footer text-muted">لا تنسى أن تحظى بيوم سعيد</div>
       </div>
-
-      <AddNewsModal showModal={showMyAddModal} closeModal={closeAddModal} />
+      <AddNewsModal />
+      <EditNewsModal news={newsToEdit} />
       {/* <SearchFilesModal /> */}
 
       <div className="row justify-content-between my-3">
@@ -96,19 +79,14 @@ const NewsManagement = () => {
                     key={news.id}
                     news={news}
                     deleteClickHandler={deleteNews}
-                    editClickHandler={editArticle}
+                    editClickHandler={editNews}
                   />
                 </div>
               );
             }
           })}
-        {newsToEdit && (
-          <EditNewsModal
-            showModal={showMyEditModal}
-            closeModal={closeEditModal}
-            news={newsToEdit}
-          />
-        )}
+        {/* <AddNewsModalXXX showModal={showMyAddModal} closeModal={closeAddModal} /> */}
+
       </div>
     </div>
   );

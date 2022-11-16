@@ -10,7 +10,7 @@ import DashboardLoader from "../../loader/dashboardLoader";
 import ModalFooter from "../../../modal-lg/modal-lg-footer";
 import TextInput from "../../text-input";
 import TextareaInput from "../../textarea-input";
-import { httpPUTWithFile } from "../../../../http/httpPUT";
+import { httpPUTWithFile } from "../../../../http/httpPUTWithFile";
 import ArticleItemPreview from "./article-item-preview";
 
 const EditArticleModal = ({ showModal, closeModal, article }) => {

@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../../../../hooks-store/store";
 import { httpPOSTWithFile } from "../../../../http/httpPOSTWithFile";
-import { newsModel } from "../../../../models/news-model";
 import { api } from "../../../../utility/api";
-import ModalLg from "../../../modal-lg/modal-lg";
-import ModalLgHeader from "../../../modal-lg/modal-header";
 import ButtonWithPressEffect from "../../buttons/button-withPressEffect";
 import ResetButton from "../../buttons/reset-button";
-import SubmmitButton from "../../buttons/submit-button";
 import DashboardLoader from "../../loader/dashboardLoader";
 import ModalFooter from "../../../modal-lg/modal-lg-footer";
 import TextInput from "../../text-input";
 import TextareaInput from "../../textarea-input";
-import NewsItem from "./news-item";
+import ModalHeader from "../../bootstrap-modal/modal-header";
+import SubmitButton from "../../buttons/submit-button";
+import { newsModel } from "../../../../models/news-model";
 import NewsItemPreview from "./news-item-preview";
 
-const AddNewsModal = ({ showModal, closeModal }) => {
+const AddNewsModal = () => {
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -39,19 +37,19 @@ const AddNewsModal = ({ showModal, closeModal }) => {
 
   ///////End Image/////////////////////////////
 
-  const [newNews, setNewService] = useState(newsModel);
+  const [newNews, setNewNews] = useState(newsModel);
   const [errors, setErrors] = useState({});
   const inputsChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     if (name === "title") {
-      setNewService({ ...newNews, title: value });
+      setNewNews({ ...newNews, title: value });
       if (!value) {
         setErrors({ ...errors, title: "يجب إدخال إسم الخدمة" });
       }
     }
     if (name === "text") {
-      setNewService({ ...newNews, text: value });
+      setNewNews({ ...newNews, text: value });
       if (!value) {
         setErrors({ ...errors, text: "يجب إدخال وصف الخدمة" });
       }
@@ -62,7 +60,11 @@ const AddNewsModal = ({ showModal, closeModal }) => {
       setErrors({ ...ers });
     }
   };
+  const resetFormClickHandler = (event) => {
+    setNewNews(newsModel);
+  };
 
+  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
     if (!newNews.title) {
@@ -84,10 +86,7 @@ const AddNewsModal = ({ showModal, closeModal }) => {
       formData.append("title", newNews.title);
       formData.append("text", newNews.text);
       //const response =
-      const response = await httpPOSTWithFile(
-        api.news.add_new_news,
-        formData
-      );
+      const response = await httpPOSTWithFile(api.news.add_new_news, formData);
       const responseStatusCode = (await response).status;
       if (responseStatusCode === 401) {
         alert("Please login first");
@@ -95,27 +94,44 @@ const AddNewsModal = ({ showModal, closeModal }) => {
       } else {
         const data = await response.json();
         dispatch("ADD_NEWS_TO_STORE", data);
+        setCloseModal(true);
       }
 
-      setNewService({});
+      setNewNews({});
       setErrors({});
       //AFTER SUCCESS
       setButtonText("إضافة صورة");
       setImageUrl(null);
       setSelectedImage(null);
       setIsSubmitting(false);
-      closeModal();
       return;
     }
     alert("errors exist");
     return;
   };
-  return (
-    <ModalLg show={showModal} closed={closeModal}>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <ModalLgHeader title="نشر خبر جديد" onClose={closeModal} />
+  useEffect(() => {
+    setCloseModal(false);
+  }, [closeModal]);
 
-        {isSubmitting && <DashboardLoader />}
+  return (
+    <div>
+      <div
+        className="modal  fade bg-blue-dark"
+        data-bs-backdrop="static"
+        id="addNewsModalB"
+        tabIndex="-1"
+        aria-labelledby="addNewsModalBLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-xl">
+          <div className="modal-content bg-blue-light">
+            <form>
+              <ModalHeader
+                clickCloseButton={closeModal}
+                title="إضافة خدمة جديدة"
+              />
+
+{isSubmitting && <DashboardLoader />}
         {!isSubmitting && (
           <div className="row justify-content-between m-0 px-3">
             <div className="col-6 text-warning">
@@ -144,14 +160,14 @@ const AddNewsModal = ({ showModal, closeModal }) => {
               </div>
               <div className="mx-0 my-1">
                 <div className="my-3">
-                  <label htmlFor="uploadServiceImage">
+                  <label htmlFor="new-news-image">
                     <ButtonWithPressEffect text={buttonText} />
                   </label>
                   <input
                     onChange={imgInputChangeHandler}
                     type="file"
                     name="clinicLogo"
-                    id="uploadServiceImage"
+                    id="new-news-image"
                     hidden
                   />
                 </div>
@@ -167,28 +183,21 @@ const AddNewsModal = ({ showModal, closeModal }) => {
           </div>
         )}
 
-        {!isSubmitting && (
-          <ModalFooter>
-            <SubmmitButton
-              color="green"
-              title="إنشر الآن"
-              clickHandler={submitFormHandler}
-            />
-            <ResetButton
-              onClickHandler={() => {
-                setNewService({});
-                setErrors({});
-                setButtonText("إضافة صورة");
-                setImageUrl(null);
-                setSelectedImage(null);
-              }}
-              title="تفريغ الحقول"
-            />
-          </ModalFooter>
-        )}
-      </form>
-    </ModalLg>
+              <ModalFooter>
+                <SubmitButton
+                  title="أضف الآن"
+                  clickHandler={submitFormHandler}
+                />
+                <ResetButton
+                  onClickHandler={resetFormClickHandler}
+                  title="تفريغ الحقول"
+                />
+              </ModalFooter>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
-
 export default AddNewsModal;
