@@ -23,7 +23,6 @@ const CreateVaccineModal = () => {
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name, " : ", value);
 
     if (name === "name") {
       if (!value.trim()) {

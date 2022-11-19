@@ -2,6 +2,8 @@ import styles from "./navbar.module.css";
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useStore } from "../../../hooks-store/store";
+import { api } from "../../../utility/api";
+import BabySvg from "../../dashboard/icons/baby-svg";
 
 const Navbar = () => {
   const state = useStore(true)[0];
@@ -18,11 +20,15 @@ const Navbar = () => {
     >
       <div className="container">
         <NavLink to="/Dashboard" className="navbar-brand-img">
-          <img
+   {state.metaDatas.clinicLogo&&       <img
             style={{ width: "40px" }}
-            src="https://www.drrajeshclinic.com/images/logo.png"
+            src={api.base_url + state.metaDatas.clinicLogo}
             alt="clinic logo"
-          />
+          />}
+           {!state.metaDatas.clinicLogo && (
+            <BabySvg/>
+            
+          )}
         </NavLink>
         <button
           ref={navbarTogglerRef}

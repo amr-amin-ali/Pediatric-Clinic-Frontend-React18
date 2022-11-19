@@ -13,8 +13,6 @@ const Slider = () => {
       isSliderImagesInitiated === false
       ) {
         httpGET(api.slider_images.get_all_slider_images).then((result) =>{
-        console.log(state)
-console.log(result)
         dispatch("INITIATE_SLIDER_IMAGES", result)
       }
       );

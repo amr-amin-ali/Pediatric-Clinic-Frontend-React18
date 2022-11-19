@@ -28,22 +28,33 @@ const Dashboard = () => {
 
   return (
     <div className="row">
-        <div className="col-4">
-          <SideMenu />
-        </div>
+      <div className="col-4">
+        <SideMenu />
+      </div>
       <Routes>
         <Route path="Files/*">
           <Route path="*" element={<Files />} />
           <Route path="View-all" element={<ViewAllFiles />} />
           <Route path="Search" element={<SearchResult />} />
-          <Route path="View-all/:fileId" element={<ViewAllFilePrescriptions />}/>
+          <Route
+            path="View-all/:fileId"
+            element={<ViewAllFilePrescriptions />}
+          />
         </Route>
         <Route path="Medicines" element={<Medicines />} />
         <Route path="Tools" element={<Tools />} />
         <Route path="Payments" element={<Payments />} />
         <Route path="Purchases" element={<Purchases />} />
         <Route path="Bookings" element={<Bookings />} />
-        <Route path="*" element={<Fragment><DoctorProfile /><SideMenuStatistics /></Fragment>}/>
+        <Route
+          path="*"
+          element={
+            <Fragment>
+              <DoctorProfile />
+              <SideMenuStatistics />
+            </Fragment>
+          }
+        />
       </Routes>
     </div>
   );

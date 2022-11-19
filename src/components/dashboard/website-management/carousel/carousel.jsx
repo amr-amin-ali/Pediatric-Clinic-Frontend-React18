@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
-import ButtonWithPressEffect from "../buttons/button-withPressEffect";
-import SliderImageItem from "./slider-image-item";
-import { httpPOSTFile } from "../../../http/httpPOSTFile";
-import { useStore } from "../../../hooks-store/store";
-import { httpGET } from "../../../http/httpGET";
-import {api} from '../../../utility/api'
+import ButtonWithPressEffect from "../../buttons/button-withPressEffect";
+import CarouselItem from "./carousel-item";
+import { httpPOSTFile } from "../../../../http/httpPOSTFile";
+import { useStore } from "../../../../hooks-store/store";
+import { httpGET } from "../../../../http/httpGET";
+import {api} from '../../../../utility/api'
 
-const SliderManagement = () => {
+const CarouselManagement = () => {
   const [state, dispatch] = useStore();
 
   const [showSaveImgBtn, setShowSaveImgBtn] = useState();
@@ -98,7 +98,7 @@ const SliderManagement = () => {
           state.sliderImages.images.map((c) => {
             return (
               <div key={c.id + 1} className="col-3 p-1">
-                <SliderImageItem
+                <CarouselItem
                   itemKey={c.id}
                   imageId={c.id}
                   imageUrl={
@@ -113,4 +113,4 @@ const SliderManagement = () => {
   );
 };
 
-export default SliderManagement;
+export default CarouselManagement;

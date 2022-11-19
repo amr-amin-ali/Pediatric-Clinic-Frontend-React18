@@ -1,15 +1,34 @@
+import { useStore } from "../../hooks-store/store";
+import { api } from "../../utility/api";
+import DoctorSvg from "../dashboard/icons/doctor-svg";
 import "./doctor-profile.css";
 const DoctorProfile = () => {
+  const [state, dispatch] = useStore(false);
   return (
     <div className="col-12 col-md-4">
       <div className="profile rounded position-relative overflow-hidden">
         <div className="image-container position-relative text-center">
-          <img src="https://vitalehastanesi.com/wp-content/uploads/2020/12/cocuk-sagligi.jpg" className="rounded-circle" alt=""/>
+          {state.metaDatas.doctorImage && (
+            <img
+              src={api.base_url + state.metaDatas.doctorImage}
+              className="rounded-circle"
+              alt=""
+            />
+          )}
+          {!state.metaDatas.doctorImage && (
+            <div style={{ width: "120px", height: "120px", margin: "auto" }}>
+              <DoctorSvg />
+            </div>
+          )}
         </div>
         <div className="text-container text-center">
-          <h1 className="my-3">دكتور أطفال</h1>
-          <p className="m-auto" style={{marginTop: "-3% !important"}}>
-            دكتور طب الأطفال وحديثى الولادة
+          <h1 className="my-3">
+            {state.metaDatas.doctorFirstName ?? ""}{" "}
+            {state.metaDatas.doctorMiddleName ?? ""}{" "}
+            {state.metaDatas.doctorLastName ?? ""}
+          </h1>
+          <p className="m-auto" style={{ marginTop: "-3% !important" }}>
+            {state.metaDatas.doctorTitle ?? ""}
           </p>
         </div>
 
@@ -48,8 +67,12 @@ const DoctorProfile = () => {
             </a>
           </div>
           <div className="col-4 py-3 m-0 pb-0 profile-button profile-button-third">
-            <form className="pb-3 text-decoration-none d-flex justify-content-center align-items-center">
+            <form
+              onSubmit={(_) => _.preventDefault()}
+              className="pb-3 text-decoration-none d-flex justify-content-center align-items-center"
+            >
               <button
+               onClick={() => dispatch("LOGOUT")}
                 type="submit"
                 className="bg-transparent border-0 text-center fw-bold text-white p-0 d-flex "
               >

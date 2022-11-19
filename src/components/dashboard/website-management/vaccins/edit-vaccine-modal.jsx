@@ -93,7 +93,7 @@ const EditVaccineModal = ( {vaccin} ) => {
         description: model.description,
         dates: model.dates,
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         const result = await response.json();
         dispatch("UPDATE_VACCINS_IN_STORE", result);
         setModel(vaccinModel);

@@ -20,7 +20,7 @@ import NewPrescription from "./pages/dashboard/prescripions/new-prescription";
 import PrintPrescription from "./pages/dashboard/prescripions/print-prescription";
 import WebsiteManagement from "./pages/dashboard/website/website-management";
 import MetaData from "./components/dashboard/website-management/meta-data/meta-data";
-import SliderManagement from "./components/dashboard/website-management/slider-mgmt";
+import CarouselManagement from "./components/dashboard/website-management/carousel/carousel";
 import ServicesManagement from "./components/dashboard/website-management/services/services-management";
 import ArticlesManagement from "./components/dashboard/website-management/articles/articles-management";
 import { useStore } from "./hooks-store/store";
@@ -97,7 +97,7 @@ function App() {
                 <Route path="New-Prescription/:fileId" element={<NewPrescription />}/>
                 <Route path="Website-Management/*" element={<WebsiteManagement />}>
                   <Route path="Meta-Data" element={<MetaData />} />
-                  <Route path="SliderManagement" element={<SliderManagement />} />
+                  <Route path="SliderManagement" element={<CarouselManagement />} />
                   <Route path="Services" element={<ServicesManagement />} />
                   <Route path="Articles" element={<ArticlesManagement />} />
                   <Route path="News" element={<NewsManagement />} />

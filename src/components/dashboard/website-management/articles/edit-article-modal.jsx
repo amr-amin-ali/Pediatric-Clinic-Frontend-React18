@@ -108,7 +108,6 @@ const EditArticleModal = ({ article }) => {
       setImageUrl(null);
       setSelectedImage(null);
       setIsSubmitting(false);
-      closeModal();
       return;
     }
     alert("errors exist");

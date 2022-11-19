@@ -1,8 +1,8 @@
-import { useStore } from "../../../hooks-store/store";
-import styles from "./slider-image-item.module.css";
-import { httpDELETE } from "../../../http/httpDELETE";
-import { api } from "../../../utility/api";
-const SliderImageItem = ({ imageUrl, imageId = 0, itemKey }) => {
+import { useStore } from "../../../../hooks-store/store";
+import styles from "./carousel-item.module.css";
+import { httpDELETE } from "../../../../http/httpDELETE";
+import { api } from "../../../../utility/api";
+const CarouselItem = ({ imageUrl, imageId = 0, itemKey }) => {
   const dispatch = useStore()[1];
   const deleteImage = async (imageId) => {
     const response = await httpDELETE(
@@ -30,4 +30,4 @@ const SliderImageItem = ({ imageUrl, imageId = 0, itemKey }) => {
     </div>
   );
 };
-export default SliderImageItem;
+export default CarouselItem;
