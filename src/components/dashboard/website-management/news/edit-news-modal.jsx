@@ -83,30 +83,41 @@ const EditNewsModal = ({ news }) => {
       formData.append("title", newsToEdit.title);
       formData.append("text", newsToEdit.text);
       //const response =
-      const response = await httpPUTWithFile(
-        api.news.update_news,
-        formData
-      );
+      const response = await httpPUTWithFile(api.news.update_news, formData);
       const responseStatusCode = (await response).status;
+
       if (responseStatusCode === 401) {
         alert("Please login first");
+        setIsSubmitting(false);
         dispatch("LOGOUT");
-      } else {
+        return;
+      }
+      if (responseStatusCode === 400) {
+        const data = await response.json();
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            alert(data[key]);
+          }
+        }
+        setIsSubmitting(false);
+        return;
+      }
+      if (responseStatusCode === 200) {
         const data = await response.json();
         dispatch("UPDATE_NEWS_IN_STORE", data);
         setCloseModal(true);
+        setNewsToEdit({});
+        setErrors({});
+        //AFTER SUCCESS
+        setButtonText("إضافة صورة");
+        setImageUrl(null);
+        setSelectedImage(null);
+        setIsSubmitting(false);
+        return;
       }
-
-      setNewsToEdit({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
-      return;
     }
     alert("errors exist");
+    setIsSubmitting(false);
     return;
   };
   const [closeModal, setCloseModal] = useState(false);
@@ -143,74 +154,64 @@ const EditNewsModal = ({ news }) => {
             <form>
               <ModalHeader
                 clickCloseButton={closeModal}
-                title="تعديل بيانات الخدمة"
+                title="تعديل بيانات الخبر"
               />
 
-             
-             
-
-
-
-
-{isSubmitting && <DashboardLoader />}
-        {!isSubmitting && (
-          <div className="row justify-content-between m-0 px-3">
-            <div className="col-6 text-warning">
-              <div className="mx-0 my-1">
-                <TextInput
-                  onChangeHandler={inputsChangeHandler}
-                  name="title"
-                  placeholder="عنوان الخبر"
-                  required={true}
-                  value={newsToEdit.title ?? ""}
-                />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <TextareaInput
-                  name="text"
-                  placeholder="نص الخبر"
-                  onChangeHandler={inputsChangeHandler}
-                  value={newsToEdit.text ?? ""}
-                />
-                {errors.text && (
-                  <span style={{ color: "red" }}>{errors.text}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <div className="my-3">
-                  <label htmlFor="updateNewsImage">
-                    <ButtonWithPressEffect text={buttonText} />
-                  </label>
-                  <input
-                    onChange={imgInputChangeHandler}
-                    type="file"
-                    name="clinicLogoUpdate"
-                    id="updateNewsImage"
-                    hidden
-                  />
+              {isSubmitting && <DashboardLoader />}
+              {!isSubmitting && (
+                <div className="row justify-content-between m-0 px-3">
+                  <div className="col-6 text-warning">
+                    <div className="mx-0 my-1">
+                      <TextInput
+                        onChangeHandler={inputsChangeHandler}
+                        name="title"
+                        placeholder="عنوان الخبر"
+                        required={true}
+                        value={newsToEdit.title ?? ""}
+                      />
+                      {errors.title && (
+                        <span style={{ color: "red" }}>{errors.title}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <TextareaInput
+                        name="text"
+                        placeholder="نص الخبر"
+                        onChangeHandler={inputsChangeHandler}
+                        value={newsToEdit.text ?? ""}
+                      />
+                      {errors.text && (
+                        <span style={{ color: "red" }}>{errors.text}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <div className="my-3">
+                        <label htmlFor="updateNewsImage">
+                          <ButtonWithPressEffect text={buttonText} />
+                        </label>
+                        <input
+                          onChange={imgInputChangeHandler}
+                          type="file"
+                          name="clinicLogoUpdate"
+                          id="updateNewsImage"
+                          hidden
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <NewsItemPreview
+                      image={imageUrl}
+                      title={newsToEdit.title}
+                      text={newsToEdit.text}
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="col-6">
-              <NewsItemPreview
-                image={imageUrl}
-                title={newsToEdit.title}
-                text={newsToEdit.text}
-              />
-            </div>
-          </div>
-        )}
-
-
-
-
+              )}
 
               <ModalFooter>
                 <SubmitButton
-                  title="أضف الآن"
+                  title="حفظ التعديلات"
                   clickHandler={submitFormHandler}
                 />
                 <ResetButton

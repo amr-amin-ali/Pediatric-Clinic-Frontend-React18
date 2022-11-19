@@ -1,8 +1,10 @@
 import styles from "./navbar.module.css";
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
+import { useStore } from "../../../hooks-store/store";
 
 const Navbar = () => {
+  const state = useStore(true)[0];
 
   const navbarTogglerRef = useRef();
   // const navlinlClickHandler = () => {
@@ -58,11 +60,6 @@ const Navbar = () => {
                 </svg>
                 الملفات
               </NavLink>
-              <span
-                className={`${styles.navbarCount} text-white position-absolute fs-6 fw-bold p-0 rounded-circle`}
-              >
-                9
-              </span>
             </li>
             <li className={`nav-item ${styles.navitemDashboard}`}>
               <NavLink
@@ -120,6 +117,13 @@ const Navbar = () => {
                 </svg>
                 الحجز
               </NavLink>
+              {state.bookings.length > 0 && (
+                <span
+                  className={`${styles.navbarCount} text-white position-absolute fs-6 fw-bold p-0 rounded-circle`}
+                >
+                  {state.bookings.length}
+                </span>
+              )}
             </li>
           </ul>
         </div>

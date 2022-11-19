@@ -128,7 +128,7 @@ const AddNewsModal = () => {
             <form>
               <ModalHeader
                 clickCloseButton={closeModal}
-                title="إضافة خدمة جديدة"
+                title="إضافة خبر جديدة"
               />
 
 {isSubmitting && <DashboardLoader />}
@@ -185,7 +185,7 @@ const AddNewsModal = () => {
 
               <ModalFooter>
                 <SubmitButton
-                  title="أضف الآن"
+                  title="إنشر الآن"
                   clickHandler={submitFormHandler}
                 />
                 <ResetButton

@@ -12,8 +12,20 @@ import Purchases from "./purchases/purchases";
 import ViewAllFiles from "./files/view-all";
 import SearchResult from "./files/search-result";
 import ViewAllFilePrescriptions from "./prescripions/all-file-prescriptions";
+import { useStore } from "../../hooks-store/store";
+import { httpGET } from "../../http/httpGET";
+import { api } from "../../utility/api";
 const Dashboard = () => {
   document.title = "الإدارة";
+  const [state, dispatch] = useStore();
+
+  //get all bookings from the server
+  if (state.bookings.length === 0) {
+    httpGET(api.bookings.get_all_bookings).then((bookings) => {
+      if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
+    });
+  }
+
   return (
     <div className="row">
         <div className="col-4">

@@ -5,15 +5,18 @@ import { api } from "../../utility/api";
 
 const Slider = () => {
   const [state, dispatch] = useStore(false);
-
+  
   let isSliderImagesInitiated = false;
   useEffect(() => {
     if (
       state.sliderImages.images.length < 1 &&
       isSliderImagesInitiated === false
-    ) {
-      httpGET(localStorage.getItem("GET_ALL_SLIDER_IMGS_URL")).then((result) =>
+      ) {
+        httpGET(api.slider_images.get_all_slider_images).then((result) =>{
+        console.log(state)
+console.log(result)
         dispatch("INITIATE_SLIDER_IMAGES", result)
+      }
       );
     }
     isSliderImagesInitiated = true;
