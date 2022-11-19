@@ -3,7 +3,7 @@ import DoctorProfile from "../../components/dashboard/doctor-profile";
 import SideMenuStatistics from "../../components/dashboard/side-menu-ststistics";
 import { Route, Routes } from "react-router-dom";
 import { Fragment } from "react";
-import Bookings from "./bookings";
+import Bookings from "./bookings/bookings";
 import Files from "./files/files";
 import Medicines from "./medicines/medicines";
 import Tools from "./tools/tools";

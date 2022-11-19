@@ -21,7 +21,7 @@ const EditNewsModal = ({ news }) => {
   /////////Image////////////////////////
   const [buttonText, setButtonText] = useState("إضافة صورة");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(api.base_url + news.image);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const imgInputChangeHandler = (event) => {
     if (event.target.files[0]) {

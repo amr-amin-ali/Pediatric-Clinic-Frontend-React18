@@ -7,6 +7,7 @@ import { api } from "../../../../utility/api";
 import ShowModalButton from "../../buttons/show-modal-button";
 import CreateVaccineModal from "./create-vaccine-modal";
 import EditVaccineModal from "./edit-vaccine-modal";
+import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
 
 const VaccinesManagemt = () => {
   const [state, dispatch] = useStore();
@@ -89,9 +90,7 @@ const VaccinesManagemt = () => {
                       className={styles.editButton}
                       onClick={() => {
                         setVaccinToEdit(vaccin);
-                        document
-                          .getElementById("showWditVaccinModelBtn")
-                          .click();
+                        openBootstrapModal("showWditVaccinModelBtn");
                       }}
                       viewBox="0 0 16 16"
                     >

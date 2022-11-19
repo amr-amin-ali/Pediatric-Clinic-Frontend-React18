@@ -39,7 +39,7 @@ const BookRoleModal = ({afterSuccessAction}) => {
 
     if (errors === null) {
       setIsSubmitting(true);
-      const response = await httpPOST(api.booking.book, {
+      const response = await httpPOST(api.bookings.book, {
         name: model.name,
         phone: model.phone,
         address: model.address,

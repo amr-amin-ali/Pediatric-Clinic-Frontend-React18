@@ -7,6 +7,7 @@ import ShowModalButton from "../../buttons/show-modal-button";
 import AddNewsModal from "./add-news-modal";
 import NewsItem from "./news-item";
 import EditNewsModal from "./edit-news-modal";
+import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
 
 const NewsManagement = () => {
   const [state, dispatch] = useStore();
@@ -31,7 +32,7 @@ const NewsManagement = () => {
   const [newsToEdit, setNewsToEdit] = useState({});
   const editNews = (news) => {
     setNewsToEdit(news);
-    document.getElementById("showEditNewsModelBtn").click();
+    openBootstrapModal("showEditNewsModelBtn");
 };
 
   return (
@@ -85,7 +86,6 @@ const NewsManagement = () => {
               );
             }
           })}
-        {/* <AddNewsModalXXX showModal={showMyAddModal} closeModal={closeAddModal} /> */}
 
       </div>
     </div>

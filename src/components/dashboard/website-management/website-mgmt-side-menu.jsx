@@ -12,7 +12,23 @@ const WebsiteManagementSideMenu = () => {
       </h1>
       <div className={`${styles.menuItems} scrollbar-style1`}>
         <ul>
-        <li className={`${styles.menuItem}`}>
+          <li className={`${styles.menuItem}`}>
+            <NavLink
+              to="/Dashboard/Website-Management/Meta-Data"
+              className="text-decoration-none d-block"
+            >
+              <svg viewBox="0 0 16 16">
+                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z" />
+              </svg>
+              بيانات العيادة
+              <span
+                className={`${styles.menuItemCount} position-absolute text-center`}
+              >
+                8
+              </span>
+            </NavLink>
+          </li>
+          <li className={`${styles.menuItem}`}>
             <NavLink
               to="/Dashboard/Website-Management/Vaccines"
               className="text-decoration-none d-block"
@@ -94,23 +110,6 @@ const WebsiteManagementSideMenu = () => {
               </span>
             </NavLink>
           </li>
-          <li className={`${styles.menuItem}`}>
-            <NavLink
-              to="/Dashboard/Website-Management/Name-and-Logo"
-              className="text-decoration-none d-block"
-            >
-              <svg viewBox="0 0 16 16">
-                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z" />
-              </svg>
-              الإسم واللوجو
-              <span
-                className={`${styles.menuItemCount} position-absolute text-center`}
-              >
-                8
-              </span>
-            </NavLink>
-          </li>
-
         </ul>
       </div>
     </div>

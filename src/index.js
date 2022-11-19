@@ -10,12 +10,16 @@ import configureClinicServicesStore from "./hooks-store/clinic-services-store";
 import configureArticlesStore from "./hooks-store/articles-store";
 import configureNewsStore from "./hooks-store/news-store";
 import configureVaccinsStore from "./hooks-store/vaccins-store";
+import configureBookingsStore from "./hooks-store/bookings-store";
+import configureMetaDataStore from "./hooks-store/meta-data-store";
 configureAccountsStore();
 configureSliderImagessStore();
 configureClinicServicesStore();
 configureArticlesStore();
 configureNewsStore();
 configureVaccinsStore();
+configureBookingsStore();
+configureMetaDataStore();
 //
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

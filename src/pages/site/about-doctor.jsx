@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useStore } from "../../hooks-store/store";
+import { api } from "../../utility/api";
 import "./about-doctor.css";
 const AboutDoctor = () => {
   document.title = "عن الدكتورة";
+  const state = useStore(false)[0];
 
   const [firstTabTextColor, setFirstTabTextColor] = useState(
     "text-yellow-active bg-grey-active"
@@ -43,15 +46,15 @@ const AboutDoctor = () => {
           </div>
           <div className="doctor-profile-picture">
             <img
-              src="https://media.istockphoto.com/photos/happy-healthcare-practitioner-picture-id138205019?k=20&m=138205019&s=612x612&w=0&h=KpsSMVsplkOqTnAJmOye4y6DcciVYIBe5dYDgYXLVW4="
+              src={api.base_url+state.metaDatas.doctorImage}
               alt="kjhg"
             />
           </div>
         </div>
 
         <div className="doctor-profile-title">
-          <h3>ريهام سعيد الشماخ</h3>
-          <p>أخصائى طب الأطفال وحديثى الولادة</p>
+          <h3>{`${state.metaDatas.doctorFirstName??""} ${state.metaDatas.doctorMiddleName??""} ${state.metaDatas.doctorLastName??""}`}</h3>
+          <p>{state.metaDatas.doctorTitle??""}</p>
         </div>
 
         <div className="doctor-profile-pane">
@@ -60,41 +63,64 @@ const AboutDoctor = () => {
               onClick={firstTabClickHandler}
               className={`first-pane-tab p-2 m-0 text-center text-white  ${firstTabTextColor}`}
             >
-              علمية
+              التواصل
             </div>
             <div
               onClick={secondTabClickHandler}
               className={`second-pane-tab p-2 m-0 text-center text-white  ${secondTabTextColor}`}
             >
-              مهنية
+              علمية
             </div>
             <div
               onClick={thirdTabClickHandler}
               className={`third-pane-tab p-2 m-0 text-center text-white  ${thirdTabTextColor}`}
             >
-              شخصية
+              مهنية
             </div>
           </div>
           <div className="tabs-content p-2">
             {firstTabTextColor && (
-              <p className="first-content">
-                بيانات الدكتورة العلمية بيانات الدكتورة العلمية بيانات الدكتورة
-                العلمية بيانات الدكتورة العلميةبيانات الدكتورة العلميةبيانات
-                الدكتورة العلميةبيانات الدكتورة العلمية
-              </p>
+              <div className="first-content">
+                <ul>
+                  {state.metaDatas.doctorPhone1 && (
+                    <li>
+                      <h4>هاتف:</h4>
+                    </li>
+                  )}
+                  {!state.metaDatas.doctorPhone1 &&
+                    state.metaDatas.doctorPhone2 && (
+                      <li>
+                        <h4>هاتف:</h4>
+                      </li>
+                    )}
+                  {state.metaDatas.doctorPhone1 && (
+                    <li className="m-0 ps-5">{state.metaDatas.doctorPhone1}</li>
+                  )}
+                  {state.metaDatas.doctorPhone2 && (
+                    <li className="m-0 ps-5">{state.metaDatas.doctorPhone2}</li>
+                  )}
+
+                  {state.metaDatas.doctorWhatsapp && (
+                    <li>Whatsapp: {state.metaDatas.doctorWhatsapp}</li>
+                  )}
+                  {state.metaDatas.doctorTelegram && (
+                    <li>Telegram: {state.metaDatas.doctorTelegram}</li>
+                  )}
+                  {state.metaDatas.doctorFacebook && (
+                    <li>Facebook: {state.metaDatas.doctorFacebook}</li>
+                  )}
+                  {state.metaDatas.doctorEmail && (
+                    <li>Facebook: {state.metaDatas.doctorEmail}</li>
+                  )}
+                </ul>
+              </div>
             )}
             {secondTabTextColor && (
-              <p className="second-content">
-                بيانات الدكتورة المهنية بيانات الدكتورة المهنية بيانات الدكتورة
-                المهنيةبيانات الدكتورة المهنيةبيانات الدكتورة المهنيةبيانات
-                الدكتورة المهنية
-              </p>
+              <p className="second-content">{state.metaDatas.doctorScientificData}</p>
             )}
             {thirdTabTextColor && (
               <p className="third-content">
-                بيانات الدكتورة الشخصية بيانات الدكتورة الشخصية بيانات الدكتورة
-                الشخصية بيانات الدكتورة الشخصيةبيانات الدكتورة الشخصيةبيانات
-                الدكتورة الشخصية
+                {state.metaDatas.doctorProfessionalData}
               </p>
             )}
           </div>

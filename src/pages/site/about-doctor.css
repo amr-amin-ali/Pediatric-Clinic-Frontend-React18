@@ -150,13 +150,13 @@
 }
 .first-content {
   color: var(--yellow);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .second-content {
   color: var(--green);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .third-content {
   color: var(--red);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }

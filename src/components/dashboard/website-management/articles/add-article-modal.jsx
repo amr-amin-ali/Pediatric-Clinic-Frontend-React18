@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../../../../hooks-store/store";
 import { httpPOSTWithFile } from "../../../../http/httpPOSTWithFile";
-import { articleModel } from "../../../../models/article-model";
 import { api } from "../../../../utility/api";
-import ModalLg from "../../../modal-lg/modal-lg";
-import ModalLgHeader from "../../../modal-lg/modal-header";
 import ButtonWithPressEffect from "../../buttons/button-withPressEffect";
 import ResetButton from "../../buttons/reset-button";
-import SubmmitButton from "../../buttons/submit-button";
 import DashboardLoader from "../../loader/dashboardLoader";
 import ModalFooter from "../../../modal-lg/modal-lg-footer";
 import TextInput from "../../text-input";
 import TextareaInput from "../../textarea-input";
-import ArticleItem from "./article-item";
+import ModalHeader from "../../bootstrap-modal/modal-header";
+import SubmitButton from "../../buttons/submit-button";
+import { articleModel } from "../../../../models/article-model";
 import ArticleItemPreview from "./article-item-preview";
 
-const AddArticleModal = ({ showModal, closeModal }) => {
+const AddArticleModal = () => {
+
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -63,6 +62,12 @@ const AddArticleModal = ({ showModal, closeModal }) => {
     }
   };
 
+
+  const resetFormClickHandler = (event) => {
+    setNewService(articleModel);
+  };
+
+  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
     if (!newArticle.title) {
@@ -95,6 +100,7 @@ const AddArticleModal = ({ showModal, closeModal }) => {
       } else {
         const data = await response.json();
         dispatch("ADD_ARTICLE_TO_STORE", data);
+        setCloseModal(true);
       }
 
       setNewService({});
@@ -104,91 +110,98 @@ const AddArticleModal = ({ showModal, closeModal }) => {
       setImageUrl(null);
       setSelectedImage(null);
       setIsSubmitting(false);
-      closeModal();
       return;
     }
     alert("errors exist");
     return;
   };
+  useEffect(() => {
+    setCloseModal(false);
+  }, [closeModal]);
+
   return (
-    <ModalLg show={showModal} closed={closeModal}>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <ModalLgHeader title="إضافة مقالة جديدة" onClose={closeModal} />
-
-        {isSubmitting && <DashboardLoader />}
-        {!isSubmitting && (
-          <div className="row justify-content-between m-0 px-3">
-            <div className="col-6 text-warning">
-              <div className="mx-0 my-1">
-                <TextInput
-                  onChangeHandler={inputsChangeHandler}
-                  name="title"
-                  placeholder="عنوان المقالة"
-                  required={true}
-                  value={newArticle.title ?? ""}
-                />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <TextareaInput
-                  name="text"
-                  placeholder="نص المقالة"
-                  onChangeHandler={inputsChangeHandler}
-                  value={newArticle.text ?? ""}
-                />
-                {errors.text && (
-                  <span style={{ color: "red" }}>{errors.text}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <div className="my-3">
-                  <label htmlFor="uploadServiceImage">
-                    <ButtonWithPressEffect text={buttonText} />
-                  </label>
-                  <input
-                    onChange={imgInputChangeHandler}
-                    type="file"
-                    name="clinicLogo"
-                    id="uploadServiceImage"
-                    hidden
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-6">
-              <ArticleItemPreview
-                image={imageUrl}
-                title={newArticle.title}
-                text={newArticle.text}
+    <div>
+      <div
+        className="modal  fade bg-blue-dark"
+        data-bs-backdrop="static"
+        id="add-article-modal"
+        tabIndex="-1"
+        aria-labelledby="add-article-modalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-xl">
+          <div className="modal-content bg-blue-light">
+            <form>
+              <ModalHeader
+                clickCloseButton={closeModal}
+                title="نشر مقالة جديدة"
               />
-            </div>
+              {isSubmitting && <DashboardLoader />}
+              {!isSubmitting && (
+                <div className="row justify-content-between m-0 px-3">
+                  <div className="col-6 text-warning">
+                    <div className="mx-0 my-1">
+                      <TextInput
+                        onChangeHandler={inputsChangeHandler}
+                        name="title"
+                        placeholder="عنوان المقالة"
+                        required={true}
+                        value={newArticle.title ?? ""}
+                      />
+                      {errors.title && (
+                        <span style={{ color: "red" }}>{errors.title}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <TextareaInput
+                        name="text"
+                        placeholder="نص المقالة"
+                        onChangeHandler={inputsChangeHandler}
+                        value={newArticle.text ?? ""}
+                      />
+                      {errors.text && (
+                        <span style={{ color: "red" }}>{errors.text}</span>
+                      )}
+                    </div>
+                    <div className="mx-0 my-1">
+                      <div className="my-3">
+                        <label htmlFor="article-image">
+                          <ButtonWithPressEffect text={buttonText} />
+                        </label>
+                        <input
+                          onChange={imgInputChangeHandler}
+                          type="file"
+                          name="clinicLogo"
+                          id="article-image"
+                          hidden
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <ArticleItemPreview
+                      image={imageUrl}
+                      title={newArticle.title}
+                      text={newArticle.text}
+                    />
+                  </div>
+                </div>
+              )}
+              <ModalFooter>
+                <SubmitButton
+                  title="أضف الآن"
+                  clickHandler={submitFormHandler}
+                />
+                <ResetButton
+                  onClickHandler={resetFormClickHandler}
+                  title="تفريغ الحقول"
+                />
+              </ModalFooter>
+            </form>
           </div>
-        )}
-
-        {!isSubmitting && (
-          <ModalFooter>
-            <SubmmitButton
-              color="green"
-              title="أضف الآن"
-              clickHandler={submitFormHandler}
-            />
-            <ResetButton
-              onClickHandler={() => {
-                setNewService({});
-                setErrors({});
-                setButtonText("إضافة صورة");
-                setImageUrl(null);
-                setSelectedImage(null);
-              }}
-              title="تفريغ الحقول"
-            />
-          </ModalFooter>
-        )}
-      </form>
-    </ModalLg>
+        </div>
+      </div>
+    </div>
   );
 };
-
 export default AddArticleModal;

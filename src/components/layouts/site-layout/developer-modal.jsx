@@ -6,19 +6,19 @@ const DeveloperModal = () => {
   const [showEmail, setShowEmail] = useState(false);
   const [showLinkedin, setShowLinkedin] = useState(false);
   const showPhoneNumberHandler = () => {
-    setShowPhoneNumber(true);
+    setShowPhoneNumber(!showPhoneNumber);
     setShowEmail(false);
     setShowLinkedin(false);
   };
   const showEmailHandler = () => {
     setShowPhoneNumber(false);
-    setShowEmail(true);
+    setShowEmail(!showEmail);
     setShowLinkedin(false);
   };
   const showLinkedinHandler = () => {
     setShowPhoneNumber(false);
     setShowEmail(false);
-    setShowLinkedin(true);
+    setShowLinkedin(!showLinkedin);
   };
 
   return (

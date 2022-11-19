@@ -7,6 +7,7 @@ import ShowModalButton from "../../buttons/show-modal-button";
 import styles from "./services-mgmt.module.css";
 import AddServiceModal from "./add-service-modal";
 import EditServiceModal from "./edit-service-modal";
+import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
 
 const ServicesManagement = () => {
   const [state, dispatch] = useStore();
@@ -79,7 +80,7 @@ const ServicesManagement = () => {
               className={styles.editButton}
               onClick={() => {
                 setServiceToEdit(servc);
-                document.getElementById("showEditServiceModelBtn").click();
+                openBootstrapModal("showEditServiceModelBtn");
               }}
               viewBox="0 0 16 16"
             >
