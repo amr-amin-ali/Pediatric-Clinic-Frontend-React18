@@ -36,7 +36,7 @@ const BookingSection = () => {
   return (
     <Fragment>
       <section id="book-role" className="appointment">
-        <div className="layy py-5 px-2 text-white">
+        <div className="layy  py-5 px-2 text-white">
           <div className="container">
             <div className="title-another text-center row">
               <h4 className="fs-1">عيادة متخصصه</h4>
@@ -45,7 +45,7 @@ const BookingSection = () => {
               <div className="btn-ro text-center mt-5">
                 <button
                   id="blog"
-                  className="btn px-5 bg-white"
+                  className="btn px-5 bg-white text-success font-family-hacen"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                 >
@@ -56,9 +56,9 @@ const BookingSection = () => {
                         height: "27px",
                         fontWeight: "bold",
                       }}
-                      className="bi bi-calendar-plus appointment-svg"
+                      className="me-3"
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
+                      fill="#016269"
                       viewBox="0 0 16 16"
                     >
                       <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />

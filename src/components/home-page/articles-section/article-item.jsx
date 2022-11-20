@@ -3,11 +3,19 @@ import { api } from "../../../utility/api";
 
 const ArticleItem = ({ article }) => {
   return (
-    <div className="article mb-3 rounded-3 row m-md-0 overflow-hidden">
-      <div className="col-sm-5 p-0">
-        <img src={api.base_url + article.image} alt="" />
+    <div className="row m-0 shadow border mb-3 rounded-3 overflow-hidden">
+      <div
+        className="col-sm-12 col-md-5 p-0 home-news-article-img-container align-items-center d-flex flex-column"
+        style={{ maxHeight: "200px" }}
+      >
+        <img
+          src={api.base_url + article.image}
+          alt={article.title}
+          style={{ maxHeight: "100%", width: "100%" }}
+        />
       </div>
-      <div className="col-sm-7 blog-content-tab p-1">
+
+      <div className="col-sm-12 col-md-7 blog-content-tab p-1">
         <h2 className="fs-4">{article.title}</h2>
         <p>
           <small>
@@ -59,11 +67,16 @@ const ArticleItem = ({ article }) => {
             2530
           </small>
         </p>
-        <p style={{ fontSize: "12px", textIndent: "20px" }}>{article.text} </p>
+        <p
+          className="text-truncate"
+          style={{ fontSize: "12px", textIndent: "20px" }}
+        >
+          {article.text}{" "}
+        </p>
 
         <Link
           to={`/Articles/${article.id}`}
-          className="text-decoration-none fw-bold fs-6"
+          className="text-decoration-none fw-bold fs-6 text-danger"
         >
           إقرأ أكثر
           <svg

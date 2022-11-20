@@ -2,8 +2,9 @@ import { useState } from "react";
 import { httpPOST } from "../../../http/httpPOST";
 import { bookingModel } from "../../../models/bookingModel";
 import { api } from "../../../utility/api";
+import SiteLoadindSpiner from "../site-loading-spinner";
 
-const BookRoleModal = ({afterSuccessAction}) => {
+const BookRoleModal = ({ afterSuccessAction }) => {
   const [model, setModel] = useState(bookingModel);
   const [errors, setErrors] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,19 +46,17 @@ const BookRoleModal = ({afterSuccessAction}) => {
         address: model.address,
       });
       if (response.status === 201) {
-
         const todayDate = new Date().toLocaleDateString("en-us", {
           weekday: "long",
           year: "numeric",
           month: "short",
           day: "numeric",
         });
-localStorage.setItem('booked-at',todayDate)      
-
+        localStorage.setItem("booked-at", todayDate);
 
         setModel(bookingModel);
         setIsSubmitting(false);
-        afterSuccessAction()
+        afterSuccessAction();
         const resetBtn = document.getElementById("resetBookingRoleModal");
         const hideModalBtn = document.getElementById("closeBookingRoleModal");
         resetBtn.click();
@@ -80,44 +79,47 @@ localStorage.setItem('booked-at',todayDate)
     >
       <div className="modal-dialog modal-dialog-centeredz modal-fullscreen">
         <div className="modal-content">
-          <h5 className="modal-title text-center pt-5" id="exampleModalLabel">
-            إحجز الآن
-          </h5>
-          {isSubmitting && (
-            <h1 className="text-primary text-center">BOOKING</h1>
+          {!isSubmitting && (
+            <h5 className="modal-title text-center pt-5" id="exampleModalLabel">
+              إحجز الآن
+            </h5>
           )}
+          {isSubmitting && <SiteLoadindSpiner text="يتم الحجز" />}
           {/* onSubmit={(_)=>_.preventDefault()} */}
-          <form className="m-auto">
-            <div className="modal-body">
-              <input
-                onChange={inputChangeHandler}
-                name="name"
-                className="form-control form-control-lg mt-2"
-                type="text"
-                placeholder="الإسم"
-                required
-              />
-              {errors && <span style={{ color: "red" }}>{errors}</span>}
+          <form className="m-auto col-sm-12 col-md-8">
+            {!isSubmitting && (
+              <div className="modal-body">
+                <input
+                  onChange={inputChangeHandler}
+                  name="name"
+                  className="form-control form-control-lg mt-2"
+                  type="text"
+                  placeholder="الإسم"
+                  required
+                />
+                {errors && <span style={{ color: "red" }}>{errors}</span>}
 
-              <input
-                onChange={inputChangeHandler}
-                name="phone"
-                className="form-control form-control-lg mt-2"
-                type="text"
-                placeholder="موبايل"
-                required
-              />
-              <input
-                onChange={inputChangeHandler}
-                name="address"
-                className="form-control form-control-lg mt-2"
-                type="text"
-                placeholder="العنوان"
-                required
-              />
-            </div>
-            <div className="modal-footer">
+                <input
+                  onChange={inputChangeHandler}
+                  name="phone"
+                  className="form-control form-control-lg mt-2"
+                  type="text"
+                  placeholder="موبايل"
+                  required
+                />
+                <input
+                  onChange={inputChangeHandler}
+                  name="address"
+                  className="form-control form-control-lg mt-2"
+                  type="text"
+                  placeholder="العنوان"
+                  required
+                />
+              </div>
+            )}
+            <div className="modal-footer border-0">
               <button
+                style={{ visibility: `${isSubmitting ? "hidden" : "visible"}` }}
                 id="closeBookingRoleModal"
                 type="button"
                 className="btn btn-sm btn-secondary"
@@ -126,6 +128,7 @@ localStorage.setItem('booked-at',todayDate)
                 إلغاء
               </button>
               <button
+                style={{ visibility: `${isSubmitting ? "hidden" : "visible"}` }}
                 onClick={submitFormHandler}
                 type="submit"
                 className="btn btn-success text-white"

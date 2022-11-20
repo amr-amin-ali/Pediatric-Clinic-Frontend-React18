@@ -25,7 +25,7 @@ const NewsPage = () => {
     <Fragment>
       {state.news.length > 0 && (
         <div className="container">
-          <h1 className="main-title text-center my-3">أخبار العيادة</h1>
+          <h1 className="text-success font-family-hacen text-center my-3">أخبار العيادة</h1>
           <div className=" row">
             {state.news.map((news) => (
               <div key={news.id} className="col-12">

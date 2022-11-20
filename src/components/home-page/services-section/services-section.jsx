@@ -16,28 +16,32 @@ const ServicesSection = () => {
       isClinicServicesInitiated === false
     ) {
       setIsLoading(true);
-      httpGET(api.clinic_services.get_all_services).then((result) => {
-        setIsLoading(false);
-        dispatch("INITIATE_CLINIC_SERVICES", result);
-      });
+      httpGET(api.clinic_services.get_all_services)
+        .then((result) => {
+          dispatch("INITIATE_CLINIC_SERVICES", result);
+          setIsLoading(false);
+        })
+        .catch((c) => {
+          alert("Network error !!!");
+          setIsLoading(false);
+        });
     }
     isClinicServicesInitiated = true;
   }, []);
-  // if (isLoading) return <h1 className="text-danger text-center">Loading services</h1> ;
-  // else
+  if (isLoading) return <SiteLoadindSpiner text="تحميل الخدمات" />;
+  else
     return (
       <Fragment>
         {state.clinic_services.length > 0 && (
           <section id="services" className="py-5 px-1">
-            <h1 className="main-title">خدمات العيادة</h1>
+            <h1 className="text-success font-family-hacen">خدمات العيادة</h1>
 
             <div
               id="carouselExampleInterval"
               className="carousel carousel-dark slide"
               data-bs-ride="carousel"
             >
-              <div
-                className="carousel-inner">
+              <div className="carousel-inner">
                 {state.clinic_services.map((srvc) => {
                   return (
                     <div
@@ -53,14 +57,6 @@ const ServicesSection = () => {
                 })}
 
                 <span id="appointment"></span>
-
-                {/* <div className="carousel-item" data-bs-interval="2000">
-    <ServiceItem key={'srvc.id'} service={{id:1,title:'aaaa',text:'aattaatt',image:'https://image.shutterstock.com/image-vector/breaking-news-background-world-global-260nw-719766118.jpg'}} />
-    <ServiceItem key={'srvc.idh'} service={{id:2,title:'bbbb',text:'bbttbbtt',image:'https://st.depositphotos.com/1186248/3276/i/600/depositphotos_32760371-stock-photo-breaking-news.jpg'}} />
-    </div>
-    <div className="carousel-item">
-    <ServiceItem key={'srvc.idk'} service={{id:3,title:'cccc',text:'ccttcctt',image:'https://www.nationalbaptist.com/assets/uploads/2018/03/news-768x605.jpg'}} />
-    </div> */}
               </div>
               <button
                 className="carousel-control-prev"

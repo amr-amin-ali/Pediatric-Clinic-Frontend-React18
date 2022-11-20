@@ -39,7 +39,7 @@ const SendMessage = () => {
             ></textarea>
           </div>
           <div className="d-grid mb-3">
-            <button className="btn send-message fw-bold btn-lg" type="submit">
+            <button className="btn text-danger bg-warning fw-bold btn-lg" type="submit">
               أرسل
             </button>
           </div>

@@ -17,6 +17,7 @@ export const api = {
     add_new_article: BASE_URL + "WebSiteManagement/AddArticle",
     update_article: BASE_URL + "WebSiteManagement/updateArticle",
     get_all_articles: BASE_URL + "WebSiteManagement/GetAllArticles",
+    get_article_by_id: BASE_URL + "WebSiteManagement/GetArticle/",
     get_latest_two_articles:
       BASE_URL + "WebSiteManagement/GetLatestTwoArticles",
     delete_article: BASE_URL + "WebSiteManagement/DeleteArticle/",

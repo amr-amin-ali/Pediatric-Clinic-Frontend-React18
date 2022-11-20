@@ -33,6 +33,7 @@ const BackToTopButton = () => {
       <svg
         ref={backToTopRef}
         onClick={clickHandler}
+        className="position-fixed display-none bottom-0 start-0 m-2 opacity-50"
         id="back-to-top-btn"
         width="32"
         height="32"

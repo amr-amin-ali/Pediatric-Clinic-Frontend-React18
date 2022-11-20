@@ -19,7 +19,7 @@ const Vaccines = () => {
   }
   return (
     <Fragment>
-      <h1 className="main-title text-center my-3">التطعيمات</h1>
+      <h1 className="text-success font-family-hacen text-center my-3">التطعيمات</h1>
       <div className="accordion accordion-flush" id="accordionFlushExample">
         {state.vaccins.map((vaccin) => {
           vaccinesCounter++;

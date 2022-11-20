@@ -8,9 +8,22 @@ const Footer = () => {
 
   return createPortal(
     <Fragment>
-      <footer>
+      <footer className="border-top border-3 border-danger bg-white text-danger d-block">
+        <div className="p-3 bg-danger text-white" style={{fontFamily:"var(--hacen-font)"}}>
+          <h2>العنوان</h2>
+          <p>{state.metaDatas.clinicAddress}</p>
+          <h2>موبايل</h2>
+          <p>{state.metaDatas.clinicPhone}</p>
+          <h2>مواعيد العمل</h2>
+          <p>
+            يومياً من {state.metaDatas.clinicOpenAt} إلى{" "}
+            {state.metaDatas.clinicCloseAt} ماعدا{" "}
+            {state.metaDatas.clinicHoliday}
+          </p>
+        </div>
         <p className="text-center m-0">
-          جميع الحقوق محفوظه &copy; {state.metaDatas.clinicName??" إسم العيادة "}
+          جميع الحقوق محفوظه &copy;{" "}
+          {state.metaDatas.clinicName ?? " إسم العيادة "}
         </p>
         <p className="text-muted text-center m-0">
           Developed by SE:

@@ -1,31 +1,37 @@
+import { useState } from "react";
 import { Fragment, useEffect } from "react";
 import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
 import { api } from "../../utility/api";
+import SiteLoadindSpiner from "./site-loading-spinner";
 
 const Slider = () => {
+  // return;
   const [state, dispatch] = useStore(false);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   let isSliderImagesInitiated = false;
   useEffect(() => {
     if (
       state.sliderImages.images.length < 1 &&
       isSliderImagesInitiated === false
-      ) {
-        httpGET(api.slider_images.get_all_slider_images).then((result) =>{
-        dispatch("INITIATE_SLIDER_IMAGES", result)
-      }
-      );
+    ) {
+      setIsLoading(true);
+      httpGET(api.slider_images.get_all_slider_images).then((result) => {
+        dispatch("INITIATE_SLIDER_IMAGES", result);
+        setIsLoading(false);
+      }).catch(c=>{alert('Network error !!!');setIsLoading(false);});
     }
     isSliderImagesInitiated = true;
   }, []);
 
   let buttonsCounter = 0;
   let carouseItemsCounter = 0;
-  return (
-    <Fragment>
-      {state.sliderImages.images.length >
-        0 &&(
+  if (isLoading) return <SiteLoadindSpiner text="تحميل الصور" />;
+  else
+    return (
+      <Fragment>
+        {state.sliderImages.images.length > 0 && (
           <div
             id="main-carousel"
             className="carousel slide"
@@ -43,7 +49,7 @@ const Slider = () => {
                 ></button>
               ))}
             </div>
-            <div className="carousel-inner gallery-slider">
+            <div className="carousel-inner home-slider-desktop" style={{ height: "33vh" }}>
               {state.sliderImages.images.map((img) => (
                 <div
                   key={img.id}
@@ -54,10 +60,9 @@ const Slider = () => {
                   }
                 >
                   <img
-                    src={`${
-                      api.base_url + img.imageUrl
-                    }`}
-                    className="d-block w-100 home-carousel-image"
+                    style={{ maxHeight: "33vh" }}
+                    src={`${api.base_url + img.imageUrl}`}
+                    className="d-block w-100 home-carousel-image-desktop"
                     alt="..."
                   />
                 </div>
@@ -89,7 +94,7 @@ const Slider = () => {
             </button>
           </div>
         )}
-    </Fragment>
-  );
+      </Fragment>
+    );
 };
 export default Slider;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "../../../utility/api";
 import NewsItem from "./news-item";
 import { httpGET } from "../../../http/httpGET";
+import SiteLoadindSpiner from "../site-loading-spinner";
 
 const NewsSection = () => {
   const [latestTwoNews, setLatestTwoNews] = useState([]);
@@ -11,26 +12,31 @@ const NewsSection = () => {
   useEffect(() => {
     if (latestTwoNews.length < 1 && isInitiated === false) {
       setIsLoading(true);
-      httpGET(api.news.get_latest_two_news).then((result) => {
-        setIsLoading(false);
-        setLatestTwoNews(result);
-      });
+      httpGET(api.news.get_latest_two_news)
+        .then((result) => {
+          setIsLoading(false);
+          setLatestTwoNews(result);
+        })
+        .catch((c) => {
+          alert("Network error !!!");
+          setIsLoading(false);
+        });
     }
     isInitiated = true;
   }, []);
-  if (isLoading) {
-    return <h1 className="text-center text-danger">Loading news</h1>;
-  }
+  if (isLoading) return <SiteLoadindSpiner text="تحميل الأخبار" />;
   if (latestTwoNews.length === 0) {
     return null;
   } else {
     return (
       <section className="py-5 px-1">
         <div className="container-fluid">
-          <h1 className="main-title text-center mb-2">آخر الأخبار</h1>
+          <h1 className="text-success font-family-hacen text-center mb-5">
+            آخر الأخبار
+          </h1>
           <div className="row">
             {latestTwoNews.map((news) => (
-              <div key={news.id} className="col-md-6 col-sm-12">
+              <div key={news.id} className="col-sm-12 col-lg-5 mx-lg-auto p-0">
                 <NewsItem news={news} />
               </div>
             ))}

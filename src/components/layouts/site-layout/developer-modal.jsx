@@ -24,7 +24,7 @@ const DeveloperModal = () => {
   return (
     <Fragment>
       <div
-        className="modal fade"
+        className="modal fade bg-warning"
         id="developerModal"
         tabIndex="-1"
         aria-labelledby="developerModalLabel"
