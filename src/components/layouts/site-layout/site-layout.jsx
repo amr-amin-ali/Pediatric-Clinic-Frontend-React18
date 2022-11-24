@@ -2,7 +2,6 @@ import React, { Fragment, useRef } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Outlet } from "react-router-dom";
-import "../../../assets/site-styles.css";
 const SiteLayout = (props) => {
   return (
     <Fragment>

@@ -21,13 +21,16 @@ const ArticlesManagement = () => {
   }
 
   const deleteArticle = async (articleId) => {
-    const response = await httpDELETE(api.articles.delete_article + articleId);
-    if (response.status === 400) {
-      // const data = await response.json();
-      // console.log(data);
-      return;
+    if (window.confirm("هل تريد الحذف فعلاً؟") == true) {
+      const response = await httpDELETE(
+        api.articles.delete_article + articleId
+      );
+      if (response.status === 400) {
+        alert("Erroe!!");
+        return;
+      }
+      dispatch("DELETE_ARTICLE", articleId);
     }
-    dispatch("DELETE_ARTICLE", articleId);
   };
 
   const [articleToEdit, setArticleToEdit] = useState({});
@@ -55,7 +58,7 @@ const ArticlesManagement = () => {
 
   return (
     <div className="container">
-      <div className="card text-center">
+      <div className="card text-center m-3">
         <div className="card-header">الخيارات المتاحة</div>
         <div className="card-body">
           <h5 className="card-title mt-4">هذه الإجراءات خاصة بأخبار العيادة</h5>
@@ -64,8 +67,8 @@ const ArticlesManagement = () => {
             أو تعديله.
           </p>
           {/* <hr /> */}
-          <div className="d-flex justify-content-around">
-            <div className="col-4">
+          <div className="row m-0">
+            <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
               <ShowModalButton
                 color="blue"
                 modalId="#add-article-modal"
@@ -78,7 +81,7 @@ const ArticlesManagement = () => {
       </div>
       <AddArticleModal />
 
-      <div className="row justify-content-between my-3">
+      <div className="row justify-content-between m-3">
         {/* {state.article.length !== 0 && (
           <h1 className="text-center text-white mt-3">المقالات</h1>
         )} */}
@@ -91,7 +94,7 @@ const ArticlesManagement = () => {
           state.articles.map((article) => {
             if (article) {
               return (
-                <div key={article.id + article.id} className="my-1">
+                <div key={article.id + article.id} className="my-1 p-0">
                   <ArticleItem
                     key={article.id}
                     article={article}

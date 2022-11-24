@@ -20,24 +20,25 @@ const NewsManagement = () => {
   }
 
   const deleteNews = async (newsId) => {
-    const response = await httpDELETE(api.news.delete_news + newsId);
-    if (response.status === 400) {
-      // const data = await response.json();
-      // console.log(data);
-      return;
+    if (window.confirm("هل تريد الحذف فعلاً؟") == true) {
+      const response = await httpDELETE(api.news.delete_news + newsId);
+      if (response.status === 400) {
+        alert("Network related error");
+        return;
+      }
+      dispatch("DELETE_NEWS", newsId);
     }
-    dispatch("DELETE_NEWS", newsId);
   };
 
   const [newsToEdit, setNewsToEdit] = useState({});
   const editNews = (news) => {
     setNewsToEdit(news);
     openBootstrapModal("showEditNewsModelBtn");
-};
+  };
 
   return (
     <div className="container">
-      <div className="card text-center">
+      <div className="card text-center m-3">
         <div className="card-header">الخيارات المتاحة</div>
         <div className="card-body">
           <h5 className="card-title mt-4">هذه الإجراءات خاصة بأخبار العيادة</h5>
@@ -46,8 +47,8 @@ const NewsManagement = () => {
             أو تعديله.
           </p>
           {/* <hr /> */}
-          <div className="d-flex justify-content-around">
-            <div className="col-4">
+          <div className="row m-0">
+            <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
               <ShowModalButton
                 color="blue"
                 modalId="#addNewsModalB"
@@ -60,22 +61,21 @@ const NewsManagement = () => {
       </div>
       <AddNewsModal />
       <EditNewsModal news={newsToEdit} />
-      {/* <SearchFilesModal /> */}
 
-      <div className="row justify-content-between my-3">
-        {/* {state.news.length !== 0 && (
-          <h1 className="text-center text-white mt-3">المقالات</h1>
-        )} */}
-        {/* {state.news.length === 0 && (
+      <div className="row justify-content-between m-3">
+        {state.news.length !== 0 && (
+          <h1 className="text-center text-white mt-3">الأخبار</h1>
+        )}
+        {state.news.length === 0 && (
           <h3 className="text-info text-center my-5">
-          لم تقم بإضافة مقالات حتى الآن
+            لم تقم بنشر أى أخبار حتى الآن
           </h3>
-        )} */}
+        )}
         {state.news.length > 0 &&
           state.news.map((news) => {
             if (news) {
               return (
-                <div key={news.id} className="my-2">
+                <div key={news.id} className="my-1">
                   <NewsItem
                     key={news.id}
                     news={news}
@@ -86,7 +86,6 @@ const NewsManagement = () => {
               );
             }
           })}
-
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { initStore } from "./store";
 
-localStorage.setItem('LOGIN_URL',localStorage.getItem('BASE_URL')+'/Accounts/Login')
 
 const configureAccountsStore = () => {
   const actions = {

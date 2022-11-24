@@ -1,62 +1,30 @@
-.book-item {
-  line-height: 85px !important;
+.menuItem:hover {
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+  background: var(--grey-dark);
 }
-.book-footer {
-  position: absolute;
-  top: 56%;
-  right: 22%;
-  font-size: 1rem;
-  color: #ff9000;
-  max-height: 2rem;
-  line-height: 2rem;
+.menuItem:hover .menuItemSvg {
+  fill: var(--g-plus-light);
 }
-.menu .book-header {
-  line-height: 75px;
-  color: var(--white-color);
-  background-color: var(--green-light);
+.deleteBookingBtn {
+  width: 20%;
+  height: 50px;
 }
-.menu .book-header svg {
-  position: absolute;
-  right: 5%;
-  top: 20%;
-  fill: #fff;
+.forDesktop {
+  display: none;
 }
-  
-
-
-
-
-
-
-
-
-
-
-
-.book-item-form {
-    z-index: 3;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    background: var(--grey-dark);
-    top: 14px;
-    left: 15px;
-    border-radius: 7px;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+.forMobile {
+  display: block;
+}
+@media screen and (min-width: 62rem) {
+  .deleteBookingBtn {
+    width: 10%;
+    margin-left: 5% !important;
   }
-  .menu .menu-items ul li:hover form {
-    background-color: #fff;
+  .forDesktop {
+    display: block;
   }
-  .book-item-button {
-    margin: auto;
-    width: 42px;
-    line-height: 22px;
-    background: transparent;
-    border: none;
-    top: 32px;
-    left: 15px;
-    /*    -webkit-transition: all .3s;
-      transition: all .3s;
-  */
+  .forMobile {
+    display: none;
   }
+}

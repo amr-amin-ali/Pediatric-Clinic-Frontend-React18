@@ -14,7 +14,6 @@ import { articleModel } from "../../../../models/article-model";
 import ArticleItemPreview from "./article-item-preview";
 
 const AddArticleModal = () => {
-
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -61,7 +60,6 @@ const AddArticleModal = () => {
       setErrors({ ...ers });
     }
   };
-
 
   const resetFormClickHandler = (event) => {
     setNewService(articleModel);
@@ -138,9 +136,9 @@ const AddArticleModal = () => {
               />
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
-                <div className="row justify-content-between m-0 px-3">
-                  <div className="col-6 text-warning">
-                    <div className="mx-0 my-1">
+                <div className="row justify-content-between m-0">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="my-1">
                       <TextInput
                         onChangeHandler={inputsChangeHandler}
                         name="title"
@@ -152,7 +150,7 @@ const AddArticleModal = () => {
                         <span style={{ color: "red" }}>{errors.title}</span>
                       )}
                     </div>
-                    <div className="mx-0 my-1">
+                    <div className="my-1">
                       <TextareaInput
                         name="text"
                         placeholder="نص المقالة"
@@ -163,27 +161,26 @@ const AddArticleModal = () => {
                         <span style={{ color: "red" }}>{errors.text}</span>
                       )}
                     </div>
-                    <div className="mx-0 my-1">
-                      <div className="my-3">
-                        <label htmlFor="article-image">
-                          <ButtonWithPressEffect text={buttonText} />
-                        </label>
-                        <input
-                          onChange={imgInputChangeHandler}
-                          type="file"
-                          name="clinicLogo"
-                          id="article-image"
-                          hidden
-                        />
-                      </div>
-                    </div>
                   </div>
-                  <div className="col-6">
+                  <div className="col-sm-12 col-lg-6">
                     <ArticleItemPreview
                       image={imageUrl}
                       title={newArticle.title}
                       text={newArticle.text}
                     />
+
+                    <div className="my-3">
+                      <label htmlFor="article-image">
+                        <ButtonWithPressEffect text={buttonText} />
+                      </label>
+                      <input
+                        onChange={imgInputChangeHandler}
+                        type="file"
+                        name="clinicLogo"
+                        id="article-image"
+                        hidden
+                      />
+                    </div>
                   </div>
                 </div>
               )}

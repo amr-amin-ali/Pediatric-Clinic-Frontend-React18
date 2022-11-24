@@ -18,7 +18,7 @@ const NewsSection = () => {
           setLatestTwoNews(result);
         })
         .catch((c) => {
-          alert("Network error !!!");
+          alert("Network error (News)!!!");
           setIsLoading(false);
         });
     }

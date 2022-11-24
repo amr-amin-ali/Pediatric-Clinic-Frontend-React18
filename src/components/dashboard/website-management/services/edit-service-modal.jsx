@@ -146,9 +146,9 @@ const EditServiceModal = ({ service }) => {
 
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
-                <div className="row justify-content-between m-0 px-3">
-                  <div className="col-6 text-warning">
-                    <div className="mx-0 my-1">
+                <div className="row justify-content-between m-0">
+                  <div className="col-sm-12 col-lg-6">
+                    <div className="my-1">
                       <TextInput
                         onChangeHandler={inputsChangeHandler}
                         name="title"
@@ -160,7 +160,7 @@ const EditServiceModal = ({ service }) => {
                         <span style={{ color: "red" }}>{errors.title}</span>
                       )}
                     </div>
-                    <div className="mx-0 my-1">
+                    <div className="my-1">
                       <TextareaInput
                         name="text"
                         placeholder="وصف الخدمة"
@@ -171,11 +171,16 @@ const EditServiceModal = ({ service }) => {
                         <span style={{ color: "red" }}>{errors.text}</span>
                       )}
                     </div>
-                    <div className="mx-0 my-1">
+                  </div>
+                  <div className="col-sm-12 col-lg-6">
+                  <ServiceItemPreview
+                    image={imageUrl}
+                    title={serviceToEdit.title}
+                    text={serviceToEdit.text}
+                  />
                       <div className="my-3">
                         <label htmlFor="updatedServiceImage">
                           <ButtonWithPressEffect text={buttonText} />
-                        </label>
                         <input
                           onChange={imgInputChangeHandler}
                           type="file"
@@ -183,14 +188,9 @@ const EditServiceModal = ({ service }) => {
                           id="updatedServiceImage"
                           hidden
                         />
+                        </label>
                       </div>
-                    </div>
                   </div>
-                  <ServiceItemPreview
-                    image={imageUrl}
-                    title={serviceToEdit.title}
-                    text={serviceToEdit.text}
-                  />
                 </div>
               )}
 

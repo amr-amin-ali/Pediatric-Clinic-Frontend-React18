@@ -5,6 +5,7 @@ import { useStore } from "../../hooks-store/store";
 import { httpPOST } from "../../http/httpPOST";
 import styles from "./login.module.css";
 import { validateEmail } from "../../utility/validate-email";
+import { api } from "../../utility/api";
 const Login = () => {
   const [state, dispatch] = useStore(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -108,14 +109,12 @@ const Login = () => {
     event.preventDefault();
     if (errors && Object.keys(errors).length === 0 && email && password) {
       setIsLoading(true);
-      const response = await httpPOST(
-        localStorage.getItem('LOGIN_URL') ,
-        {
-          email,
-          password,
-          rememberMe: true,
-        }
-      );
+      console.log("UUUUUUUUUUUUUUUUUU",api.account.login)
+      const response = await httpPOST(api.account.login, {
+        email,
+        password,
+        rememberMe: true,
+      });
       if (response.status === 200) {
         const result = await response.json();
         if (result.token && result.role) {
@@ -197,6 +196,7 @@ const Login = () => {
                 <a href="/">نسيت كلمة المرور؟</a>
               </span>
             </div>
+            {/* onClick={submitLoginFormHandler} */}
             <button type="submit" className={styles.loginButton}>
               تسجيل الدخول
             </button>

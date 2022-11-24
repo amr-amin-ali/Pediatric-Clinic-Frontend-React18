@@ -94,20 +94,24 @@ const CarouselManagement = () => {
           <h1 className="text-danger">لم تقم بإضافة أى صور حتى الآن</h1>
         )}
 
+
+<div className="row m-0">
+
         {state.sliderImages.images.length > 0 &&
           state.sliderImages.images.map((c) => {
             return (
-              <div key={c.id + 1} className="col-3 p-1">
+              <div key={c.id + 1} className="col-sm-12 col-lg-3 p-1">
                 <CarouselItem
                   itemKey={c.id}
                   imageId={c.id}
                   imageUrl={
                     api.base_url+c.imageUrl
                   }
-                />
+                  />
               </div>
             );
           })}
+          </div>
       </div>
     </Fragment>
   );

@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-localStorage.setItem('BASE_URL','https://localhost:7289/api')
-localStorage.setItem('CREATE_PATIENT_FILE_URL','https://localhost:7289/api/Accounts/CreatePatientFile')
 let globalState = {};
 let listeners = [];
 let actions = {};

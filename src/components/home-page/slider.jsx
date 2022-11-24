@@ -20,7 +20,7 @@ const Slider = () => {
       httpGET(api.slider_images.get_all_slider_images).then((result) => {
         dispatch("INITIATE_SLIDER_IMAGES", result);
         setIsLoading(false);
-      }).catch(c=>{alert('Network error !!!');setIsLoading(false);});
+      }).catch(c=>{alert('Network error (Slider) !!!');setIsLoading(false);});
     }
     isSliderImagesInitiated = true;
   }, []);

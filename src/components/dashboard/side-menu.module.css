@@ -1,0 +1,12 @@
+
+.menuItem:hover{
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+  background: var(--grey-dark);
+}
+.menuItem:hover .menuItemSvg {
+  fill: var(--g-plus-light);
+}
+.menuItem:hover .menuItemCount {
+  background: var(--g-plus-light) !important;
+}

@@ -130,7 +130,7 @@ const MetaData = () => {
       {isSubmitting && <h1 className="text-center text-info">SAVING...</h1>}
       {!isSubmitting && (
         <form onSubmit={(_) => _.preventDefault()}>
-          <div className="card text-center">
+          <div className="card text-center mt-3 mx-3">
             <div className="card-header" style={{ color: "var(--blue-dark)" }}>
               بيانات العيادة
             </div>
@@ -143,7 +143,7 @@ const MetaData = () => {
                   هنا يمكنك إضافة أو تعديل بيانات العيادة
                 </h5>
                 <div className="row mx-0 my-1">
-                  <div className="col-7">
+                  <div className="col-md-7 col-sm-12">
                     <div className="">
                       <TextInput
                         onChangeHandler={(event) =>
@@ -223,7 +223,7 @@ const MetaData = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-5 ">
+                  <div className="col-md-5  col-sm-12">
                     {!clinicImageUrl && !clinicSelectedImage && (
                       <svg
                         fill="#e1b516d9"
@@ -245,8 +245,8 @@ const MetaData = () => {
                       />
                     )}
                   </div>
-                  <div className="row m-0">
-                    <div className="col-7">
+                  <div className="row m-0 mb-2">
+                    <div className="col-md-7 col-sm-12">
                       <div className="d-flex justify-content-between align-items-center my-2">
                         <p
                           className={`m-0 fs-3 text-${
@@ -266,7 +266,7 @@ const MetaData = () => {
                         />
                       </div>
                     </div>
-                    <div className="col-5 align-items-center">
+                    <div className="col-md-5  col-sm-12 align-items-center">
                       <label
                         htmlFor="clinicLogoFileInput"
                         className="text-warning fs-4"
@@ -289,7 +289,7 @@ const MetaData = () => {
             </div>
           </div>
 
-          <div className="card text-center">
+          <div className="card text-center mx-3 mt-3">
             <div className="card-header " style={{ color: "var(--blue-dark)" }}>
               بيانات الطبيب
             </div>
@@ -304,7 +304,7 @@ const MetaData = () => {
                 <div className="row mx-0 my-1">
                   <div className="col-12">
                     <div className="row">
-                      <div className="col-4 p-0">
+                      <div className="col-md-4 col-sm-12 p-0">
                         <TextInput
                           onChangeHandler={(event) =>
                             setMetaDatasUpdate({
@@ -317,7 +317,7 @@ const MetaData = () => {
                           placeholder="الإسم الأول"
                         />
                       </div>
-                      <div className="col-4 p-0">
+                      <div className="col-md-4 col-sm-12 p-0">
                         <TextInput
                           onChangeHandler={(event) =>
                             setMetaDatasUpdate({
@@ -330,7 +330,7 @@ const MetaData = () => {
                           placeholder="الإسم الأوسط"
                         />
                       </div>
-                      <div className="col-4 p-0">
+                      <div className="col-md-4 col-sm-12 p-0">
                         <TextInput
                           onChangeHandler={(event) =>
                             setMetaDatasUpdate({
@@ -345,7 +345,7 @@ const MetaData = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-8">
+                  <div className="col-md-8 col-sm-12 p-0">
                     <TextInput
                       onChangeHandler={(event) =>
                         setMetaDatasUpdate({
@@ -446,7 +446,7 @@ const MetaData = () => {
                       placeholder="البيانات المهنية"
                     />
                   </div>
-                  <div className="col-4 ">
+                  <div className="col-md-4 col-sm-12 p-0 mb-3">
                     {!doctorImageUrl && !doctorSelectedImage && <DoctorSvg />}
                     {doctorImageUrl && doctorSelectedImage && (
                       <img

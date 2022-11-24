@@ -1,7 +1,11 @@
 const BASE_URL = "https://localhost:7289/api/";
+// const BASE_URL = "/api/";
 export const api = {
   base_url: BASE_URL,
-  account: {},
+  account: {
+    login:BASE_URL+"Accounts/Login",
+    create_account:BASE_URL+"Accounts/CreatePatientFile"
+  },
   slider_images: {
     upload_slider_image: BASE_URL + "WebSiteManagement/UploadSliderImage",
     get_all_slider_images: BASE_URL + "WebSiteManagement/GetAllSliderImages",

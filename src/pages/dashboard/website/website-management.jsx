@@ -4,11 +4,10 @@ import WebsiteManagementSideMenuOptions from "../../../components/dashboard/webs
 const WebsiteManagement = () => {
   return (
     <div className="row">
-      <div className="col-4">
+      <div className="col-lg-4 col-sm-12">
         <WebsiteManagementSideMenuOptions />
       </div>
-      <div className="col-8">
-    
+      <div className="col-lg-8 col-sm-12">
         <Outlet />
       </div>
     </div>

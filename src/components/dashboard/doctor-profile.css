@@ -1,69 +1,27 @@
-.profile {
-    height: 453px;
-    /* width: 300px; */
-    background-color: var(--blue-light);
+.profile-button:hover {
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+  background: var(--grey-dark);
 }
 
-.profile .image-container {
-    padding-top: 50px;
+.profile-button-first {
+  border-top: 3px solid var(--g-plus-light) !important;
+}
+.profile-button-second {
+  border-top: 3px solid var(--green-light) !important;
+}
+.profile-button-third {
+  border-top: 3px solid var(--yellow) !important;
 }
 
-.profile .image-container img {
-    width: 150px;
-    height: 150px;
-    border: 5px solid var(--grey-dark);
-}
-.profile .text-container h1 {
-    color: var(--white-color);
-    font-family: hacen;
+.profile-button-first:hover a svg {
+  fill: var(--g-plus-light);
 }
 
-.profile .text-container p {
-    width: 210px;
-    color: var(--grey-light);
+.profile-button-second:hover a svg {
+  fill: var(--green-light);
 }
 
-.profile-buttons-container .profile-button{
-    color: var(--white-color);
-
+.profile-button-third:hover form button div svg {
+  fill: var(--yellow);
 }
-.profile-buttons-container .profile-button:hover {
-    -webkit-transition: background 0.3s;
-    transition: background 0.3s;
-    background: var(--grey-dark);
-}
-
-.profile-buttons-container .profile-button-first {
-    border-top: 3px solid var(--g-plus-light);
-    border-left: 1px solid var(--blue-dark);
-}
-
-    .profile-buttons-container .profile-button-first:hover .profile-button-svg {
-        fill: var(--g-plus-light);
-    }
-
-.profile-buttons-container .profile-button-second {
-    border-top: 3px solid var(--green-light);
-    border-left: 1px solid var(--blue-dark);
-}
-
-.profile-buttons-container .profile-button-second:hover .profile-button-svg {
-    fill: var(--green-light);
-}
-
-.profile-buttons-container .profile-button-third {
-    border-top: 3px solid var(--yellow);
-}
-
-.profile-buttons-container .profile-button-third:hover .profile-button-svg
-{
-    fill: var(--yellow);
-}
-
-.profile-button-svg {
-    fill: var(--grey-light);
-    width: 25px;
-    height: 25px;
-    margin-bottom: 4px;
-}
-

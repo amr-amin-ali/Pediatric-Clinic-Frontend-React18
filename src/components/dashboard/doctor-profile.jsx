@@ -5,13 +5,17 @@ import "./doctor-profile.css";
 const DoctorProfile = () => {
   const [state, dispatch] = useStore(false);
   return (
-    <div className="col-12 col-md-4">
-      <div className="profile rounded position-relative overflow-hidden">
-        <div className="image-container position-relative text-center">
+    <div className="col-lg-4 col-sm-12 px-3 py-3">
+      <div
+        className="profile rounded position-relative overflow-hidden bg-blue-light mx-auto"
+        style={{ height: "489px", maxWidth: "325px"}}
+      >
+        <div className="image-container mt-5 position-relative text-center">
           {state.metaDatas.doctorImage && (
             <img
               src={api.base_url + state.metaDatas.doctorImage}
-              className="rounded-circle"
+              className="rounded-circle border border-3 border-grey-dark"
+              style={{ width: "150px", height: "150px" }}
               alt=""
             />
           )}
@@ -21,25 +25,29 @@ const DoctorProfile = () => {
             </div>
           )}
         </div>
-        <div className="text-container text-center">
-          <h1 className="my-3">
+        <div className="text-container text-center px-5">
+          <h1 className="my-3 text-white font-family-hacen">
             {state.metaDatas.doctorFirstName ?? ""}{" "}
             {state.metaDatas.doctorMiddleName ?? ""}{" "}
             {state.metaDatas.doctorLastName ?? ""}
           </h1>
-          <p className="m-auto" style={{ marginTop: "-3% !important" }}>
+          <p
+            className="m-auto text-grey-light"
+            style={{ marginTop: "-3% !important" }}
+          >
             {state.metaDatas.doctorTitle ?? ""}
           </p>
         </div>
 
         <div className="row m-0 position-absolute w-100 bottom-0 rounded-bottom profile-buttons-container bg-sexcondary">
-          <div className="col-4 py-3 m-0 pb-0 profile-button profile-button-first">
+          <div className="col-4 py-3 m-0 pb-0 text-white profile-button profile-button-first border-1 border-end border-blue-dark">
             <a
               href="/"
               className="pb-3 text-decoration-none fw-bold text-white d-flex justify-content-center align-items-center"
             >
               <svg
-                className="profile-button-svg"
+                className="me-2"
+                fill="var(--grey-light)"
                 width="25"
                 height="25"
                 viewBox="0 0 16 16"
@@ -49,13 +57,14 @@ const DoctorProfile = () => {
               تعديل
             </a>
           </div>
-          <div className="col-4 py-3 m-0 pb-0 profile-button profile-button-second">
+          <div className="col-4 py-3 m-0 pb-0 text-white profile-button profile-button-second  border-1 border-end border-blue-dark">
             <a
               href="/"
               className="pb-3 text-decoration-none fw-bold text-white d-flex justify-content-center align-items-center"
             >
               <svg
-                className="profile-button-svg"
+                className="me-2"
+                fill="var(--grey-light)"
                 width="25"
                 height="25"
                 viewBox="0 0 16 16"
@@ -66,19 +75,20 @@ const DoctorProfile = () => {
               عرض
             </a>
           </div>
-          <div className="col-4 py-3 m-0 pb-0 profile-button profile-button-third">
+          <div className="col-4 py-3 m-0 pb-0  text-white profile-button profile-button-third">
             <form
               onSubmit={(_) => _.preventDefault()}
               className="pb-3 text-decoration-none d-flex justify-content-center align-items-center"
             >
               <button
-               onClick={() => dispatch("LOGOUT")}
+                onClick={() => dispatch("LOGOUT")}
                 type="submit"
                 className="bg-transparent border-0 text-center fw-bold text-white p-0 d-flex "
               >
                 <div>
                   <svg
-                    className="profile-button-svg"
+                    className="me-2"
+                    fill="var(--grey-light)"
                     width="25"
                     height="25"
                     viewBox="0 0 16 16"

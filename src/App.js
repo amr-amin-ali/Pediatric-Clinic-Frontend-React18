@@ -28,6 +28,7 @@ import NewsManagement from "./components/dashboard/website-management/news/news-
 import VaccinesManagemt from "./components/dashboard/website-management/vaccins/vaccin-management";
 import { api } from "./utility/api";
 import { httpGET } from "./http/httpGET";
+import Bookings from "./pages/dashboard/bookings/bookings";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -103,6 +104,7 @@ function App() {
                   <Route path="News" element={<NewsManagement />} />
                   <Route path="Vaccines" element={<VaccinesManagemt />} />
                 </Route>
+                <Route path="Bookings" element={<Bookings />} />
               </Route>
             )}
             <Route path="/Dashboard/Print-Prescription" element={<PrintPrescription />}/>

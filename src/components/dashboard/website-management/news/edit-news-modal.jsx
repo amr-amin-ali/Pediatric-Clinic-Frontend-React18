@@ -159,8 +159,8 @@ const EditNewsModal = ({ news }) => {
 
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
-                <div className="row justify-content-between m-0 px-3">
-                  <div className="col-6 text-warning">
+                <div className="row justify-content-between m-0">
+                  <div className="col-sm-12 col-lg-6 text-warning">
                     <div className="mx-0 my-1">
                       <TextInput
                         onChangeHandler={inputsChangeHandler}
@@ -184,11 +184,18 @@ const EditNewsModal = ({ news }) => {
                         <span style={{ color: "red" }}>{errors.text}</span>
                       )}
                     </div>
-                    <div className="mx-0 my-1">
+           
+                  </div>
+                  <div className="col-sm-12 col-lg-6">
+                    <NewsItemPreview
+                      image={imageUrl}
+                      title={newsToEdit.title}
+                      text={newsToEdit.text}
+                    />
+                             <div className="mx-0 my-1">
                       <div className="my-3">
                         <label htmlFor="updateNewsImage">
                           <ButtonWithPressEffect text={buttonText} />
-                        </label>
                         <input
                           onChange={imgInputChangeHandler}
                           type="file"
@@ -196,15 +203,9 @@ const EditNewsModal = ({ news }) => {
                           id="updateNewsImage"
                           hidden
                         />
+                        </label>
                       </div>
                     </div>
-                  </div>
-                  <div className="col-6">
-                    <NewsItemPreview
-                      image={imageUrl}
-                      title={newsToEdit.title}
-                      text={newsToEdit.text}
-                    />
                   </div>
                 </div>
               )}

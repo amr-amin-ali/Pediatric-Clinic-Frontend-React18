@@ -123,7 +123,7 @@ const Navbar = () => {
                   </a>
                   <ul className="dropdown-menu">
                     {state.login.isLoggedIn && state.login.role === "Doctor" && (
-                      <li className="nav-item  border-1 home-nav-item-desktop  border-bottom border-danger">
+                      <li className="nav-item  border-1 home-nav-item-desktop">
                         <NavLink
                           to="/Dashboard"
                           onClick={navlinlClickHandler}

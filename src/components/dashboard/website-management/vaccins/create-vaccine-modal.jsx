@@ -128,7 +128,7 @@ const CreateVaccineModal = () => {
                 title="إضافة لقاح جديد"
               />
               <div className="row m-0 p-2">
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6 my-1">
                   <TextInput
                     onChangeHandler={inputChangeHandler}
                     name="name"
@@ -139,7 +139,7 @@ const CreateVaccineModal = () => {
                     <span style={{ color: "red" }}>{errors.name}</span>
                   )}
                 </div>
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6 my-1">
                   <TextInput
                     onChangeHandler={inputChangeHandler}
                     name="age"

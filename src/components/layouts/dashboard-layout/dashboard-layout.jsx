@@ -1,15 +1,12 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import "../../../assets/dashboard-styles.css";
 import Navbar from "./navbar";
 const DashboardLayout = (props) => {
   return (
     <Fragment>
-      <div className="dashboard-pages-container">
-        <div className="dashboard-page-size mx-auto">
+      <div className="dashboard-container px-5 pt-3 bg-blue-dark p-0 vh-100 overflow-scroll scrollbar-none">
           <Navbar />
           <Outlet />
-        </div>
       </div>
     </Fragment>
   );

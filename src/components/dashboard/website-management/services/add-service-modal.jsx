@@ -23,7 +23,7 @@ const AddServiceModal = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
   const imgInputChangeHandler = (event) => {
-    console.log('imgInputChangeHandler')
+    console.log("imgInputChangeHandler");
     if (event.target.files[0]) {
       setButtonText("تغيير الصورة");
       setSelectedImage(event.target.files[0]);
@@ -131,77 +131,60 @@ const AddServiceModal = () => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-            <ModalHeader
+              <ModalHeader
                 clickCloseButton={closeModal}
                 title="إضافة خدمة جديدة"
               />
-             
-             
-             {isSubmitting && <DashboardLoader />}
-        {!isSubmitting && (
-          <div className="row justify-content-between m-0 px-3">
-            <div className="col-6 text-warning">
-              <div className="mx-0 my-1">
-                <TextInput
-                  onChangeHandler={inputsChangeHandler}
-                  name="title"
-                  placeholder="إسم الخدمة"
-                  required={true}
-                  value={newService.title ?? ""}
-                />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <TextareaInput
-                  name="text"
-                  placeholder="وصف الخدمة"
-                  onChangeHandler={inputsChangeHandler}
-                  value={newService.text ?? ""}
-                />
-                {errors.text && (
-                  <span style={{ color: "red" }}>{errors.text}</span>
-                )}
-              </div>
-              <div className="mx-0 my-1">
-                <div className="my-3">
-                  <label htmlFor="service-image">
-                    <ButtonWithPressEffect text={buttonText} />
-                  </label>
-                  <input
-                    onChange={imgInputChangeHandler}
-                    type="file"
-                    name="clinicLogo"
-                    id="service-image"
-                    hidden
-                  />
+
+              {isSubmitting && <DashboardLoader />}
+              {!isSubmitting && (
+                <div className="row justify-content-between m-0">
+                  <div className="col-sm-12 col-md-6 my-1">
+                    <div className="my-1">
+                      <TextInput
+                        onChangeHandler={inputsChangeHandler}
+                        name="title"
+                        placeholder="إسم الخدمة"
+                        required={true}
+                        value={newService.title ?? ""}
+                      />
+                      {errors.title && (
+                        <span style={{ color: "red" }}>{errors.title}</span>
+                      )}
+                    </div>
+                    <div className="my-1">
+                      <TextareaInput
+                        name="text"
+                        placeholder="وصف الخدمة"
+                        onChangeHandler={inputsChangeHandler}
+                        value={newService.text ?? ""}
+                      />
+                      {errors.text && (
+                        <span style={{ color: "red" }}>{errors.text}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-sm-12 col-md-6 col-lg-4">
+                    <ServiceItemPreview
+                      image={imageUrl}
+                      title={newService.title}
+                      text={newService.text}
+                    />
+
+                    <label htmlFor="service-image" className="my-1">
+                      <ButtonWithPressEffect text={buttonText} />
+                      <input
+                        onChange={imgInputChangeHandler}
+                        type="file"
+                        name="clinicLogo"
+                        id="service-image"
+                        hidden
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <ServiceItemPreview
-              image={imageUrl}
-              title={newService.title}
-              text={newService.text}
-            />
-          </div>
-        )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              )}
 
               <ModalFooter>
                 <SubmitButton

@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-//
 import configureAccountsStore from "./hooks-store/accounts-store";
 import configureSliderImagessStore from "./hooks-store/slider-images-store";
 import configureClinicServicesStore from "./hooks-store/clinic-services-store";

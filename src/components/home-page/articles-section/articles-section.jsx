@@ -15,7 +15,7 @@ const ArticlesSection = () => {
       httpGET(api.articles.get_latest_two_articles).then((result) => {
         setIsLoading(false);
         setLatestTwoArticles(result);
-      }).catch(c=>{alert('Network error !!!');setIsLoading(false);});
+      }).catch(c=>{alert('Network error (Articles)!!!');setIsLoading(false);});
     }
     isInitiated = true;
   }, []);

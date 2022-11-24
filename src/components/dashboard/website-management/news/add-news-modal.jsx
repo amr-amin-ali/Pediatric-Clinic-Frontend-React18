@@ -128,15 +128,16 @@ const AddNewsModal = () => {
             <form>
               <ModalHeader
                 clickCloseButton={closeModal}
-                title="إضافة خبر جديدة"
+                title="نشر خبر جديد"
               />
 
 {isSubmitting && <DashboardLoader />}
         {!isSubmitting && (
-          <div className="row justify-content-between m-0 px-3">
-            <div className="col-6 text-warning">
-              <div className="mx-0 my-1">
-                <TextInput
+          <div className="row justify-content-between m-0">
+            <div className="col-sm-12 col-md-6 text-warning">
+             
+               <div className="my-1">
+               <TextInput
                   onChangeHandler={inputsChangeHandler}
                   name="title"
                   placeholder="عنوان الخبر"
@@ -146,23 +147,37 @@ const AddNewsModal = () => {
                 {errors.title && (
                   <span style={{ color: "red" }}>{errors.title}</span>
                 )}
-              </div>
-              <div className="mx-0 my-1">
+               </div>
+             
+             
+             <div className="my-1">
+
                 <TextareaInput
                   name="text"
                   placeholder="نص الخبر"
                   onChangeHandler={inputsChangeHandler}
                   value={newNews.text ?? ""}
-                />
+                  />
                 {errors.text && (
                   <span style={{ color: "red" }}>{errors.text}</span>
                 )}
-              </div>
-              <div className="mx-0 my-1">
+             
+                  </div>
+             
+             
+             
+              
+              
+            </div>
+            <div className="col-sm-12 col-md-6">
+              <NewsItemPreview
+                image={imageUrl}
+                title={newNews.title}
+                text={newNews.text}
+              />
                 <div className="my-3">
                   <label htmlFor="new-news-image">
                     <ButtonWithPressEffect text={buttonText} />
-                  </label>
                   <input
                     onChange={imgInputChangeHandler}
                     type="file"
@@ -170,15 +185,8 @@ const AddNewsModal = () => {
                     id="new-news-image"
                     hidden
                   />
+                  </label>
                 </div>
-              </div>
-            </div>
-            <div className="col-6">
-              <NewsItemPreview
-                image={imageUrl}
-                title={newNews.title}
-                text={newNews.text}
-              />
             </div>
           </div>
         )}

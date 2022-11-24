@@ -5,20 +5,21 @@ import { api } from "../../../../utility/api";
 const CarouselItem = ({ imageUrl, imageId = 0, itemKey }) => {
   const dispatch = useStore()[1];
   const deleteImage = async (imageId) => {
-    const response = await httpDELETE(
-      api.slider_images.delete_slider_image + imageId
-    );
-    if (response.status===400) {
-      const data=await response.json();
-      alert(data.SliderImage[0])
-      return;
+    if (window.confirm("هل تريد الحذف فعلاً؟") == true) {
+      const response = await httpDELETE(
+        api.slider_images.delete_slider_image + imageId
+      );
+      if (response.status === 400) {
+        alert("Error!!");
+        return;
+      }
+      dispatch("DELETE_IMAGE", imageId);
     }
-    dispatch("DELETE_IMAGE", imageId);
   };
 
   return (
     <div key={itemKey} className={styles.container}>
-      <img src={imageUrl} alt="" />
+      <img src={imageUrl} alt="" style={{ width: "100%" }} />
       <span
         className={styles.deleteButton}
         onClick={() => deleteImage(imageId)}

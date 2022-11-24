@@ -27,10 +27,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="row">
-      <div className="col-4">
-        <SideMenu />
-      </div>
+    <div className="row dashboard-content-container">
+      <SideMenu />
       <Routes>
         <Route path="Files/*">
           <Route path="*" element={<Files />} />
@@ -45,7 +43,7 @@ const Dashboard = () => {
         <Route path="Tools" element={<Tools />} />
         <Route path="Payments" element={<Payments />} />
         <Route path="Purchases" element={<Purchases />} />
-        <Route path="Bookings" element={<Bookings />} />
+        {/* <Route path="Bookings" element={<Bookings />} /> */}
         <Route
           path="*"
           element={

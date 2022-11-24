@@ -135,7 +135,7 @@ const EditVaccineModal = ( {vaccin} ) => {
                 title="تعديل بيانات اللقاح"
               />
               <div className="row m-0 p-2">
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6 my-1">
                   <TextInput
                     onChangeHandler={inputChangeHandler}
                     name="name"
@@ -146,7 +146,7 @@ const EditVaccineModal = ( {vaccin} ) => {
                     <span style={{ color: "red" }}>{errors.name}</span>
                   )}
                 </div>
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6 my-1">
                   <TextInput
                     onChangeHandler={inputChangeHandler}
                     name="age"
@@ -183,7 +183,7 @@ const EditVaccineModal = ( {vaccin} ) => {
 
               <ModalFooter>
                 <SubmitButton
-                  title="أضف الآن"
+                  title="حفظ التعديلات"
                   clickHandler={submitFormHandler}
                 />
                 <ResetButton

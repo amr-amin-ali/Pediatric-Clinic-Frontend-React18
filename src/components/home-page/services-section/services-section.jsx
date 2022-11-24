@@ -22,7 +22,7 @@ const ServicesSection = () => {
           setIsLoading(false);
         })
         .catch((c) => {
-          alert("Network error !!!");
+          alert("Network error (Services)!!!");
           setIsLoading(false);
         });
     }
