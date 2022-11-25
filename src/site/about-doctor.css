@@ -19,11 +19,6 @@
   background-color: #50597b !important;
 }
 
-@font-face {
-  /* Import our font from file */
-  font-family: hacen;
-  src: url(../../public/HacenSaudiArabia.ttf);
-}
 .doctor-profile-container {
   background-color: var(--black);
   display: flex;

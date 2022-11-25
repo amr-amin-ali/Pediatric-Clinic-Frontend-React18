@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
-import "./vaccines.css";
 const Vaccines = () => {
   document.title = "جدول التطعيمات";
 
@@ -27,7 +26,7 @@ const Vaccines = () => {
             <div key={vaccin.id} className="accordion-item">
               <h2 className="accordion-header" id={`flush-heading${vaccin.id}`}>
                 <button
-                  className="accordion-button collapsed shadow-none"
+                  className="accordion-button vaccinCollapsed collapsed shadow-none"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#flush-collapse${vaccin.id}`}
