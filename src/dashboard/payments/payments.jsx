@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import CreatePaymentModal from "../components/payments/create-payment-modal";
-import SearchPaymentsModal from "../components/payments/search-payments-modal";
+import CreatePaymentModal from "./components/create-payment-modal";
+import SearchPaymentsModal from "./components/search-payments-modal";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
 

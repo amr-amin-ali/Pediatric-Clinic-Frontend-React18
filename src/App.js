@@ -1,9 +1,7 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  createRoutesFromElements,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route, } from "react-router-dom";
+import { useStore } from "./hooks-store/store";
+import { api } from "./utility/api";
+import { httpGET } from "./http/httpGET";
 import Articles from "./site/articles";
 import DashboardLayout from "./layouts/dashboard-layout/dashboard-layout";
 import SiteLayout from "./layouts/site-layout/site-layout";
@@ -18,16 +16,7 @@ import React from "react";
 import ViewAllFilePrescriptions from "./dashboard/prescripions/all-file-prescriptions";
 import NewPrescription from "./dashboard/prescripions/new-prescription";
 import PrintPrescription from "./dashboard/prescripions/print-prescription";
-import WebsiteManagement from "./dashboard/website/website-management";
-import MetaData from "./dashboard/components/website-management/meta-data/meta-data";
-import CarouselManagement from "./dashboard/components/website-management/carousel/carousel";
-import ServicesManagement from "./dashboard/components/website-management/services/services-management";
-import ArticlesManagement from "./dashboard/components/website-management/articles/articles-management";
-import { useStore } from "./hooks-store/store";
-import NewsManagement from "./dashboard/components/website-management/news/news-management";
-import VaccinesManagemt from "./dashboard/components/website-management/vaccins/vaccin-management";
-import { api } from "./utility/api";
-import { httpGET } from "./http/httpGET";
+import WebsiteManagement from "./dashboard/website-management/website-management";
 import Bookings from "./dashboard/bookings/bookings";
 
 // const router = createBrowserRouter(
@@ -91,20 +80,13 @@ function App() {
             </Route>
             <Route path="/About-Doctor" element={<AboutDoctor />} />
             <Route path="/Login" element={<Login />} />
-            {displayDashboard && (
+{displayDashboard && (
               <Route path="/Dashboard/*" element={<DashboardLayout />}>
                 <Route path="*" element={<Dashboard />} />
                 <Route path="Prescriptions/:fileId" element={<ViewAllFilePrescriptions />}/>
                 <Route path="New-Prescription/:fileId" element={<NewPrescription />}/>
-                <Route path="Website-Management/*" element={<WebsiteManagement />}>
-                  <Route path="Meta-Data" element={<MetaData />} />
-                  <Route path="SliderManagement" element={<CarouselManagement />} />
-                  <Route path="Services" element={<ServicesManagement />} />
-                  <Route path="Articles" element={<ArticlesManagement />} />
-                  <Route path="News" element={<NewsManagement />} />
-                  <Route path="Vaccines" element={<VaccinesManagemt />} />
-                </Route>
                 <Route path="Bookings" element={<Bookings />} />
+                <Route path="Website-Management/*" element={<WebsiteManagement />}/>
               </Route>
             )}
             <Route path="/Dashboard/Print-Prescription" element={<PrintPrescription />}/>

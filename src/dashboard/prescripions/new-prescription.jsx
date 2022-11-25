@@ -4,8 +4,8 @@ import NumberInput from "../components/inputs/number-input";
 import SelectInput from "../components/inputs/select-input";
 import TextareaInput from "../components/inputs/textarea-input";
 import SubmitButton from "../components/buttons/submit-button";
-import Prescription from "../components/prescriptions/prescription";
-import ViewFileModal from "../components/files/view-file-modal";
+import Prescription from "./components/prescription";
+import ViewFileModal from "./components/view-file-modal";
 import styles from "./new-prescription.module.css";
 
 // import styles from "./all-file-prescriptions.module.css";

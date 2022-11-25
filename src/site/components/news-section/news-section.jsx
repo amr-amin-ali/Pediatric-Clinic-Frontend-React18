@@ -9,8 +9,7 @@ const NewsSection = () => {
   const [latestTwoNews, setLatestTwoNews] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
   useEffect(() => {
-    let isInitiated = false;
-    if (latestTwoNews.length < 1 && isInitiated === false) {
+    if (latestTwoNews.length < 1) {
       setIsLoading(true);
       httpGET(api.news.get_latest_two_news)
         .then((result) => {
@@ -18,11 +17,10 @@ const NewsSection = () => {
           setLatestTwoNews(result);
         })
         .catch((c) => {
-          alert("Network error (News)!!!");
+          alert("Network error while fetching news !!");
           setIsLoading(false);
         });
     }
-    isInitiated = true;
   }, [latestTwoNews.length]);
   if (isLoading) return <SiteLoadindSpiner text="تحميل الأخبار" />;
   if (latestTwoNews.length === 0) {

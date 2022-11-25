@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
@@ -7,20 +7,22 @@ const Vaccines = () => {
 
   const [state, dispatch] = useStore();
   let vaccinesCounter = 0;
-
-  if (state.vaccins.length === 0) {
+useEffect(() => {
+  if (!state.vaccins_store.isInitiated) {
     httpGET(api.vaccins.get_all_vaccins).then((vaccins) => {
       if (vaccins.length !== 0) dispatch("INITIATE_VACCINS", vaccins);
     });
   }
-  if (state.vaccins.length === 0) {
+
+}, []);
+  if (state.vaccins_store.vaccins.length === 0) {
     return null;
   }
   return (
     <Fragment>
       <h1 className="text-success font-family-hacen text-center my-3">التطعيمات</h1>
       <div className="accordion accordion-flush" id="accordionFlushExample">
-        {state.vaccins.map((vaccin) => {
+        {state.vaccins_store.vaccins.map((vaccin) => {
           vaccinesCounter++;
           return (
             <div key={vaccin.id} className="accordion-item">

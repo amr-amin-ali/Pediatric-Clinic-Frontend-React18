@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import SearchToolsModal from "../components/tools/search-tools-modal";
-import CreateToolModal from "../components/tools/create-tool-modal";
+import SearchToolsModal from "./components/search-tools-modal";
+import CreateToolModal from "./components/create-tool-modal";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
 

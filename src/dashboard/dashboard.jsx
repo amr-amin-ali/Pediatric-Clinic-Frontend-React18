@@ -1,8 +1,8 @@
 import SideMenu from "./components/side-menu";
 import DoctorProfile from "./components/doctor-profile";
-import SideMenuStatistics from "./components/side-menu-ststistics";
+import TodayPrescriptions from "./components/today-prescriptions";
 import { Route, Routes } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Files from "./files/files";
 import Medicines from "./medicines/medicines";
 import Tools from "./tools/tools";
@@ -18,13 +18,15 @@ const Dashboard = () => {
   document.title = "الإدارة";
   const [state, dispatch] = useStore();
 
-  //get all bookings from the server
-  if (state.bookings.length === 0) {
-    httpGET(api.bookings.get_all_bookings).then((bookings) => {
-      if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
-    });
-  }
-
+useEffect(() => {
+    //get all bookings from the server
+    if (!state.bookings_store.isInitiated) {
+      httpGET(api.bookings.get_all_bookings).then((bookings) => {
+        if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
+      });
+    }
+  
+}, []);
   return (
     <div className="row dashboard-content-container">
       <SideMenu />
@@ -48,7 +50,7 @@ const Dashboard = () => {
           element={
             <Fragment>
               <DoctorProfile />
-              <SideMenuStatistics />
+              <TodayPrescriptions />
             </Fragment>
           }
         />

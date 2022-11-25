@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import CreateFileModal from "../components/files/create-file-modal";
-import SearchFiles from "../components/files/search-files-modal";
+import CreateFileModal from "./components/create-file-modal";
+import SearchFiles from "./components/search-files-modal";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
 

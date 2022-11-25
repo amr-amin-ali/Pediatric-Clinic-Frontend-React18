@@ -129,11 +129,11 @@ const Navbar = () => {
                 </svg>
                 الحجز
               </NavLink>
-              {state.bookings.length > 0 && (
+              {state.bookings_store.bookings.length > 0 && (
                 <span
                   className={`${styles.navbarCount} text-white position-absolute fs-6 fw-bold p-0 rounded-circle`}
                 >
-                  {state.bookings.length}
+                  {state.bookings_store.bookings.length}
                 </span>
               )}
             </li>

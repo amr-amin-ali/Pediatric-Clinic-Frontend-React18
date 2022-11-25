@@ -4,16 +4,10 @@ import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
 import "./bookings.css";
 import FeedingBottleSvg from "../components/icons/feeding-bottle-svg";
+import { useEffect } from "react";
 const Bookings = () => {
   document.title = "الحجوزات";
   const [state, dispatch] = useStore();
-
-  //get all bookings from the server
-  if (state.bookings.length === 0) {
-    httpGET(api.bookings.get_all_bookings).then((bookings) => {
-      if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
-    });
-  }
 
   const deleteBooking = async (bookingId) => {
     const response = await httpDELETE(api.bookings.delete_booking + bookingId);
@@ -24,6 +18,15 @@ const Bookings = () => {
     }
     dispatch("DELETE_BOOKING", bookingId);
   };
+  useEffect(() => {
+    //get all bookings from the server
+    if (!state.bookings_store.isInitiated) {
+      httpGET(api.bookings.get_all_bookings).then((bookings) => {
+        if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
+      });
+    }
+  
+}, []);
 
   return (
     <div className="col-lg-6 mx-auto col-sm-12 px- py-3">
@@ -34,11 +37,10 @@ const Bookings = () => {
         <h1 className="bg-green-light text-white m-0 py-3 text-center fs-1">
           <svg width="50" height="50" fill="#FFF" viewBox="0 0 16 16">
             <path
-              fill-rule="evenodd"
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
             />
           </svg>
-          الحجوزات <span className="text-success">{state.bookings.length}</span>
+          الحجوزات <span className="text-success">{state.bookings_store.bookings.length}</span>
         </h1>
 
         <div
@@ -46,7 +48,7 @@ const Bookings = () => {
           style={{ height: "402px" }}
         >
           <ul className="list-unstyled m-0 p-0">
-            {state.bookings.map((booking) => (
+            {state.bookings_store.bookings.map((booking) => (
               <li
                 key={booking.id}
                 className="menuItem d-flex justify-content-between text-white fs-5 py-3 border border-blue-dark"

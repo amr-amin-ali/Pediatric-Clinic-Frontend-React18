@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Prescription from "../components/prescriptions/prescription";
+import Prescription from "./components/prescription";
 import styles from "./all-file-prescriptions.module.css";
 import { Link } from "react-router-dom";
 const ViewAllFilePrescriptions = () => {

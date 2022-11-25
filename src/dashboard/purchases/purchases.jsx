@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
-import CreatePurchasesModal from "../components/purchases/create-purchase-modal";
+import CreatePurchasesModal from "./components/create-purchase-modal";
 
 const Purchases = () => {
   document.title = "المشتريات";

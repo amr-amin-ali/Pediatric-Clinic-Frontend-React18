@@ -9,12 +9,9 @@ const ServicesSection = () => {
   const sliderInterval = 3000;
   const [state, dispatch] = useStore(false);
   const [isLoading, setIsLoading] = useState(false);
+  let [isInitiated, setIsInitiated] = useState(false);
   useEffect(() => {
-    let isClinicServicesInitiated = false;
-    if (
-      state.clinic_services.length < 1 &&
-      isClinicServicesInitiated === false
-    ) {
+    if (!state.clinic_services_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.clinic_services.get_all_services)
         .then((result) => {
@@ -22,17 +19,17 @@ const ServicesSection = () => {
           setIsLoading(false);
         })
         .catch((c) => {
-          alert("Network error (Services)!!!");
+          alert("Network error while fetching clinic services !!");
           setIsLoading(false);
         });
     }
-    isClinicServicesInitiated = true;
-  }, [dispatch,state.clinic_services.length]);
+    setIsInitiated(true);
+  }, []);
   if (isLoading) return <SiteLoadindSpiner text="تحميل الخدمات" />;
   else
     return (
       <Fragment>
-        {state.clinic_services.length > 0 && (
+        {state.clinic_services_store.services.length > 0 && (
           <section id="services" className="py-5 px-1">
             <h1 className="text-success font-family-hacen">خدمات العيادة</h1>
 
@@ -42,12 +39,14 @@ const ServicesSection = () => {
               data-bs-ride="carousel"
             >
               <div className="carousel-inner">
-                {state.clinic_services.map((srvc) => {
+                {state.clinic_services_store.services.map((srvc) => {
                   return (
                     <div
                       key={srvc.id}
                       className={`carousel-item ${
-                        state.clinic_services[0].id === srvc.id ? "active" : ""
+                        state.clinic_services_store.services[0].id === srvc.id
+                          ? "active"
+                          : ""
                       }`}
                       data-bs-interval={sliderInterval}
                     >

@@ -1,4 +1,4 @@
-import FileItem from "../components/files/file-item";
+import FileItem from "./components/file-item";
 const ViewAllFiles = () => {
   return (
     <div className="col-8">

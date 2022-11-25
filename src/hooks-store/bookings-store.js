@@ -3,11 +3,12 @@ import { initStore } from "./store";
 const configureBookingsStore = () => {
   const actions = {
     INITIATE_BOOKINGS: async (globalState, bookingsList) => {
-      globalState.bookings = bookingsList;
+      globalState.bookings_store.bookings = bookingsList;
+      globalState.bookings_store.isInitiated = true;
       return globalState;
     },
     DELETE_BOOKING: (globalState, bookingsId) => {
-      globalState.bookings = globalState.bookings.filter(
+      globalState.bookings_store.bookings = globalState.bookings_store.bookings.filter(
         (c) => c.id !== bookingsId
       );
       return globalState;
@@ -15,7 +16,10 @@ const configureBookingsStore = () => {
   };
 
   initStore(actions, {
-    bookings: []
+    bookings_store:{
+    bookings: [],
+    isInitiated:false
+   }
   });
 };
 

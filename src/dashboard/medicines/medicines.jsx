@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import CreateMedicineModal from "../components/medicines/create-medicine-modal";
-import SearchMedicinesModal from "../components/medicines/search-medicine-modal";
+import CreateMedicineModal from "./components/create-medicine-modal";
+import SearchMedicinesModal from "./components/search-medicine-modal";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
 

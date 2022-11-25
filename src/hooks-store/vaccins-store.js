@@ -3,38 +3,39 @@ import { initStore } from "./store";
 const configureVaccinsStore = () => {
   const actions = {
     INITIATE_VACCINS: async (globalState, vaccinsList) => {
-      globalState.vaccins = vaccinsList;
+      globalState.vaccins_store.vaccins = vaccinsList;
+      globalState.vaccins_store.isInitiated = true;
       return globalState;
     },
     ADD_VACCINS_TO_STORE: (globalState, newVaccin) => {
-      globalState.vaccins = [
-        ...globalState.vaccins,
-        newVaccin,
-      ];
+      globalState.vaccins_store.vaccins = [...globalState.vaccins_store.vaccins, newVaccin];
       return globalState;
     },
     UPDATE_VACCINS_IN_STORE: (globalState, modifiedVaccin) => {
-      var index = globalState.vaccins.findIndex(
+      var index = globalState.vaccins_store.vaccins.findIndex(
         (c) => c.id === modifiedVaccin.id
       );
       if (index === -1) {
-        globalState.vaccins.push(modifiedVaccin);
+        globalState.vaccins_store.vaccins.push(modifiedVaccin);
       } else {
-        globalState.vaccins[index] = modifiedVaccin;
+        globalState.vaccins_store.vaccins[index] = modifiedVaccin;
       }
 
       return globalState;
     },
     DELETE_VACCINS: (globalState, vaccinsId) => {
-      globalState.vaccins = globalState.vaccins.filter(
+      globalState.vaccins_store.vaccins = globalState.vaccins_store.vaccins.filter(
         (c) => c.id !== vaccinsId
       );
       return globalState;
-    }
+    },
   };
 
   initStore(actions, {
-    vaccins: []
+    vaccins_store: {
+      vaccins: [],
+      isInitiated: false,
+    },
   });
 };
 

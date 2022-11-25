@@ -11,19 +11,19 @@ const Slider = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let isSliderImagesInitiated = false;
-    if (
-      state.sliderImages.images.length < 1 &&
-      isSliderImagesInitiated === false
-    ) {
+    if (!state.sliderImages.isInitiated) {
       setIsLoading(true);
-      httpGET(api.slider_images.get_all_slider_images).then((result) => {
-        dispatch("INITIATE_SLIDER_IMAGES", result);
-        setIsLoading(false);
-      }).catch(c=>{alert('Network error (Slider) !!!');setIsLoading(false);});
+      httpGET(api.slider_images.get_all_slider_images)
+        .then((result) => {
+          dispatch("INITIATE_SLIDER_IMAGES", result);
+          setIsLoading(false);
+        })
+        .catch((c) => {
+          alert("Network error while fetching slider images !!");
+          setIsLoading(false);
+        });
     }
-    isSliderImagesInitiated = true;
-  }, [dispatch,state.sliderImages.images.length]);
+  }, []);
 
   let buttonsCounter = 0;
   let carouseItemsCounter = 0;
@@ -49,7 +49,10 @@ const Slider = () => {
                 ></button>
               ))}
             </div>
-            <div className="carousel-inner home-slider-desktop" style={{ height: "33vh" }}>
+            <div
+              className="carousel-inner home-slider-desktop"
+              style={{ height: "33vh" }}
+            >
               {state.sliderImages.images.map((img) => (
                 <div
                   key={img.id}

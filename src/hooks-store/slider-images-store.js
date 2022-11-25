@@ -4,6 +4,7 @@ const configureSliderImagessStore = () => {
   const actions = {
     INITIATE_SLIDER_IMAGES: async (globalState, imagesList) => {
       globalState.sliderImages.images = imagesList;
+      globalState.sliderImages.isInitiated = true;
       return globalState;
     },
     DELETE_IMAGE: (globalState, imageId) => {
@@ -15,6 +16,7 @@ const configureSliderImagessStore = () => {
   initStore(actions, {
     sliderImages: {
       images: [],
+      isInitiated:false
     },
   });
 };
