@@ -4,31 +4,31 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import Articles from "./pages/site/articles";
-import DashboardLayout from "./components/layouts/dashboard-layout/dashboard-layout";
-import SiteLayout from "./components/layouts/site-layout/site-layout";
-import Dashboard from "./pages/dashboard/dashboard";
-import Home from "./pages/site/home";
-import NewsPage from "./pages/site/news-page";
-import Vaccines from "./pages/site/vaccines";
-import AboutDoctor from "./pages/site/about-doctor";
-import ViewArticle from "./pages/site/view-article";
-import Login from "./pages/site/login";
+import Articles from "./site/articles";
+import DashboardLayout from "./layouts/dashboard-layout/dashboard-layout";
+import SiteLayout from "./layouts/site-layout/site-layout";
+import Dashboard from "./dashboard/dashboard";
+import Home from "./site/home";
+import NewsPage from "./site/news-page";
+import Vaccines from "./site/vaccines";
+import AboutDoctor from "./site/about-doctor";
+import ViewArticle from "./site/view-article";
+import Login from "./site/login";
 import React from "react";
-import ViewAllFilePrescriptions from "./pages/dashboard/prescripions/all-file-prescriptions";
-import NewPrescription from "./pages/dashboard/prescripions/new-prescription";
-import PrintPrescription from "./pages/dashboard/prescripions/print-prescription";
-import WebsiteManagement from "./pages/dashboard/website/website-management";
-import MetaData from "./components/dashboard/website-management/meta-data/meta-data";
-import CarouselManagement from "./components/dashboard/website-management/carousel/carousel";
-import ServicesManagement from "./components/dashboard/website-management/services/services-management";
-import ArticlesManagement from "./components/dashboard/website-management/articles/articles-management";
+import ViewAllFilePrescriptions from "./dashboard/prescripions/all-file-prescriptions";
+import NewPrescription from "./dashboard/prescripions/new-prescription";
+import PrintPrescription from "./dashboard/prescripions/print-prescription";
+import WebsiteManagement from "./dashboard/website/website-management";
+import MetaData from "./dashboard/components/website-management/meta-data/meta-data";
+import CarouselManagement from "./dashboard/components/website-management/carousel/carousel";
+import ServicesManagement from "./dashboard/components/website-management/services/services-management";
+import ArticlesManagement from "./dashboard/components/website-management/articles/articles-management";
 import { useStore } from "./hooks-store/store";
-import NewsManagement from "./components/dashboard/website-management/news/news-management";
-import VaccinesManagemt from "./components/dashboard/website-management/vaccins/vaccin-management";
+import NewsManagement from "./dashboard/components/website-management/news/news-management";
+import VaccinesManagemt from "./dashboard/components/website-management/vaccins/vaccin-management";
 import { api } from "./utility/api";
 import { httpGET } from "./http/httpGET";
-import Bookings from "./pages/dashboard/bookings/bookings";
+import Bookings from "./dashboard/bookings/bookings";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
