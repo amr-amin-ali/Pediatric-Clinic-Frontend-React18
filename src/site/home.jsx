@@ -7,7 +7,6 @@ import ArticlesSection from "../site/components/articles-section/articles-sectio
 import NewsSection from "../site/components/news-section/news-section";
 
 const Home = () => {
-  // console.log(localStorage.getItem("token") === null);
   document.title = "الرئيسية";
   useEffect(() => {
     // scroll to top on page load

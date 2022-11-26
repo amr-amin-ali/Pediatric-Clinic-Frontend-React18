@@ -1,11 +1,11 @@
-import {governorates} from './governorates-list'
+import { governorates } from "./governorates-list";
 export const userFile = {
   email: "",
   firstName: "",
   middleName: "",
   lastName: "",
   causeOfNicuAdmission: "",
-  birthDate:null,
+  birthDate: null,
   birthWeight: "",
   governorate: governorates.at(0).value,
   city: "",

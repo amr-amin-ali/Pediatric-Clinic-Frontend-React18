@@ -81,6 +81,7 @@ const ArticlesManagement = () => {
           <Fragment>
             <h1 className="text-center text-white mt-3">المقالات</h1>
 
+
             {state.articles_store.articles.map((article) => {
               if (article) {
                 return (

@@ -110,7 +110,6 @@ const Login = () => {
     event.preventDefault();
     if (errors && Object.keys(errors).length === 0 && email && password) {
       setIsLoading(true);
-      console.log("UUUUUUUUUUUUUUUUUU",api.account.login)
       const response = await httpPOST(api.account.login, {
         email,
         password,
