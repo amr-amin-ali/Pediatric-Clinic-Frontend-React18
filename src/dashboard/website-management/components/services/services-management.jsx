@@ -14,17 +14,28 @@ const ServicesManagement = () => {
   const [state, dispatch] = useStore();
   const [serviceToEdit, setServiceToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteService = async (serviceId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
-      const response = await httpDELETE(
-        api.clinic_services.delete_service + serviceId
-      );
-      if (response.status === 400) {
-        alert("Error!!");
-        return;
-      }
-      dispatch("DELETE_CLINIC_SERVICE", serviceId);
+      setIsDeleting(true);
+      await httpDELETE(api.clinic_services.delete_service + serviceId)
+        .then((response) => {
+          if (response.status === 204) {
+            dispatch("DELETE_CLINIC_SERVICE", serviceId);
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          setIsDeleting(false);
+        })
+        .catch((c) => {
+          alert("Network error while deleting article!!");
+          setIsDeleting(false);
+        });
     }
   };
   useEffect(() => {
@@ -47,9 +58,12 @@ const ServicesManagement = () => {
       <div className="card text-center m-3">
         <div className="card-header">الخيارات المتاحة</div>
         <div className="card-body">
-          <h5 className="card-title mt-4">هذه الإجراءات خاصة بخدمات ىالعيادة</h5>
+          <h5 className="card-title mt-4">
+            هذه الإجراءات خاصة بخدمات ىالعيادة
+          </h5>
           <p className="card-text mb-4">
-            يمكنك الإختيار ما بين إضافة خدمة جديدة أو تعديل بيانات  خدمة تم إضافتها أو حتى حذف خدمة.
+            يمكنك الإختيار ما بين إضافة خدمة جديدة أو تعديل بيانات خدمة تم
+            إضافتها أو حتى حذف خدمة.
           </p>
 
           <div className="row m-0">
@@ -71,6 +85,8 @@ const ServicesManagement = () => {
         {!isLoading && state.clinic_services_store.services.length > 0 && (
           <Fragment>
             <h1 className="text-center text-white mt-3">الخدمات الحالية</h1>
+            {isDeleting && <DashboardLoader text="جارى الحذف" />}
+
             {state.clinic_services_store.services.map((servc) => (
               <div
                 key={servc.id}

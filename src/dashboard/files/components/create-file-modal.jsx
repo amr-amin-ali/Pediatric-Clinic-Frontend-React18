@@ -1,6 +1,6 @@
 import ResetButton from "../../components/buttons/reset-button";
 import SubmmitButton from "../../components/buttons/submit-button";
-
+import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
 import DateInput from "../../components/inputs/date-input";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
@@ -15,11 +15,15 @@ import { validateName } from "../../../utility/create-file-validators";
 import { validateEmail } from "../../../utility/validate-email";
 import { governorates } from "../../../models/governorates-list";
 import { httpPOST } from "../../../http/httpPOST";
+import { api } from "../../../utility/api";
+import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const CreateFileModal = () => {
   const [file, setFile] = useState(userFile);
   const [errors, setErrors] = useState({});
   const [serverErrors, setServerErrors] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const nameChangeHandler = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -179,16 +183,14 @@ const CreateFileModal = () => {
     const value = event.target.value;
     const name = event.target.name;
     if (name === "phoneNumber") {
-      if (value.length === 11) {
-        setFile({ ...file, phoneNumber: value });
-      } else {
+      setFile({ ...file, phoneNumber: value });
+      if (value.length !== 11) {
         setErrors({ ...errors, phoneNumber: "يجب أن يكون 11 رقم" });
       }
     }
     if (name === "phoneNumber1") {
-      if (value.length === 11) {
-        setFile({ ...file, phoneNumber1: value });
-      } else {
+      setFile({ ...file, phoneNumber1: value });
+      if (value.length !== 11) {
         setErrors({ ...errors, phoneNumber1: "يجب أن يكون 11 رقم" });
       }
     }
@@ -255,12 +257,10 @@ const CreateFileModal = () => {
     if (!validateFileForSubmission(file)) {
       return;
     }
-    const response = await httpPOST(
-      "https://localhost:7289/api/Accounts/CreatePatientFile",
-      file
-    );
+    setIsSubmitting(true);
+    const response = await httpPOST(api.account.create_account, file);
+
     const data = await response.json();
-    // console.log(response.status);
     if (response.status === 400) {
       const backendErrors = [];
       for (const property in data) {
@@ -271,8 +271,11 @@ const CreateFileModal = () => {
         }
       }
       setServerErrors(backendErrors);
+      setIsSubmitting(false);
     } else {
       console.log(data);
+      setIsSubmitting(false);
+      closeBootstrapModal();
     }
   };
   return (
@@ -297,221 +300,233 @@ const CreateFileModal = () => {
                     })}
                 </span>
               </div>
-              <div className="row m-0 p-2">
-                <div className="col-4 my-1 px-1">
-                  <TextInput
-                    placeholder="الإسم الأول"
-                    onChangeHandler={nameChangeHandler}
-                    value={file.firstName}
-                    name="firstName"
-                  />
-                  {errors.firstName && (
-                    <span style={{ color: "red" }}>{errors.firstName}</span>
-                  )}
-                </div>
-                <div className="col-4 my-1 px-1">
-                  <TextInput
-                    placeholder="الإسم الأوسط"
-                    onChangeHandler={nameChangeHandler}
-                    value={file.middleName}
-                    name="middleName"
-                  />
-                  {errors.middleName && (
-                    <span style={{ color: "red" }}>{errors.middleName}</span>
-                  )}
-                </div>
-                <div className="col-4 my-1 px-1">
-                  <TextInput
-                    placeholder="الإسم الأخير"
-                    onChangeHandler={nameChangeHandler}
-                    value={file.lastName}
-                    name="lastName"
-                  />
-                  {errors.lastName && (
-                    <span style={{ color: "red" }}>{errors.lastName}</span>
-                  )}
-                </div>
-                <div className="col-4 my-1 px-1">
-                  <TextInput
-                    placeholder="سبب دخول الحضانة"
-                    onChangeHandler={causeOfNicuAdmissionChangeHandler}
-                    value={file.causeOfNicuAdmission}
-                    name="causeOfNicuAdmission"
-                  />
-                </div>
-                <div className="col-4 my-1 px-1">
-                  <TextInput
-                    placeholder="مشاكل الولادة"
-                    onChangeHandler={labourProblemsChangeHandler}
-                    value={file.labourProblems}
-                    name="labourProblems"
-                  />
-                </div>
-                <div className="col-4 my-1 px-1">
-                  <DateInput
-                    onChangeHandler={birthDateChangeHandler}
-                    title="تاريخ الميلاد"
-                    name="birthDate"
-                  />
-                  {errors.birthDate && (
-                    <span style={{ color: "red" }}>{errors.birthDate}</span>
-                  )}
-                </div>
+              {isSubmitting && <DashboardLoader text="جارى إنشاء الملف" />}
+              {!isSubmitting && (
+                <div className="row m-0 p-2">
+                  <div className="col-sm-12 col-lg-4 my-1 px-1">
+                    <TextInput
+                      placeholder="الإسم الأول"
+                      onChangeHandler={nameChangeHandler}
+                      value={file.firstName ?? ""}
+                      name="firstName"
+                    />
+                    {errors.firstName && (
+                      <span style={{ color: "red" }}>{errors.firstName}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-4  my-1 px-1">
+                    <TextInput
+                      placeholder="الإسم الأوسط"
+                      onChangeHandler={nameChangeHandler}
+                      value={file.middleName ?? ""}
+                      name="middleName"
+                    />
+                    {errors.middleName && (
+                      <span style={{ color: "red" }}>{errors.middleName}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-4   my-1 px-1">
+                    <TextInput
+                      placeholder="الإسم الأخير"
+                      onChangeHandler={nameChangeHandler}
+                      value={file.lastName ?? ""}
+                      name="lastName"
+                    />
+                    {errors.lastName && (
+                      <span style={{ color: "red" }}>{errors.lastName}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-4   my-1 px-1">
+                    <TextInput
+                      placeholder="سبب دخول الحضانة"
+                      onChangeHandler={causeOfNicuAdmissionChangeHandler}
+                      value={file.causeOfNicuAdmission ?? ""}
+                      name="causeOfNicuAdmission"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-4   my-1 px-1">
+                    <TextInput
+                      placeholder="مشاكل الولادة"
+                      onChangeHandler={labourProblemsChangeHandler}
+                      value={file.labourProblems ?? ""}
+                      name="labourProblems"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-4   my-1 px-1">
+                    <DateInput
+                      onChangeHandler={birthDateChangeHandler}
+                      title="تاريخ الميلاد"
+                      name="birthDate"
+                    />
+                    {errors.birthDate && (
+                      <span style={{ color: "red" }}>{errors.birthDate}</span>
+                    )}
+                  </div>
 
-                <div className="col-3 my-1 px-1">
-                  <SelectInput
-                    onChangeHandler={addressChangeHandler}
-                    items={governorates}
-                    name="governorate"
-                    title="المحافظة"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    onChangeHandler={addressChangeHandler}
-                    name="city"
-                    placeholder="المدينة"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    onChangeHandler={addressChangeHandler}
-                    name="village"
-                    placeholder="القرية"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    onChangeHandler={addressChangeHandler}
-                    name="street"
-                    placeholder="الشارع"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <NumberInput
-                    onChangeHandler={phoneNumberChangeHandler}
-                    name="phoneNumber"
-                    placeholder="موبايل 1"
-                  />
-                  {errors.phoneNumber && (
-                    <span style={{ color: "red" }}>{errors.phoneNumber}</span>
-                  )}
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <NumberInput
-                    onChangeHandler={phoneNumberChangeHandler}
-                    name="phoneNumber1"
-                    placeholder="موبايل 2"
-                  />
-                  {errors.phoneNumber1 && (
-                    <span style={{ color: "red" }}>{errors.phoneNumber1}</span>
-                  )}
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    placeholder="الإيميل"
-                    onChangeHandler={emailChangeHandler}
-                    name="email"
-                  />
-                  {errors.email && (
-                    <span style={{ color: "red" }}>{errors.email}</span>
-                  )}
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    placeholder="كلمة المرور"
-                    onChangeHandler={passwordChangeHandler}
-                    name="password"
-                  />
-                  {errors.password && (
-                    <span style={{ color: "red" }}>{errors.password}</span>
-                  )}
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <NumberInput
-                    placeholder="وزن الولادة"
-                    onChangeHandler={requiredOnlyInputChangeHandler}
-                    value={file.birthWeight}
-                    name="birthWeight"
-                  />
-                  {errors.birthWeight && (
-                    <span style={{ color: "red" }}>{errors.birthWeight}</span>
-                  )}
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <NumberInput
-                    placeholder="محيط الرأس عند الولادة"
-                    onChangeHandler={headCircumferanceChangeHandler}
-                    value={file.headCircumferance}
-                    name="headCircumferance"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <TextInput
-                    placeholder="العيوب الخلقية"
-                    onChangeHandler={congenitalAnomaliesChangeHandler}
-                    value={file.congenitalAnomalies}
-                    name="congenitalAnomalies"
-                  />
-                </div>
-                <div className="col-3 my-1 px-1">
-                  <div className="row m-0">
-                    <div className="col-6 p-0 pe-1">
-                      <RadioInput
-                        onChangeHandler={radioOnChangeHandler}
-                        title="ذكر"
-                        name="Gender"
-                        value="male"
-                        checked={file.gender === "male"}
-                      />
-                    </div>
-                    <div className="col-6 p-0 ps-1">
-                      <RadioInput
-                        onChangeHandler={radioOnChangeHandler}
-                        title="أنثى"
-                        name="Gender"
-                        value="female"
-                        checked={file.gender === "female"}
-                      />
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <SelectInput
+                      onChangeHandler={addressChangeHandler}
+                      items={governorates}
+                      name="governorate"
+                      title="المحافظة"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      onChangeHandler={addressChangeHandler}
+                      value={file.city ?? ""}
+                      name="city"
+                      placeholder="المدينة"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      onChangeHandler={addressChangeHandler}
+                      value={file.village ?? ""}
+                      name="village"
+                      placeholder="القرية"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      onChangeHandler={addressChangeHandler}
+                      value={file.street ?? ""}
+                      name="street"
+                      placeholder="الشارع"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <NumberInput
+                      onChangeHandler={phoneNumberChangeHandler}
+                      value={file.phoneNumber ?? ""}
+                      name="phoneNumber"
+                      placeholder="موبايل 1"
+                    />
+                    {errors.phoneNumber && (
+                      <span style={{ color: "red" }}>{errors.phoneNumber}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <NumberInput
+                      onChangeHandler={phoneNumberChangeHandler}
+                      value={file.phoneNumber1 ?? ""}
+                      name="phoneNumber1"
+                      placeholder="موبايل 2"
+                    />
+                    {errors.phoneNumber1 && (
+                      <span style={{ color: "red" }}>
+                        {errors.phoneNumber1 ?? ""}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      placeholder="الإيميل"
+                      onChangeHandler={emailChangeHandler}
+                      value={file.email ?? ""}
+                      name="email"
+                    />
+                    {errors.email && (
+                      <span style={{ color: "red" }}>{errors.email}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      placeholder="كلمة المرور"
+                      onChangeHandler={passwordChangeHandler}
+                      value={file.password ?? ""}
+                      name="password"
+                    />
+                    {errors.password && (
+                      <span style={{ color: "red" }}>{errors.password}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <NumberInput
+                      placeholder="وزن الولادة"
+                      onChangeHandler={requiredOnlyInputChangeHandler}
+                      value={file.birthWeight ?? ""}
+                      name="birthWeight"
+                    />
+                    {errors.birthWeight && (
+                      <span style={{ color: "red" }}>{errors.birthWeight}</span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <NumberInput
+                      placeholder="محيط الرأس عند الولادة"
+                      onChangeHandler={headCircumferanceChangeHandler}
+                      value={file.headCircumferance ?? ""}
+                      name="headCircumferance"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <TextInput
+                      placeholder="العيوب الخلقية"
+                      onChangeHandler={congenitalAnomaliesChangeHandler}
+                      value={file.congenitalAnomalies ?? ""}
+                      name="congenitalAnomalies"
+                    />
+                  </div>
+                  <div className="col-sm-12 col-lg-3 my-1 px-1">
+                    <div className="row m-0">
+                      <div className="col-6 p-0 pe-1">
+                        <RadioInput
+                          onChangeHandler={radioOnChangeHandler}
+                          title="ذكر"
+                          name="Gender"
+                          value="male"
+                          checked={file.gender === "male"}
+                        />
+                      </div>
+                      <div className="col-6 p-0 ps-1">
+                        <RadioInput
+                          onChangeHandler={radioOnChangeHandler}
+                          title="أنثى"
+                          name="Gender"
+                          value="female"
+                          checked={file.gender === "female"}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="col-4 px-1">
-                  <TextareaInput
-                    placeholder="التاريخ المرضى"
-                    onChangeHandler={requiredOnlyInputChangeHandler}
-                    value={file.pastHistoryOfDisease}
-                    name="pastHistoryOfDisease"
-                  />
-                  {errors.pastHistoryOfDisease && (
-                    <span style={{ color: "red" }}>
-                      {errors.pastHistoryOfDisease}
-                    </span>
-                  )}
+                  <div className="col-sm-12 col-lg-4   px-1">
+                    <TextareaInput
+                      placeholder="التاريخ المرضى"
+                      onChangeHandler={requiredOnlyInputChangeHandler}
+                      value={file.pastHistoryOfDisease ?? ""}
+                      name="pastHistoryOfDisease"
+                    />
+                    {errors.pastHistoryOfDisease && (
+                      <span style={{ color: "red" }}>
+                        {errors.pastHistoryOfDisease}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-4   px-0">
+                    <TextareaInput
+                      placeholder="التاريخ الجراحى"
+                      onChangeHandler={requiredOnlyInputChangeHandler}
+                      value={file.pastHistoryOfOperation ?? ""}
+                      name="pastHistoryOfOperation"
+                    />
+                    {errors.pastHistoryOfOperation && (
+                      <span style={{ color: "red" }}>
+                        {errors.pastHistoryOfOperation}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-sm-12 col-lg-4   px-1">
+                    <TextareaInput
+                      placeholder="ملاحظات"
+                      onChangeHandler={notesChangeHandler}
+                      value={file.notes ?? ""}
+                      name="notes"
+                    />
+                  </div>
                 </div>
-                <div className="col-4 px-0">
-                  <TextareaInput
-                    placeholder="التاريخ الجراحى"
-                    onChangeHandler={requiredOnlyInputChangeHandler}
-                    value={file.pastHistoryOfOperation}
-                    name="pastHistoryOfOperation"
-                  />
-                  {errors.pastHistoryOfOperation && (
-                    <span style={{ color: "red" }}>
-                      {errors.pastHistoryOfOperation}
-                    </span>
-                  )}
-                </div>
-                <div className="col-4 px-1">
-                  <TextareaInput
-                    placeholder="ملاحظات"
-                    onChangeHandler={notesChangeHandler}
-                    value={file.notes}
-                    name="notes"
-                  />
-                </div>
-              </div>
+              )}
 
               <ModalFooter>
                 <SubmmitButton

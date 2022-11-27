@@ -67,7 +67,9 @@ code {
 .font-family-hacen {
   font-family: var(--hacen-font);
 }
-
+.cursor-pointer{
+  cursor: pointer;
+}
 /* Appointment  */
 .appointment {
   background-image: url(./assets/brackground_6.jpg);

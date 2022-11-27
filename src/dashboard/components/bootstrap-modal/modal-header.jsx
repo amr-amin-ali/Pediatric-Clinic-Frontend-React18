@@ -1,11 +1,4 @@
-const ModalHeader = ({ title, clickCloseButton = false }) => {
-  //Logic to clickCloseButton the modal programatically
-  if (clickCloseButton) {
-    const closeModalBtns = document.querySelectorAll(".closeModalBtn");
-    for (const btn of closeModalBtns) {
-      btn.click();
-    }
-  }
+const ModalHeader = ({ title }) => {
   return (
     <h4
       style={{ color: "#9aafff" }}

@@ -64,7 +64,7 @@ function App() {
   }
 
   const displayDashboard =
-    state.login.isLoggedIn && state.login.role === "Doctor";
+    state.accounts_store.login.isLoggedIn && state.accounts_store.login.role === "Doctor";
   return (
     <RouterProvider
       router={createBrowserRouter(

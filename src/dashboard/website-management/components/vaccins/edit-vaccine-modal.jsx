@@ -9,12 +9,12 @@ import { vaccinModel } from "../../../../models/vaccin-model";
 import { api } from "../../../../utility/api";
 import { httpPUT } from "../../../../http/httpPUT";
 import { useStore } from "../../../../hooks-store/store";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const EditVaccineModal = ({ vaccin }) => {
   const dispatch = useStore()[1];
 
   const [model, setModel] = useState(vaccin);
-  const [closeModal, setCloseModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormClickHandler = (event) => {
     setModel(vaccinModel);
@@ -91,23 +91,51 @@ const EditVaccineModal = ({ vaccin }) => {
         age: model.age,
         description: model.description,
         dates: model.dates,
-      });
-      if (response.status === 200) {
-        const result = await response.json();
-        dispatch("UPDATE_VACCINS_IN_STORE", result);
-        setModel(vaccinModel);
-        setCloseModal(true);
-      } else {
-        alert(`server response not ok: ${response.status}`);
-      }
-      setIsSubmitting(false);
+      })
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => {
+              for (const key in result) {
+                if (result.hasOwnProperty(key)) {
+                  alert(result[key]);
+                }
+              }
+            });
+
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("UPDATE_VACCINS_IN_STORE", data);
+              setModel(vaccinModel);
+              closeBootstrapModal();
+            });
+          } else {
+            alert("Some thing went wrong!");
+            setIsSubmitting(false);
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+        });
     }
     return;
   };
   useEffect(() => {
-    setCloseModal(false);
     setModel(vaccin);
-  }, [closeModal, vaccin]);
+  }, [vaccin]);
 
   return (
     <div>
@@ -129,10 +157,7 @@ const EditVaccineModal = ({ vaccin }) => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="تعديل بيانات اللقاح"
-              />
+              <ModalHeader title="تعديل بيانات اللقاح" />
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row m-0 p-2">

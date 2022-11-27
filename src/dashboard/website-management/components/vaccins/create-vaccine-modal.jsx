@@ -4,14 +4,15 @@ import ModalFooter from "../../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../../components/bootstrap-modal/modal-header";
 import TextInput from "../../../components/inputs/text-input";
 import DashboardLoader from "../../../components/loader/dashboardLoader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { vaccinModel } from "../../../../models/vaccin-model";
 import { api } from "../../../../utility/api";
 import { httpPOST } from "../../../../http/httpPOST";
 import { useStore } from "../../../../hooks-store/store";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const CreateVaccineModal = () => {
-  const  dispatch = useStore()[1];
+  const dispatch = useStore()[1];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormClickHandler = (event) => {
@@ -65,7 +66,6 @@ const CreateVaccineModal = () => {
   };
 
   /////////////////////////////////////////////////////////////////////
-  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,27 +90,40 @@ const CreateVaccineModal = () => {
 
     if (errors && Object.keys(errors).length === 0) {
       setIsSubmitting(true);
-      const response = await httpPOST(api.vaccins.add_new_vaccin, {
+      httpPOST(api.vaccins.add_new_vaccin, {
         name: model.name,
         age: model.age,
         description: model.description,
         dates: model.dates,
-      });
-      if (response.status === 201) {
-        const result = await response.json();
-        dispatch("ADD_VACCINS_TO_STORE", result);
-        setModel(vaccinModel);
-        setCloseModal(true);
-      } else {
-        alert(`server response not ok: ${response.status}`);
-      }
-      setIsSubmitting(false);
+      })
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+            closeBootstrapModal();
+          }
+
+          if (response.status === 201) {
+            response.json().then((data) => {
+              dispatch("ADD_VACCINS_TO_STORE", data);
+              setModel(vaccinModel);
+              closeBootstrapModal();
+            });
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+          closeBootstrapModal();
+        });
     }
     return;
   };
-  useEffect(() => {
-    setCloseModal(false);
-  }, [closeModal]);
+
   return (
     <div>
       <div
@@ -124,10 +137,7 @@ const CreateVaccineModal = () => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="إضافة لقاح جديد"
-              />
+              <ModalHeader title="إضافة لقاح جديد" />
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row m-0 p-2">

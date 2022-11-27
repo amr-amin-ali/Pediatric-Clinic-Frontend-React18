@@ -12,6 +12,7 @@ import ButtonWithPressEffect from "../../../components/buttons/button-withPressE
 import TextareaInput from "../../../components/inputs/textarea-input";
 import DashboardLoader from "../../../components/loader/dashboardLoader";
 import { serviceModel } from "../../../../models/clinic-service-model";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const EditServiceModal = ({ service }) => {
   const dispatch = useStore()[1];
@@ -32,7 +33,7 @@ const EditServiceModal = ({ service }) => {
       serviceToEdit.image = URL.createObjectURL(selectedImage);
       setImageUrl(URL.createObjectURL(selectedImage));
     }
-  }, [selectedImage, service,serviceToEdit]);
+  }, [selectedImage, service, serviceToEdit]);
 
   ///////End Image/////////////////////////////
 
@@ -80,44 +81,66 @@ const EditServiceModal = ({ service }) => {
       formData.append("id", serviceToEdit.id);
       formData.append("title", serviceToEdit.title);
       formData.append("text", serviceToEdit.text);
-      //const response =
-      const response = await httpPUTWithFile(
-        api.clinic_services.update_service,
-        formData
-      );
-      const responseStatusCode = (await response).status;
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        dispatch("LOGOUT");
-      } else {
-        const data = await response.json();
-        dispatch("UPDATE_SERVICE_IN_STORE", data);
-        setCloseModal(true);
-      }
 
-      setServiceToEdit({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
+      httpPUTWithFile(api.clinic_services.update_service, formData)
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => {
+              for (const key in result) {
+                if (result.hasOwnProperty(key)) {
+                  alert(result[key]);
+                }
+              }
+            });
+
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("UPDATE_SERVICE_IN_STORE", data);
+              setServiceToEdit({});
+              setErrors({});
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          } else {
+            alert("Some thing went wrong!");
+            setIsSubmitting(false);
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+        });
       return;
     }
     alert("errors exist");
     return;
   };
-  const [closeModal, setCloseModal] = useState(false);
+
   const resetFormClickHandler = (event) => {
     setServiceToEdit(serviceModel);
   };
   useEffect(() => {
-    setCloseModal(false);
     setServiceToEdit(service);
     if (service.image) {
       setImageUrl(api.base_url + service.image);
     }
-  }, [closeModal, service]);
+  }, [service]);
 
   return (
     <div>
@@ -139,11 +162,7 @@ const EditServiceModal = ({ service }) => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="تعديل بيانات الخدمة"
-              />
-
+              <ModalHeader title="تعديل بيانات الخدمة" />
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row justify-content-between m-0">
@@ -173,14 +192,14 @@ const EditServiceModal = ({ service }) => {
                     </div>
                   </div>
                   <div className="col-sm-12 col-lg-6">
-                  <ServiceItemPreview
-                    image={imageUrl}
-                    title={serviceToEdit.title}
-                    text={serviceToEdit.text}
-                  />
-                      <div className="my-3">
-                        <label htmlFor="updatedServiceImage">
-                          <ButtonWithPressEffect text={buttonText} />
+                    <ServiceItemPreview
+                      image={imageUrl}
+                      title={serviceToEdit.title}
+                      text={serviceToEdit.text}
+                    />
+                    <div className="my-3">
+                      <label htmlFor="updatedServiceImage">
+                        <ButtonWithPressEffect text={buttonText} />
                         <input
                           onChange={imgInputChangeHandler}
                           type="file"
@@ -188,8 +207,8 @@ const EditServiceModal = ({ service }) => {
                           id="updatedServiceImage"
                           hidden
                         />
-                        </label>
-                      </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
               )}

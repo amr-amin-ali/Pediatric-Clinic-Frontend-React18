@@ -12,6 +12,7 @@ import TextareaInput from "../../../components/inputs/textarea-input";
 import DashboardLoader from "../../../components/loader/dashboardLoader";
 import NewsItemPreview from "./news-item-preview";
 import { newsModel } from "../../../../models/news-model";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const EditNewsModal = ({ news }) => {
   const dispatch = useStore()[1];
@@ -82,55 +83,63 @@ const EditNewsModal = ({ news }) => {
       formData.append("id", newsToEdit.id);
       formData.append("title", newsToEdit.title);
       formData.append("text", newsToEdit.text);
-      //const response =
-      const response = await httpPUTWithFile(api.news.update_news, formData);
-      const responseStatusCode = (await response).status;
 
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        setIsSubmitting(false);
-        dispatch("LOGOUT");
-        return;
-      }
-      if (responseStatusCode === 400) {
-        const data = await response.json();
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            alert(data[key]);
+      httpPUTWithFile(api.news.update_news, formData)
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => {
+              for (const key in result) {
+                if (result.hasOwnProperty(key)) {
+                  alert(result[key]);
+                }
+              }
+            });
+
+            isSubmitting(false);
+            closeBootstrapModal();
           }
-        }
-        setIsSubmitting(false);
-        return;
-      }
-      if (responseStatusCode === 200) {
-        const data = await response.json();
-        dispatch("UPDATE_NEWS_IN_STORE", data);
-        setCloseModal(true);
-        setNewsToEdit({});
-        setErrors({});
-        //AFTER SUCCESS
-        setButtonText("إضافة صورة");
-        setImageUrl(null);
-        setSelectedImage(null);
-        setIsSubmitting(false);
-        return;
-      }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("UPDATE_NEWS_IN_STORE", data);
+              setNewsToEdit({});
+              setErrors({});
+              //AFTER SUCCESS
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          } else {
+            alert("Some thing went wrong!");
+            setIsSubmitting(false);
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+        });
     }
-    alert("errors exist");
-    setIsSubmitting(false);
-    return;
   };
-  const [closeModal, setCloseModal] = useState(false);
   const resetFormClickHandler = (event) => {
     setNewsToEdit(newsModel);
   };
   useEffect(() => {
-    setCloseModal(false);
     setNewsToEdit(news);
     if (news.image) {
       setImageUrl(api.base_url + news.image);
     }
-  }, [closeModal, news]);
+  }, [news]);
 
   return (
     <div>
@@ -152,10 +161,7 @@ const EditNewsModal = ({ news }) => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="تعديل بيانات الخبر"
-              />
+              <ModalHeader title="تعديل بيانات الخبر" />
 
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
@@ -184,7 +190,6 @@ const EditNewsModal = ({ news }) => {
                         <span style={{ color: "red" }}>{errors.text}</span>
                       )}
                     </div>
-           
                   </div>
                   <div className="col-sm-12 col-lg-6">
                     <NewsItemPreview
@@ -192,17 +197,17 @@ const EditNewsModal = ({ news }) => {
                       title={newsToEdit.title}
                       text={newsToEdit.text}
                     />
-                             <div className="mx-0 my-1">
+                    <div className="mx-0 my-1">
                       <div className="my-3">
                         <label htmlFor="updateNewsImage">
                           <ButtonWithPressEffect text={buttonText} />
-                        <input
-                          onChange={imgInputChangeHandler}
-                          type="file"
-                          name="clinicLogoUpdate"
-                          id="updateNewsImage"
-                          hidden
-                        />
+                          <input
+                            onChange={imgInputChangeHandler}
+                            type="file"
+                            name="clinicLogoUpdate"
+                            id="updateNewsImage"
+                            hidden
+                          />
                         </label>
                       </div>
                     </div>

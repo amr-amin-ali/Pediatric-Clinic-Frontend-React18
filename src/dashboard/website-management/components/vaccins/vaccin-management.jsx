@@ -13,20 +13,31 @@ import DashboardLoader from "../../../components/loader/dashboardLoader";
 const VaccinesManagemt = () => {
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
-  //////////////////////Edit////////////////////////////////////
+  const [isDeleting, setIsDeleting] = useState(false);
   const [vaccinToEdit, setVaccinToEdit] = useState({});
-  //////////////////////Edit////////////////////////////////////
 
   let vaccinesCounter = 0;
 
   const deleteVaccin = async (vaccinId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
-      const response = await httpDELETE(api.vaccins.delete_vaccin + vaccinId);
-      if (response.status === 400) {
-        alert("Error!!");
-        return;
-      }
-      dispatch("DELETE_VACCINS", vaccinId);
+      setIsDeleting(true);
+      httpDELETE(api.vaccins.delete_vaccin + vaccinId)
+        .then((response) => {
+          if (response.status === 204) {
+            dispatch("DELETE_VACCINS", vaccinId);
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          setIsDeleting(false);
+        })
+        .catch((c) => {
+          alert("Network error while deleting article!!");
+          setIsDeleting(false);
+        });
     }
   };
   useEffect(() => {
@@ -70,6 +81,7 @@ const VaccinesManagemt = () => {
       {!isLoading && state.vaccins_store.vaccins.length > 0 && (
         <Fragment>
           <h1 className="text-center text-white mt-3">التطعيمات</h1>
+          {isDeleting && <DashboardLoader text="جارى الحذف" />}
 
           <div className="table-responsive p-0 m-3">
             <table

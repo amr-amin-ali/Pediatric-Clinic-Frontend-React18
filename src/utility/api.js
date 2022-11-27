@@ -1,10 +1,13 @@
-// const BASE_URL = "https://localhost:7289/api/";
-const BASE_URL = "/api/";
+const BASE_URL = "https://localhost:7289/api/";
+// const BASE_URL = "/api/";
 export const api = {
   base_url: BASE_URL,
   account: {
     login:BASE_URL+"Accounts/Login",
-    create_account:BASE_URL+"Accounts/CreatePatientFile"
+    create_account:BASE_URL+"Accounts/CreatePatientFile",
+    get_all_accounts:BASE_URL+"Accounts/GetAllFiles",
+    update_account:BASE_URL+"Accounts/UpdateFile",
+    delete_account:BASE_URL+"Accounts/DeleteFile/"
   },
   slider_images: {
     upload_slider_image: BASE_URL + "WebSiteManagement/UploadSliderImage",

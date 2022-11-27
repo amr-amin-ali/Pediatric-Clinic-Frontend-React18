@@ -12,6 +12,7 @@ import TextareaInput from "../../../components/inputs/textarea-input";
 import ServiceItemPreview from "./service-item-preview";
 import ModalHeader from "../../../components/bootstrap-modal/modal-header";
 import SubmitButton from "../../../components/buttons/submit-button";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const AddServiceModal = () => {
   const dispatch = useStore()[1];
@@ -36,7 +37,7 @@ const AddServiceModal = () => {
       newService.image = URL.createObjectURL(selectedImage);
       setImageUrl(URL.createObjectURL(selectedImage));
     }
-  }, [selectedImage,newService]);
+  }, [selectedImage, newService]);
 
   ///////End Image/////////////////////////////
 
@@ -64,7 +65,6 @@ const AddServiceModal = () => {
   const resetFormClickHandler = (event) => {
     setNewService(serviceModel);
   };
-  const [closeModal, setCloseModal] = useState(false);
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
@@ -86,36 +86,41 @@ const AddServiceModal = () => {
       }
       formData.append("title", newService.title);
       formData.append("text", newService.text);
-      //const response =
-      const response = await httpPOSTWithFile(
-        api.clinic_services.add_new_service,
-        formData
-      );
-      const responseStatusCode = (await response).status;
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        dispatch("LOGOUT");
-      } else {
-        const data = await response.json();
-        dispatch("ADD_SERVICE_TO_STORE", data);
-        setCloseModal(true);
-      }
 
-      setNewService({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
-      return;
+      httpPOSTWithFile(api.clinic_services.add_new_service, formData)
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 201) {
+            response.json().then((data) => {
+              dispatch("ADD_SERVICE_TO_STORE", data);
+              setNewService({});
+              setErrors({});
+              //AFTER SUCCESS
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+          closeBootstrapModal();
+        });
     }
-    alert("errors exist");
     return;
   };
-  useEffect(() => {
-    setCloseModal(false);
-  }, [closeModal]);
 
   return (
     <div>
@@ -130,10 +135,7 @@ const AddServiceModal = () => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="إضافة خدمة جديدة"
-              />
+              <ModalHeader title="إضافة خدمة جديدة" />
 
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (

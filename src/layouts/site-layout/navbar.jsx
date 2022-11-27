@@ -97,7 +97,7 @@ const Navbar = () => {
                 عن الدكتورة
               </NavLink>
             </li>
-            {!state.login.isLoggedIn && (
+            {!state.accounts_store.login.isLoggedIn && (
               <li className="nav-item  border-1 home-nav-item-desktop ">
                 <NavLink
                   to="/Login"
@@ -108,7 +108,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-            {state.login.isLoggedIn && (
+            {state.accounts_store.login.isLoggedIn && (
               <li className="nav-item  border-1 home-nav-item-desktop ">
                 <div className="dropdown-center">
                   <button
@@ -119,7 +119,7 @@ const Navbar = () => {
                     خيارات
                   </button>
                   <ul className="dropdown-menu">
-                    {state.login.isLoggedIn && state.login.role === "Doctor" && (
+                    {state.accounts_store.login.isLoggedIn && state.accounts_store.login.role === "Doctor" && (
                       <li className="nav-item  border-1 home-nav-item-desktop">
                         <NavLink
                           to="/Dashboard"

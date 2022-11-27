@@ -13,15 +13,27 @@ import DashboardLoader from "../../../components/loader/dashboardLoader";
 const NewsManagement = () => {
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteNews = async (newsId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
-      const response = await httpDELETE(api.news.delete_news + newsId);
-      if (response.status === 400) {
-        alert("Network related error");
-        return;
-      }
-      dispatch("DELETE_NEWS", newsId);
+      setIsDeleting(true);
+      httpDELETE(api.news.delete_news + newsId).then((response) => {
+        if (response.status === 204) {
+          dispatch("DELETE_NEWS", newsId);
+        }
+        if (response.status === 404) {
+          response.json().then((result) => alert(Object.values(result)[0]));
+        }
+        if (response.status === 400) {
+          response.json().then((result) => alert(Object.values(result)[0]));
+        }
+        setIsDeleting(false);
+      })
+      .catch((c) => {
+        alert("Network error while deleting article!!");
+        setIsDeleting(false);
+      });
     }
   };
 
@@ -75,6 +87,7 @@ const NewsManagement = () => {
 
       <div className="row justify-content-between m-3">
       {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
+      {isDeleting&& <DashboardLoader text="جارى الحذف"/> }
 
         {!isLoading && state.newsStore.news.length > 0 && (
           <Fragment>

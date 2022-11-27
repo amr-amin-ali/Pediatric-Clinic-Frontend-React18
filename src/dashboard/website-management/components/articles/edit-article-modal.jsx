@@ -12,6 +12,7 @@ import TextareaInput from "../../../components/inputs/textarea-input";
 import DashboardLoader from "../../../components/loader/dashboardLoader";
 import { newsModel } from "../../../../models/news-model";
 import ArticleItemPreview from "./article-item-preview";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const EditArticleModal = ({ article }) => {
   const dispatch = useStore()[1];
@@ -61,7 +62,6 @@ const EditArticleModal = ({ article }) => {
     }
   };
 
-  const [closeModal, setCloseModal] = useState(false);
   const resetFormClickHandler = (event) => {
     setArticleToEdit(newsModel);
   };
@@ -87,39 +87,60 @@ const EditArticleModal = ({ article }) => {
       formData.append("title", articleToEdit.title);
       formData.append("text", articleToEdit.text);
       //const response =
-      const response = await httpPUTWithFile(
-        api.articles.update_article,
-        formData
-      );
-      const responseStatusCode = (await response).status;
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        dispatch("LOGOUT");
-      } else {
-        const data = await response.json();
-        dispatch("UPDATE_ARTICLE_IN_STORE", data);
-        setCloseModal(true);
-      }
+      httpPUTWithFile(api.articles.update_article, formData)
+        .then((response) => {
+          alert(response.status);
+          if (response.status === 400) {
+            response.json().then((result) => {
+              for (const key in result) {
+                if (result.hasOwnProperty(key)) {
+                  alert(result[key]);
+                }
+              }
+            });
 
-      setArticleToEdit({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
-      return;
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("UPDATE_ARTICLE_IN_STORE", data);
+              setArticleToEdit({});
+              setErrors({});
+              //AFTER SUCCESS
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          } else {
+            alert("Some thing went wrong!");
+            setIsSubmitting(false);
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+        });
     }
-    alert("errors exist");
-    return;
   };
   useEffect(() => {
-    setCloseModal(false);
     setArticleToEdit(article);
     if (article.image) {
       setImageUrl(api.base_url + article.image);
     }
-  }, [closeModal, article]);
+  }, [article]);
 
   return (
     <div>
@@ -141,10 +162,7 @@ const EditArticleModal = ({ article }) => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="تعديل بيانات الخدمة"
-              />
+              <ModalHeader title="تعديل بيانات الخدمة" />
 
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (

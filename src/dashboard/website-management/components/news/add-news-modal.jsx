@@ -12,6 +12,7 @@ import ModalHeader from "../../../components/bootstrap-modal/modal-header";
 import SubmitButton from "../../../components/buttons/submit-button";
 import { newsModel } from "../../../../models/news-model";
 import NewsItemPreview from "./news-item-preview";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const AddNewsModal = () => {
   const dispatch = useStore()[1];
@@ -35,7 +36,7 @@ const AddNewsModal = () => {
       newNews.image = URL.createObjectURL(selectedImage);
       setImageUrl(URL.createObjectURL(selectedImage));
     }
-  }, [selectedImage,newNews]);
+  }, [selectedImage, newNews]);
 
   ///////End Image/////////////////////////////
 
@@ -64,7 +65,6 @@ const AddNewsModal = () => {
     setNewNews(newsModel);
   };
 
-  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
     if (!newNews.title) {
@@ -85,33 +85,41 @@ const AddNewsModal = () => {
       }
       formData.append("title", newNews.title);
       formData.append("text", newNews.text);
-      //const response =
-      const response = await httpPOSTWithFile(api.news.add_new_news, formData);
-      const responseStatusCode = (await response).status;
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        dispatch("LOGOUT");
-      } else {
-        const data = await response.json();
-        dispatch("ADD_NEWS_TO_STORE", data);
-        setCloseModal(true);
-      }
 
-      setNewNews({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
-      return;
+      httpPOSTWithFile(api.news.add_new_news, formData)
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 201) {
+            response.json().then((data) => {
+              dispatch("ADD_NEWS_TO_STORE", data);
+              setNewNews({});
+              setErrors({});
+              //AFTER SUCCESS
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+          closeBootstrapModal();
+        });
     }
-    alert("errors exist");
     return;
   };
-  useEffect(() => {
-    setCloseModal(false);
-  }, [closeModal]);
 
   return (
     <div>
@@ -126,70 +134,58 @@ const AddNewsModal = () => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="نشر خبر جديد"
-              />
+              <ModalHeader title="نشر خبر جديد" />
 
-{isSubmitting && <DashboardLoader />}
-        {!isSubmitting && (
-          <div className="row justify-content-between m-0">
-            <div className="col-sm-12 col-md-6 text-warning">
-             
-               <div className="my-1">
-               <TextInput
-                  onChangeHandler={inputsChangeHandler}
-                  name="title"
-                  placeholder="عنوان الخبر"
-                  required={true}
-                  value={newNews.title ?? ""}
-                />
-                {errors.title && (
-                  <span style={{ color: "red" }}>{errors.title}</span>
-                )}
-               </div>
-             
-             
-             <div className="my-1">
+              {isSubmitting && <DashboardLoader />}
+              {!isSubmitting && (
+                <div className="row justify-content-between m-0">
+                  <div className="col-sm-12 col-md-6 text-warning">
+                    <div className="my-1">
+                      <TextInput
+                        onChangeHandler={inputsChangeHandler}
+                        name="title"
+                        placeholder="عنوان الخبر"
+                        required={true}
+                        value={newNews.title ?? ""}
+                      />
+                      {errors.title && (
+                        <span style={{ color: "red" }}>{errors.title}</span>
+                      )}
+                    </div>
 
-                <TextareaInput
-                  name="text"
-                  placeholder="نص الخبر"
-                  onChangeHandler={inputsChangeHandler}
-                  value={newNews.text ?? ""}
-                  />
-                {errors.text && (
-                  <span style={{ color: "red" }}>{errors.text}</span>
-                )}
-             
+                    <div className="my-1">
+                      <TextareaInput
+                        name="text"
+                        placeholder="نص الخبر"
+                        onChangeHandler={inputsChangeHandler}
+                        value={newNews.text ?? ""}
+                      />
+                      {errors.text && (
+                        <span style={{ color: "red" }}>{errors.text}</span>
+                      )}
+                    </div>
                   </div>
-             
-             
-             
-              
-              
-            </div>
-            <div className="col-sm-12 col-md-6">
-              <NewsItemPreview
-                image={imageUrl}
-                title={newNews.title}
-                text={newNews.text}
-              />
-                <div className="my-3">
-                  <label htmlFor="new-news-image">
-                    <ButtonWithPressEffect text={buttonText} />
-                  <input
-                    onChange={imgInputChangeHandler}
-                    type="file"
-                    name="clinicLogo"
-                    id="new-news-image"
-                    hidden
-                  />
-                  </label>
+                  <div className="col-sm-12 col-md-6">
+                    <NewsItemPreview
+                      image={imageUrl}
+                      title={newNews.title}
+                      text={newNews.text}
+                    />
+                    <div className="my-3">
+                      <label htmlFor="new-news-image">
+                        <ButtonWithPressEffect text={buttonText} />
+                        <input
+                          onChange={imgInputChangeHandler}
+                          type="file"
+                          name="clinicLogo"
+                          id="new-news-image"
+                          hidden
+                        />
+                      </label>
+                    </div>
+                  </div>
                 </div>
-            </div>
-          </div>
-        )}
+              )}
 
               <ModalFooter>
                 <SubmitButton

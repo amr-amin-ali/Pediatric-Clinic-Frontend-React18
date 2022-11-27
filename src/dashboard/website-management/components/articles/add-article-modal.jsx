@@ -12,6 +12,7 @@ import ModalHeader from "../../../components/bootstrap-modal/modal-header";
 import SubmitButton from "../../../components/buttons/submit-button";
 import { articleModel } from "../../../../models/article-model";
 import ArticleItemPreview from "./article-item-preview";
+import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const AddArticleModal = () => {
   const dispatch = useStore()[1];
@@ -35,7 +36,7 @@ const AddArticleModal = () => {
       newArticle.image = URL.createObjectURL(selectedImage);
       setImageUrl(URL.createObjectURL(selectedImage));
     }
-  }, [selectedImage,newArticle]);
+  }, [selectedImage, newArticle]);
 
   ///////End Image/////////////////////////////
 
@@ -65,7 +66,6 @@ const AddArticleModal = () => {
     setNewService(articleModel);
   };
 
-  const [closeModal, setCloseModal] = useState(false);
   const submitFormHandler = async (event) => {
     event.preventDefault();
     if (!newArticle.title) {
@@ -86,36 +86,41 @@ const AddArticleModal = () => {
       }
       formData.append("title", newArticle.title);
       formData.append("text", newArticle.text);
-      //const response =
-      const response = await httpPOSTWithFile(
-        api.articles.add_new_article,
-        formData
-      );
-      const responseStatusCode = (await response).status;
-      if (responseStatusCode === 401) {
-        alert("Please login first");
-        dispatch("LOGOUT");
-      } else {
-        const data = await response.json();
-        dispatch("ADD_ARTICLE_TO_STORE", data);
-        setCloseModal(true);
-      }
 
-      setNewService({});
-      setErrors({});
-      //AFTER SUCCESS
-      setButtonText("إضافة صورة");
-      setImageUrl(null);
-      setSelectedImage(null);
-      setIsSubmitting(false);
-      return;
+      httpPOSTWithFile(api.articles.add_new_article, formData)
+        .then((response) => {
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+            isSubmitting(false);
+            closeBootstrapModal();
+          }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+
+          if (response.status === 201) {
+            response.json().then((data) => {
+              dispatch("ADD_ARTICLE_TO_STORE", data);
+              setNewService({});
+              setErrors({});
+              //AFTER SUCCESS
+              setButtonText("إضافة صورة");
+              setImageUrl(null);
+              setSelectedImage(null);
+              setIsSubmitting(false);
+              closeBootstrapModal();
+            });
+          }
+        })
+        .catch((c) => {
+          alert("Network error while publishing article!!");
+          isSubmitting(false);
+          closeBootstrapModal();
+        });
     }
-    alert("errors exist");
     return;
   };
-  useEffect(() => {
-    setCloseModal(false);
-  }, [closeModal]);
 
   return (
     <div>
@@ -130,10 +135,7 @@ const AddArticleModal = () => {
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader
-                clickCloseButton={closeModal}
-                title="نشر مقالة جديدة"
-              />
+              <ModalHeader title="نشر مقالة جديدة" />
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row justify-content-between m-0">

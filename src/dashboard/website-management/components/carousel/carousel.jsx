@@ -27,7 +27,7 @@ const CarouselManagement = () => {
     const formData = new FormData();
     // Update the formData object
     formData.append("myFile", selectedImage, selectedImage.name);
-    //const response =
+
     await httpPOSTFile(api.slider_images.upload_slider_image, formData);
 
     httpGET(api.slider_images.get_all_slider_images).then((result) =>
