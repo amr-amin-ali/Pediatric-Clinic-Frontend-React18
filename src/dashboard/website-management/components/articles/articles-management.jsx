@@ -9,7 +9,6 @@ import AddArticleModal from "./add-article-modal";
 import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
 import EditArticleModal from "./edit-article-modal";
 import DashboardLoader from "../../../components/loader/dashboardLoader";
-import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const ArticlesManagement = () => {
   const [state, dispatch] = useStore();
@@ -19,31 +18,29 @@ const ArticlesManagement = () => {
   const deleteArticle = async (articleId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
       setIsDeleting(true);
-      httpDELETE(
-        api.articles.delete_article + articleId
-      ) .then((response) => {
-        if (response.status === 204) {
-          dispatch("DELETE_ARTICLE", articleId);
-        }
-        if (response.status === 404) {
-          response.json().then((result) => alert(Object.values(result)[0]));
-        }
-        if (response.status === 400) {
-          response.json().then((result) => alert(Object.values(result)[0]));
-        }
-        setIsDeleting(false);
-      })
-      .catch((c) => {
-        alert("Network error while deleting article!!");
-        setIsDeleting(false);
-      });
-
+      httpDELETE(api.articles.delete_article + articleId)
+        .then((response) => {
+          if (response.status === 204) {
+            dispatch("DELETE_ARTICLE", articleId);
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          setIsDeleting(false);
+        })
+        .catch((c) => {
+          alert("Network error while deleting article!!");
+          setIsDeleting(false);
+        });
     }
   };
 
   const [articleToEdit, setArticleToEdit] = useState({});
-  const editArticle = (service) => {
-    setArticleToEdit(service);
+  const editArticle = (article) => {
+    setArticleToEdit(article);
     openBootstrapModal("edit-article-modal");
   };
   useEffect(() => {
@@ -90,11 +87,10 @@ const ArticlesManagement = () => {
 
       <div className="row justify-content-between m-3">
         {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
-{isDeleting&& <DashboardLoader text="جارى الحذف"/> }
+        {isDeleting && <DashboardLoader text="جارى الحذف" />}
         {!isLoading && state.articles_store.articles.length > 0 && (
           <Fragment>
             <h1 className="text-center text-white mt-3">المقالات</h1>
-
 
             {state.articles_store.articles.map((article) => {
               if (article) {

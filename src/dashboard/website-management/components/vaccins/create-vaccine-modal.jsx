@@ -99,7 +99,7 @@ const CreateVaccineModal = () => {
         .then((response) => {
           if (response.status === 400) {
             response.json().then((result) => alert(Object.values(result)[0]));
-            isSubmitting(false);
+            setIsSubmitting(false);
           }
           if (response.status === 401) {
             alert("Please login first");
@@ -111,13 +111,14 @@ const CreateVaccineModal = () => {
             response.json().then((data) => {
               dispatch("ADD_VACCINS_TO_STORE", data);
               setModel(vaccinModel);
+              setIsSubmitting(false);
               closeBootstrapModal();
             });
           }
         })
         .catch((c) => {
           alert("Network error while publishing article!!");
-          isSubmitting(false);
+          setIsSubmitting(false);
           closeBootstrapModal();
         });
     }

@@ -36,7 +36,7 @@ const BackToTopButton = () => {
   };
   window.onscroll = function () {
     if (backToTopRef && backToTopRef.current !== null) {
-      document.body.scrollTop > 20 || document.documentElement.scrollTop > 20
+      document.body.scrollTop > 50 || document.documentElement.scrollTop > 50
         ? (backToTopRef.current.style.display = "block")
         : (backToTopRef.current.style.display = "none");
     }

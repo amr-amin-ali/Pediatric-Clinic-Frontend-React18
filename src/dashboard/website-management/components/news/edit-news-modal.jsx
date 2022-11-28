@@ -136,9 +136,6 @@ const EditNewsModal = ({ news }) => {
   };
   useEffect(() => {
     setNewsToEdit(news);
-    if (news.image) {
-      setImageUrl(api.base_url + news.image);
-    }
   }, [news]);
 
   return (
@@ -193,7 +190,10 @@ const EditNewsModal = ({ news }) => {
                   </div>
                   <div className="col-sm-12 col-lg-6">
                     <NewsItemPreview
-                      image={imageUrl}
+                      image={
+                        imageUrl ??
+                        (news.image && api.base_url + news.image)
+                      }
                       title={newsToEdit.title}
                       text={newsToEdit.text}
                     />

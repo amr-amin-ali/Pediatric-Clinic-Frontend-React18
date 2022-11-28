@@ -90,7 +90,7 @@ const AddNewsModal = () => {
         .then((response) => {
           if (response.status === 400) {
             response.json().then((result) => alert(Object.values(result)[0]));
-            isSubmitting(false);
+            setIsSubmitting(false);
             closeBootstrapModal();
           }
           if (response.status === 401) {
@@ -114,7 +114,7 @@ const AddNewsModal = () => {
         })
         .catch((c) => {
           alert("Network error while publishing article!!");
-          isSubmitting(false);
+          setIsSubmitting(false);
           closeBootstrapModal();
         });
     }

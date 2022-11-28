@@ -78,9 +78,13 @@ const VaccinesManagemt = () => {
         <div className="card-footer text-muted">لا تنسى أن تحظى بيوم سعيد</div>
       </div>
       {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
+      {!isLoading && state.vaccins_store.vaccins.length < 1 && (
+        <h1 className="text-center text-white mt-3">لم تقم بإضافة بيانات</h1>
+      )}
       {!isLoading && state.vaccins_store.vaccins.length > 0 && (
         <Fragment>
           <h1 className="text-center text-white mt-3">التطعيمات</h1>
+
           {isDeleting && <DashboardLoader text="جارى الحذف" />}
 
           <div className="table-responsive p-0 m-3">

@@ -137,9 +137,6 @@ const EditServiceModal = ({ service }) => {
   };
   useEffect(() => {
     setServiceToEdit(service);
-    if (service.image) {
-      setImageUrl(api.base_url + service.image);
-    }
   }, [service]);
 
   return (
@@ -193,7 +190,10 @@ const EditServiceModal = ({ service }) => {
                   </div>
                   <div className="col-sm-12 col-lg-6">
                     <ServiceItemPreview
-                      image={imageUrl}
+                      image={
+                        imageUrl ??
+                        (service.image && api.base_url + service.image)
+                      }
                       title={serviceToEdit.title}
                       text={serviceToEdit.text}
                     />

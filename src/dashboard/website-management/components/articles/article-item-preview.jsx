@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 const ArticleItemPreview = ({ title, text, image }) => {
+
   return (
     <Fragment>
       <div className="row m-0 bg-white rounded-3 overflow-hidden">

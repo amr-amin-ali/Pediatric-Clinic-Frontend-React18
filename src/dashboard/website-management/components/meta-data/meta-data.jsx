@@ -89,7 +89,7 @@ const MetaData = () => {
       .then((response) => {
         if (response.status === 400) {
           response.json().then((result) => alert(Object.values(result)[0]));
-          isSubmitting(false);
+          setIsSubmitting(false);
         }
         if (response.status === 401) {
           alert("Please login first");
@@ -109,7 +109,7 @@ const MetaData = () => {
       })
       .catch((c) => {
         alert("Network error while adding clinic meta data!!");
-        isSubmitting(false);
+        setIsSubmitting(false);
       });
     return;
   };
@@ -294,6 +294,12 @@ const MetaData = () => {
                           hidden
                         />
                       </label>
+                    </div>
+                    <div className="row m-0 justify-content-center my-5">
+                      <ButtonGlowOnHover
+                        buttonClickHandler={submitFormHandler}
+                        text="حفظ"
+                      />
                     </div>
                   </div>
                 </div>
@@ -484,16 +490,15 @@ const MetaData = () => {
                       />
                     </label>
                   </div>
+                  <div className="row m-0 justify-content-center my-5">
+                    <ButtonGlowOnHover
+                      buttonClickHandler={submitFormHandler}
+                      text="حفظ"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="row m-0 justify-content-center my-5">
-            <ButtonGlowOnHover
-              buttonClickHandler={submitFormHandler}
-              text="حفظ"
-            />
           </div>
         </form>
       )}

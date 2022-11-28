@@ -10,6 +10,7 @@ import DashboardLoader from "../../../components/loader/dashboardLoader";
 const CarouselManagement = () => {
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [showSaveImgBtn, setShowSaveImgBtn] = useState();
   const [buttonText, setButtonText] = useState("إضافة صورة");
@@ -20,22 +21,49 @@ const CarouselManagement = () => {
       setButtonText("تغيير الصورة");
       setShowSaveImgBtn(true);
       setSelectedImage(event.target.files[0]);
+      //reset file input value
+      const fileInputs = document.querySelector("#uploadSliderImage");
+      fileInputs.value = null;
     }
   };
   const saveImageButtonClickHandler = async () => {
     // Create an object of formData
     const formData = new FormData();
     // Update the formData object
-    formData.append("myFile", selectedImage, selectedImage.name);
+    formData.append("image", selectedImage, selectedImage.name);
+    setIsUploading(true);
+    await httpPOSTFile(api.slider_images.upload_slider_image, formData)
+      .then((response) => {
+        if (response.status === 400) {
+          response.json().then((result) => alert(Object.values(result)[0]));
+          setIsUploading(false);
+        }
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
 
-    await httpPOSTFile(api.slider_images.upload_slider_image, formData);
-
-    httpGET(api.slider_images.get_all_slider_images).then((result) =>
-      dispatch("INITIATE_SLIDER_IMAGES", result)
-    );
-    setShowSaveImgBtn(false);
-    setButtonText("إضافة صورة");
-    setImageUrl(null);
+        if (response.status === 201) {
+          response.json().then((data) => {
+            //AFTER SUCCESS
+            dispatch("ADD_SLIDER_IMAGE_TO_STORE", data);
+            setShowSaveImgBtn(false);
+            setButtonText("إضافة صورة");
+            setImageUrl(null);
+            setSelectedImage(null);
+            setIsUploading(false);
+          });
+        }
+      })
+      .catch((c) => {
+        alert("Network error while uploading image!!");
+        setIsUploading(false);
+      });
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
   };
   useEffect(() => {
     if (!state.sliderImages.isInitiated) {
@@ -50,9 +78,9 @@ const CarouselManagement = () => {
           setIsLoading(false);
         });
     }
-  }, []);
-  useEffect(() => {
-    if (selectedImage) setImageUrl(URL.createObjectURL(selectedImage));
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
   }, [selectedImage]);
 
   return (
@@ -75,10 +103,13 @@ const CarouselManagement = () => {
             </div>
             {showSaveImgBtn && (
               <div className="my-3">
-                <ButtonWithPressEffect
-                  text="حفظ الصورة"
-                  buttonClickHandler={saveImageButtonClickHandler}
-                />
+                {isUploading && <DashboardLoader text="جارى تحميل الصورة" />}
+                {!isUploading && (
+                  <ButtonWithPressEffect
+                    text="حفظ الصورة"
+                    buttonClickHandler={saveImageButtonClickHandler}
+                  />
+                )}
               </div>
             )}
           </div>

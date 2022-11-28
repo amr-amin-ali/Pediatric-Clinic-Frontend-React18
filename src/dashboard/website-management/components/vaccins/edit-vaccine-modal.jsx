@@ -119,6 +119,7 @@ const EditVaccineModal = ({ vaccin }) => {
             response.json().then((data) => {
               dispatch("UPDATE_VACCINS_IN_STORE", data);
               setModel(vaccinModel);
+              setIsSubmitting(false);
               closeBootstrapModal();
             });
           } else {

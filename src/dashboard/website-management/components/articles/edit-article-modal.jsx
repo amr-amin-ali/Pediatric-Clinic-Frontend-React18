@@ -15,6 +15,7 @@ import ArticleItemPreview from "./article-item-preview";
 import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const EditArticleModal = ({ article }) => {
+
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [articleToEdit, setArticleToEdit] = useState(article);
@@ -89,7 +90,6 @@ const EditArticleModal = ({ article }) => {
       //const response =
       httpPUTWithFile(api.articles.update_article, formData)
         .then((response) => {
-          alert(response.status);
           if (response.status === 400) {
             response.json().then((result) => {
               for (const key in result) {
@@ -117,7 +117,6 @@ const EditArticleModal = ({ article }) => {
               dispatch("UPDATE_ARTICLE_IN_STORE", data);
               setArticleToEdit({});
               setErrors({});
-              //AFTER SUCCESS
               setButtonText("إضافة صورة");
               setImageUrl(null);
               setSelectedImage(null);
@@ -137,9 +136,6 @@ const EditArticleModal = ({ article }) => {
   };
   useEffect(() => {
     setArticleToEdit(article);
-    if (article.image) {
-      setImageUrl(api.base_url + article.image);
-    }
   }, [article]);
 
   return (
@@ -194,7 +190,10 @@ const EditArticleModal = ({ article }) => {
                   </div>
                   <div className="col-sm-12 col-lg-6">
                     <ArticleItemPreview
-                      image={imageUrl}
+                      image={
+                        imageUrl ??
+                        (article.image && api.base_url + article.image)
+                      }
                       title={articleToEdit.title}
                       text={articleToEdit.text}
                     />
