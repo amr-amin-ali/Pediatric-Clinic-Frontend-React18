@@ -5,7 +5,7 @@ import SelectInput from "../components/inputs/select-input";
 import TextareaInput from "../components/inputs/textarea-input";
 import SubmitButton from "../components/buttons/submit-button";
 import Prescription from "./components/prescription";
-import ViewFileModal from "./components/view-file-modal";
+import ViewFileModal from "../files/components/view-file-modal";
 import styles from "./new-prescription.module.css";
 
 // import styles from "./all-file-prescriptions.module.css";
@@ -165,6 +165,7 @@ const NewPrescription = () => {
           <Prescription />
         </div>
       </div>
+
       <ViewFileModal fileData={{id:"xx" , firstName:"folan"}} modalId="viewFileDataForPrescriptionModal"/>
     </div>
   );

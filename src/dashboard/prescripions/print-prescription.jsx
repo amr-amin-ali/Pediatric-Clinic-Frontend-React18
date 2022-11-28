@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import PrescriptionFooter from "./components/prescription-footer";
 import PrescriptionHeader from "./components/prescription-header";
 import PrescriptionTreatmentRecord from "./components/prescription-treatment-record";
-// import styles from "./components/prescription.module.css";
 
 const PrintPrescription = ({ treatments }) => {
   let printWorked = 0;

@@ -295,6 +295,7 @@ const EditFileModal = ({ fileData, modalId }) => {
             dispatch("UPDATE_FILE_IN_STORE", data);
             setFile(file);
             setErrors({});
+            alert("تم تعديل الملف")
             setIsSubmitting(false);
             closeBootstrapModal();
           });

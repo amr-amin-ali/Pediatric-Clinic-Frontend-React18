@@ -17,8 +17,11 @@ import { governorates } from "../../../models/governorates-list";
 import { httpPOST } from "../../../http/httpPOST";
 import { api } from "../../../utility/api";
 import DashboardLoader from "../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
 
 const CreateFileModal = () => {
+  const dispatch = useStore()[1];
+
   const [file, setFile] = useState(userFile);
   const [errors, setErrors] = useState({});
   const [serverErrors, setServerErrors] = useState([]);
@@ -258,25 +261,62 @@ const CreateFileModal = () => {
       return;
     }
     setIsSubmitting(true);
-    const response = await httpPOST(api.account.create_account, file);
 
-    const data = await response.json();
-    if (response.status === 400) {
-      const backendErrors = [];
-      for (const property in data) {
-        if (property.includes("DuplicateUserName")) {
-          setErrors({ ...errors, email: "البريد الإلكترونى مستخدم بالفعل" });
-        } else {
-          backendErrors.push(`${property}: ${data[property]}`);
+    httpPOST(api.account.create_account, file)
+      .then((response) => {
+        alert("response.status:"+response.status)
+        if (response.status === 400) {
+          response.json().then((result) => {
+            const backendErrors = [];
+            for (const key in result) {
+              if (key.includes("DuplicateUserName")) {
+                setErrors({
+                  ...errors,
+                  email: "البريد الإلكترونى مستخدم بالفعل",
+                });
+              } else {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+            }
+            setServerErrors(backendErrors);
+            setIsSubmitting(false);
+          });
         }
-      }
-      setServerErrors(backendErrors);
-      setIsSubmitting(false);
-    } else {
-      console.log(data);
-      setIsSubmitting(false);
-      closeBootstrapModal();
-    }
+        if (response.status === 404) {
+          response.json().then((result) => alert(Object.values(result)[0]));
+          setIsSubmitting(false);
+        }
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+
+        if (response.status === 201) {
+          response.json().then((data) => {
+            dispatch("ADD_FILE_IN_STORE", data);
+            setFile(file);
+            setErrors({});
+            alert("تم إضافة الملف")
+            setIsSubmitting(false);
+            closeBootstrapModal();
+          });
+        } else {
+          alert("Some thing went wrong!");
+          setIsSubmitting(false);
+        }
+      })
+      .catch((c) => {
+        alert("Network error while publishing article!!");
+        setIsSubmitting(false);
+      });
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+  
   };
   return (
     <div>
@@ -296,7 +336,7 @@ const CreateFileModal = () => {
                 <span style={{ color: "red", backgroundColor: "black" }}>
                   {serverErrors &&
                     serverErrors.map((error) => {
-                      return error;
+                      return <p>{error}</p> ;
                     })}
                 </span>
               </div>

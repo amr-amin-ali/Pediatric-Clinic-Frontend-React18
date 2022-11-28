@@ -7,6 +7,11 @@ const configureAccountsStore = () => {
       globalState.accounts_store.isInitiated = true;
       return globalState;
     },
+    ADD_FILE_IN_STORE: (globalState, newFile) => {
+      globalState.accounts_store.files = [...globalState.accounts_store.files, newFile];
+      return globalState;
+    },
+
     UPDATE_FILE_IN_STORE: (globalState, newFile) => {
       var index = globalState.accounts_store.files.findIndex(
         (c) => c.id === newFile.id
