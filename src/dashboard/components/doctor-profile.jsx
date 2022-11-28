@@ -11,15 +11,15 @@ const DoctorProfile = () => {
         style={{ height: "489px", maxWidth: "325px"}}
       >
         <div className="image-container mt-5 position-relative text-center">
-          {state.metaDatas.doctorImage && (
+          {state.metaDatas_store.metaDatas.doctorImage && (
             <img
-              src={api.base_url + state.metaDatas.doctorImage}
+              src={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
               className="rounded-circle border border-3 border-grey-dark"
               style={{ width: "150px", height: "150px" }}
               alt=""
             />
           )}
-          {!state.metaDatas.doctorImage && (
+          {!state.metaDatas_store.metaDatas.doctorImage && (
             <div style={{ width: "120px", height: "120px", margin: "auto" }}>
               <DoctorSvg />
             </div>
@@ -27,15 +27,15 @@ const DoctorProfile = () => {
         </div>
         <div className="text-container text-center px-5">
           <h1 className="my-3 text-white font-family-hacen">
-            {state.metaDatas.doctorFirstName ?? ""}{" "}
-            {state.metaDatas.doctorMiddleName ?? ""}{" "}
-            {state.metaDatas.doctorLastName ?? ""}
+            {state.metaDatas_store.metaDatas.doctorFirstName ?? ""}{" "}
+            {state.metaDatas_store.metaDatas.doctorMiddleName ?? ""}{" "}
+            {state.metaDatas_store.metaDatas.doctorLastName ?? ""}
           </h1>
           <p
             className="m-auto text-grey-light"
             style={{ marginTop: "-3% !important" }}
           >
-            {state.metaDatas.doctorTitle ?? ""}
+            {state.metaDatas_store.metaDatas.doctorTitle ?? ""}
           </p>
         </div>
 

@@ -2,17 +2,31 @@ import React, { Fragment, useRef } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Outlet } from "react-router-dom";
+import { useStore } from "../../hooks-store/store";
 const SiteLayout = (props) => {
   return (
     <Fragment>
       <Navbar />
       <Outlet />
       <Footer />
+      <IsClinicOpenNow />
       <BackToTopButton />
     </Fragment>
   );
 };
 export default SiteLayout;
+const IsClinicOpenNow = () => {
+  const isOpen = useStore(false)[0].metaDatas_store.metaDatas.clinicIsOpen;
+  return (
+    <span
+      className={`position-fixed border border-1 border-white bottom-0 end-0 me-2 mb-5 badge text-bg-${
+        isOpen ? "success" : "danger"
+      }`}
+    >
+      {isOpen ? "مفتوح الآن" : "مغلق الآن"}
+    </span>
+  );
+};
 
 const BackToTopButton = () => {
   const backToTopRef = useRef();

@@ -20,22 +20,22 @@ const Navbar = () => {
           className="navbar-brand fw-bolder m-0 fs-6 text-danger navbar-tablet"
           style={{ fontFamily: "var(--hacen-font)" }}
         >
-          {state.metaDatas.clinicLogo && (
+          {state.metaDatas_store.metaDatas.clinicLogo && (
             <img
               className="me-2 navbar-img-tablet"
               style={{ maxWidth: "3.5rem" }}
-              src={api.base_url + state.metaDatas.clinicLogo}
+              src={api.base_url + state.metaDatas_store.metaDatas.clinicLogo}
               alt="clinic logo"
             />
           )}
 
-          {!state.metaDatas.clinicLogo && (
+          {!state.metaDatas_store.metaDatas.clinicLogo && (
             <span className="me-2">
               <BabySvg />
             </span>
           )}
 
-          {state.metaDatas.clinicName ?? "الدكتورة ريهام الشماخ"}
+          {state.metaDatas_store.metaDatas.clinicName ?? "إسم عيادتك"}
         </NavLink>
         <button
           ref={navbarTogglerRef}
@@ -119,17 +119,18 @@ const Navbar = () => {
                     خيارات
                   </button>
                   <ul className="dropdown-menu">
-                    {state.accounts_store.login.isLoggedIn && state.accounts_store.login.role === "Doctor" && (
-                      <li className="nav-item  border-1 home-nav-item-desktop">
-                        <NavLink
-                          to="/Dashboard"
-                          onClick={navlinlClickHandler}
-                          className="nav-link text-success fs-5 fw-bold"
-                        >
-                          الإدارة
-                        </NavLink>
-                      </li>
-                    )}
+                    {state.accounts_store.login.isLoggedIn &&
+                      state.accounts_store.login.role === "Doctor" && (
+                        <li className="nav-item  border-1 home-nav-item-desktop">
+                          <NavLink
+                            to="/Dashboard"
+                            onClick={navlinlClickHandler}
+                            className="nav-link text-success fs-5 fw-bold"
+                          >
+                            الإدارة
+                          </NavLink>
+                        </li>
+                      )}
                     <li>
                       <a
                         className="nav-link text-success fs-5 fw-bold"

@@ -17,14 +17,14 @@ const Navbar = () => {
     >
       <div className="container">
         <NavLink to="/Dashboard" className="navbar-brand-img">
-          {state.metaDatas.clinicLogo && (
+          {state.metaDatas_store.metaDatas.clinicLogo && (
             <img
               style={{ width: "40px" }}
-              src={api.base_url + state.metaDatas.clinicLogo}
+              src={api.base_url + state.metaDatas_store.metaDatas.clinicLogo}
               alt="clinic logo"
             />
           )}
-          {!state.metaDatas.clinicLogo && <BabySvg />}
+          {!state.metaDatas_store.metaDatas.clinicLogo && <BabySvg />}
         </NavLink>
         <button
           ref={navbarTogglerRef}

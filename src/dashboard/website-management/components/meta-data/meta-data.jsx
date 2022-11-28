@@ -8,28 +8,18 @@ import { api } from "../../../../utility/api";
 import { httpGET } from "../../../../http/httpGET";
 import { httpPOSTWithFile } from "../../../../http/httpPOSTWithFile";
 import DoctorSvg from "../../../components/icons/doctor-svg";
+import DashboardLoader from "../../../components/loader/dashboardLoader";
 const MetaData = () => {
   const [state, dispatch] = useStore();
   const [clinicSelectedImage, setClinicSelectedImage] = useState(null);
   const [doctorImageUrl, setDoctorImageUrl] = useState(null);
   const [clinicImageUrl, setClinicImageUrl] = useState(null);
   const [doctorSelectedImage, setDoctorSelectedImage] = useState(null);
-  const [metaDatasUpdate, setMetaDatasUpdate] = useState(state.metaDatas);
+  const [metaDatasUpdate, setMetaDatasUpdate] = useState(
+    state.metaDatas_store.metaDatas
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  //Initiale meta datas
-  //get all meta datas from the server
-  if (state.metaDatas.id === null) {
-    httpGET(api.metaDatas.get_meta_data).then((metaDatas) => {
-      if (Object.keys(metaDatas).length !== 0)
-        dispatch("ADD_META_DATA_TO_STORE", metaDatas);
-      setMetaDatasUpdate(metaDatas);
-    });
-  }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
   const submitFormHandler = async (event) => {
     event.preventDefault();
 
@@ -95,30 +85,50 @@ const MetaData = () => {
         "doctorProfessionalData",
         metaDatasUpdate.doctorProfessionalData
       );
-    console.log("formData::   ", formData);
-    const response = await httpPOSTWithFile(
-      api.metaDatas.add_meta_data,
-      formData
-    );
-    const responseStatusCode = (await response).status;
-    if (responseStatusCode === 401) {
-      alert("Please login first");
-      dispatch("LOGOUT");
-    } else {
-      const data = await response.json();
-      dispatch("ADD_META_DATA_TO_STORE", data);
-    }
+    httpPOSTWithFile(api.metaDatas.add_meta_data, formData)
+      .then((response) => {
+        if (response.status === 400) {
+          response.json().then((result) => alert(Object.values(result)[0]));
+          isSubmitting(false);
+        }
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
 
-    //AFTER SUCCESS
-    setDoctorImageUrl(null);
-    setClinicImageUrl(null);
-    setDoctorSelectedImage(null);
-    setClinicSelectedImage(null);
-    setIsSubmitting(false);
+        if (response.status === 200) {
+          response.json().then((data) => {
+            dispatch("ADD_META_DATA_TO_STORE", data);
+            // setDoctorImageUrl(null);
+            // setClinicImageUrl(null);
+            // setDoctorSelectedImage(null);
+            // setClinicSelectedImage(null);
+            setIsSubmitting(false);
+          });
+        }
+      })
+      .catch((c) => {
+        alert("Network error while adding clinic meta data!!");
+        isSubmitting(false);
+      });
     return;
   };
 
   useEffect(() => {
+    //Initiale meta datas
+    //get all meta datas from the server
+    if (!state.metaDatas_store.isInitiated) {
+      httpGET(api.metaDatas.get_meta_data).then((metaDatas) => {
+        if (Object.keys(metaDatas).length !== 0)
+          dispatch("ADD_META_DATA_TO_STORE", metaDatas);
+        setMetaDatasUpdate(metaDatas);
+        if (metaDatas.clinicLogo)
+          setClinicImageUrl(api.base_url + metaDatas.clinicLogo);
+        if (metaDatas.doctorImage)
+          setDoctorImageUrl(api.base_url + metaDatas.doctorImage);
+      });
+    }
+
     if (clinicSelectedImage)
       setClinicImageUrl(URL.createObjectURL(clinicSelectedImage));
     if (doctorSelectedImage)
@@ -127,7 +137,7 @@ const MetaData = () => {
 
   return (
     <Fragment>
-      {isSubmitting && <h1 className="text-center text-info">SAVING...</h1>}
+      {isSubmitting && <DashboardLoader text="جارى حفظ البيانات" />}
       {!isSubmitting && (
         <form onSubmit={(_) => _.preventDefault()}>
           <div className="card text-center mt-3 mx-3">
@@ -236,7 +246,7 @@ const MetaData = () => {
                         </g>
                       </svg>
                     )}
-                    {clinicImageUrl && clinicSelectedImage && (
+                    {clinicImageUrl && (
                       <img
                         className="p-1"
                         src={clinicImageUrl}
@@ -253,7 +263,9 @@ const MetaData = () => {
                             metaDatasUpdate.clinicIsOpen ? "success" : "danger"
                           } fw-bold`}
                         >
-                          مفتوح الآن
+                          {metaDatasUpdate.clinicIsOpen
+                            ? " مفتوح الآن"
+                            : "مغلق الآن"}
                         </p>
                         <SwitchInput
                           clickAction={() =>
@@ -273,9 +285,9 @@ const MetaData = () => {
                       >
                         تغيير اللوجو
                         <input
-                          onChange={(e) =>
-                            setClinicSelectedImage(e.target.files[0])
-                          }
+                          onChange={(e) => {
+                            setClinicSelectedImage(e.target.files[0]);
+                          }}
                           type="file"
                           name="clinicLogo"
                           id="clinicLogoFileInput"
@@ -448,7 +460,7 @@ const MetaData = () => {
                   </div>
                   <div className="col-md-4 col-sm-12 p-0 mb-3">
                     {!doctorImageUrl && !doctorSelectedImage && <DoctorSvg />}
-                    {doctorImageUrl && doctorSelectedImage && (
+                    {doctorImageUrl && (
                       <img
                         className="p-1"
                         src={doctorImageUrl}

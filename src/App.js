@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route, } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 import { useStore } from "./hooks-store/store";
 import { api } from "./utility/api";
 import { httpGET } from "./http/httpGET";
@@ -54,17 +59,17 @@ import Bookings from "./dashboard/bookings/bookings";
 // );
 
 function App() {
-  const [state,dispatch] = useStore(true);
-  if (state.metaDatas.id === null) {
+  const [state, dispatch] = useStore(true);
+  if (!state.metaDatas_store.isInitiated) {
     httpGET(api.metaDatas.get_meta_data).then((metaDatas) => {
       if (Object.keys(metaDatas).length !== 0)
         dispatch("ADD_META_DATA_TO_STORE", metaDatas);
-        
     });
   }
 
   const displayDashboard =
-    state.accounts_store.login.isLoggedIn && state.accounts_store.login.role === "Doctor";
+    state.accounts_store.login.isLoggedIn &&
+    state.accounts_store.login.role === "Doctor";
   return (
     <RouterProvider
       router={createBrowserRouter(
@@ -80,16 +85,28 @@ function App() {
             </Route>
             <Route path="/About-Doctor" element={<AboutDoctor />} />
             <Route path="/Login" element={<Login />} />
-{displayDashboard && (
+            {displayDashboard && (
               <Route path="/Dashboard/*" element={<DashboardLayout />}>
                 <Route path="*" element={<Dashboard />} />
-                <Route path="Prescriptions/:fileId" element={<ViewAllFilePrescriptions />}/>
-                <Route path="New-Prescription/:fileId" element={<NewPrescription />}/>
+                <Route
+                  path="Prescriptions/:fileId"
+                  element={<ViewAllFilePrescriptions />}
+                />
+                <Route
+                  path="New-Prescription/:fileId"
+                  element={<NewPrescription />}
+                />
                 <Route path="Bookings" element={<Bookings />} />
-                <Route path="Website-Management/*" element={<WebsiteManagement />}/>
+                <Route
+                  path="Website-Management/*"
+                  element={<WebsiteManagement />}
+                />
               </Route>
             )}
-            <Route path="/Dashboard/Print-Prescription" element={<PrintPrescription />}/>
+            <Route
+              path="/Dashboard/Print-Prescription"
+              element={<PrintPrescription />}
+            />
           </Route>
         )
       )}

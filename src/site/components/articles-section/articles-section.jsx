@@ -18,6 +18,8 @@ const ArticlesSection = () => {
           setLatestTwoArticles(result);
         })
         .catch((c) => {
+          console.log(c)
+
           alert("Network error while fetching articles !!");
           setIsLoading(false);
         });

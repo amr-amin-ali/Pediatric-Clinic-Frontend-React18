@@ -44,21 +44,21 @@ const AboutDoctor = () => {
               </svg>
             </Link>
           </div>
-          {state.metaDatas.doctorImage && (
+          {state.metaDatas_store.metaDatas.doctorImage && (
             <div className="doctor-profile-picture">
               <img
-                src={api.base_url + state.metaDatas.doctorImage}
-                alt={api.base_url + state.metaDatas.doctorImage}
+                src={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
+                alt={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
               />
             </div>
           )}
         </div>
 
         <div className="doctor-profile-title">
-          <h3>{`${state.metaDatas.doctorFirstName ?? ""} ${
-            state.metaDatas.doctorMiddleName ?? ""
-          } ${state.metaDatas.doctorLastName ?? ""}`}</h3>
-          <p>{state.metaDatas.doctorTitle ?? ""}</p>
+          <h3>{`${state.metaDatas_store.metaDatas.doctorFirstName ?? ""} ${
+            state.metaDatas_store.metaDatas.doctorMiddleName ?? ""
+          } ${state.metaDatas_store.metaDatas.doctorLastName ?? ""}`}</h3>
+          <p>{state.metaDatas_store.metaDatas.doctorTitle ?? ""}</p>
         </div>
 
         <div className="doctor-profile-pane">
@@ -86,47 +86,47 @@ const AboutDoctor = () => {
             {firstTabTextColor && (
               <div className="first-content">
                 <ul>
-                  {state.metaDatas.doctorPhone1 && (
+                  {state.metaDatas_store.metaDatas.doctorPhone1 && (
                     <li>
                       <h4>هاتف:</h4>
                     </li>
                   )}
-                  {!state.metaDatas.doctorPhone1 &&
-                    state.metaDatas.doctorPhone2 && (
+                  {!state.metaDatas_store.metaDatas.doctorPhone1 &&
+                    state.metaDatas_store.metaDatas.doctorPhone2 && (
                       <li>
                         <h4>هاتف:</h4>
                       </li>
                     )}
-                  {state.metaDatas.doctorPhone1 && (
-                    <li className="m-0 ps-5">{state.metaDatas.doctorPhone1}</li>
+                  {state.metaDatas_store.metaDatas.doctorPhone1 && (
+                    <li className="m-0 ps-5">{state.metaDatas_store.metaDatas.doctorPhone1}</li>
                   )}
-                  {state.metaDatas.doctorPhone2 && (
-                    <li className="m-0 ps-5">{state.metaDatas.doctorPhone2}</li>
+                  {state.metaDatas_store.metaDatas.doctorPhone2 && (
+                    <li className="m-0 ps-5">{state.metaDatas_store.metaDatas.doctorPhone2}</li>
                   )}
 
-                  {state.metaDatas.doctorWhatsapp && (
-                    <li>Whatsapp: {state.metaDatas.doctorWhatsapp}</li>
+                  {state.metaDatas_store.metaDatas.doctorWhatsapp && (
+                    <li>Whatsapp: {state.metaDatas_store.metaDatas.doctorWhatsapp}</li>
                   )}
-                  {state.metaDatas.doctorTelegram && (
-                    <li>Telegram: {state.metaDatas.doctorTelegram}</li>
+                  {state.metaDatas_store.metaDatas.doctorTelegram && (
+                    <li>Telegram: {state.metaDatas_store.metaDatas.doctorTelegram}</li>
                   )}
-                  {state.metaDatas.doctorFacebook && (
-                    <li>Facebook: {state.metaDatas.doctorFacebook}</li>
+                  {state.metaDatas_store.metaDatas.doctorFacebook && (
+                    <li>Facebook: {state.metaDatas_store.metaDatas.doctorFacebook}</li>
                   )}
-                  {state.metaDatas.doctorEmail && (
-                    <li>Facebook: {state.metaDatas.doctorEmail}</li>
+                  {state.metaDatas_store.metaDatas.doctorEmail && (
+                    <li>Facebook: {state.metaDatas_store.metaDatas.doctorEmail}</li>
                   )}
                 </ul>
               </div>
             )}
             {secondTabTextColor && (
               <p className="second-content">
-                {state.metaDatas.doctorScientificData}
+                {state.metaDatas_store.metaDatas.doctorScientificData}
               </p>
             )}
             {thirdTabTextColor && (
               <p className="third-content">
-                {state.metaDatas.doctorProfessionalData}
+                {state.metaDatas_store.metaDatas.doctorProfessionalData}
               </p>
             )}
           </div>
