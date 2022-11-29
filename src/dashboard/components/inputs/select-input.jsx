@@ -5,19 +5,24 @@ const SelectInput = ({
   items,
   name,
   id = null,
+  selectedValue = null,
 }) => {
   return (
     <div className="form-floating">
       <select
         name={name}
         onChange={onChangeHandler}
+        value={selectedValue}
         className={`form-select ${styles.selectInputStyle}`}
         id={id || name}
         aria-label="Floating label select example"
       >
         {items &&
           items.map((item) => (
-            <option key={`${item.value}${item.text}`} value={item.value}>
+            <option
+              key={`${item.value}${item.text}`}
+              value={item.value}
+            >
               {item.text}
             </option>
           ))}

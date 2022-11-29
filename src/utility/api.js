@@ -2,10 +2,15 @@ const BASE_URL = "https://localhost:7289/api/";
 // const BASE_URL = "/api/";
 export const api = {
   base_url: BASE_URL,
+  visits: {
+    create_visit:BASE_URL+"Visits/AddVisit",
+    update_visit:BASE_URL+"Visits/UpdateVisit"
+  },
   account: {
     login:BASE_URL+"Accounts/Login",
     create_account:BASE_URL+"Accounts/CreatePatientFile",
     get_all_accounts:BASE_URL+"Accounts/GetAllFiles",
+    get_account_data:BASE_URL+"Accounts/GetFile/",
     update_account:BASE_URL+"Accounts/UpdateFile",
     delete_account:BASE_URL+"Accounts/DeleteFile/"
   },

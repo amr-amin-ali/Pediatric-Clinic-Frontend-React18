@@ -6,7 +6,7 @@ const SearchMedicinesModal = () => {
   return (
     <div>
       <div className="modal fade" id="searchForPatientFileModal" tabIndex="-1" aria-labelledby="searchForPatientFileModalLabel" aria-hidden="true">
-        <div className="modal-dialog  modal-dialog-centered">
+        <div className="modal-dialog">
           <div className="modal-content bg-blue-light">
             <form>
             <ModalHeader title="بحث عن دواء"/>

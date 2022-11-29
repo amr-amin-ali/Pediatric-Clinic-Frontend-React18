@@ -11,6 +11,7 @@ import configureNewsStore from "./hooks-store/news-store";
 import configureVaccinsStore from "./hooks-store/vaccins-store";
 import configureBookingsStore from "./hooks-store/bookings-store";
 import configureMetaDataStore from "./hooks-store/meta-data-store";
+import configureVisitsStore from "./hooks-store/visits-store";
 configureAccountsStore();
 configureSliderImagessStore();
 configureClinicServicesStore();
@@ -19,6 +20,7 @@ configureNewsStore();
 configureVaccinsStore();
 configureBookingsStore();
 configureMetaDataStore();
+configureVisitsStore();
 //
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

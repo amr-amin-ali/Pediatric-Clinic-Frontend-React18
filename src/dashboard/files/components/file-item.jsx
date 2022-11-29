@@ -23,6 +23,12 @@ const FileItem = ({ fileData }) => {
 
         {/* Actions */}
         <div className="col-6 d-flex flex-wrap justify-content-evenly">
+          <Link
+            className="fs-6 fw-bold text-decoration-none text-primary d-inline-block"
+            to={`/Dashboard/New-Prescription/${fileData.id}`}
+          >
+            روشتة جديدة
+          </Link>
           <span
             className="fs-6 fw-bold text-decoration-none text-info d-inline-block cursor-pointer"
             data-bs-toggle="modal"
@@ -45,12 +51,6 @@ const FileItem = ({ fileData }) => {
           >
             جميع الروشتات
           </Link>
-          <Link
-            className="fs-6 fw-bold text-decoration-none text-primary d-inline-block"
-            to={`/Dashboard/New-Prescription/${fileData.id}`}
-          >
-            روشتة جديدة
-          </Link>
           <span
             className="fs-6 fw-bold text-decoration-none text-danger d-inline-block cursor-pointer"
             data-bs-toggle="modal"
@@ -60,9 +60,9 @@ const FileItem = ({ fileData }) => {
           </span>
         </div>
       </div>
-        <EditFileModal fileData={fileData} modalId={editModalId} />
-        <ViewFileModal fileData={fileData} modalId={viewModalId} />
-        <DeleteFileModal fileData={fileData} modalId={deleteModalId} />
+      <EditFileModal fileData={fileData} modalId={editModalId} />
+      <ViewFileModal fileData={fileData} modalId={viewModalId} />
+      <DeleteFileModal fileData={fileData} modalId={deleteModalId} />
     </Fragment>
   );
 };

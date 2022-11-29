@@ -21,6 +21,7 @@ export const getAge = (userinput) => {
   var daysOfAge = todayDay - dayOfBirth;
   var monthsOfAge = todayMonth - monthOfBirth;
   var yearsOfAge = todayYear - yearOfBirth;
+
   return {
     age: `${daysOfAge} أيام و ${monthsOfAge} شهور و  ${yearsOfAge} أعوام`,
     birthDate: `${dayOfBirth} - ${monthOfBirth} - ${yearOfBirth}`,

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PrescriptionFooter from "./components/prescription-footer";
-import PrescriptionHeader from "./components/prescription-header";
-import PrescriptionTreatmentRecord from "./components/prescription-treatment-record";
+import PrescriptionFooter from "./prescription-paper/prescription-footer";
+import PrescriptionHeader from "./prescription-paper/prescription-header";
+import PrescriptionTreatmentRecord from "./prescription-paper/prescription-treatment-record";
 
 const PrintPrescription = ({ treatments }) => {
   let printWorked = 0;

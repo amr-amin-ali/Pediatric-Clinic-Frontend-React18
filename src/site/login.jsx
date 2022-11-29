@@ -131,20 +131,20 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (state.login.isLoggedIn && state.login.role === "Doctor") {
+    if (state.accounts_store.login.isLoggedIn && state.accounts_store.login.role === "Doctor") {
       navigate("/Dashboard");
     }
     if (
-      state.login.isLoggedIn &&
-      (state.login.role === "Secretary" || state.login.role === "Patient")
+      state.accounts_store.login.isLoggedIn &&
+      (state.accounts_store.login.role === "Secretary" || state.accounts_store.login.role === "Patient")
     ) {
       navigate("/");
     }
-  }, [navigate, state.login.isLoggedIn, state.login.role]);
+  }, [navigate, state.accounts_store.login.isLoggedIn, state.accounts_store.login.role]);
   return (
     <Fragment>
       {isLoading && <LoadindSpiner text="Loading..." />}
-      {!state.login.isLoggedIn && !isLoading && (
+      {!state.accounts_store.login.isLoggedIn && !isLoading && (
         <div className={styles.box}>
           <div className="back-to-home">
             <Link to="/">

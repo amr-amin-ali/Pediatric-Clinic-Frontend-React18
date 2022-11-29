@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { getAge } from "../../../utility/age-calculator";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
@@ -8,9 +7,6 @@ import MaleSvg from "../../components/icons/male-svg";
 import FemaleSvg from "../../components/icons/female-svg";
 const ViewFileModal = ({ fileData, modalId }) => {
   let date = getAge(fileData.birthDate);
-  useEffect(() => {
-    // date=getAge((fileData.birthDate));
-  }, []);
   return (
     <div>
       <div

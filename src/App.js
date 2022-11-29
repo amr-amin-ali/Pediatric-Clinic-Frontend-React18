@@ -18,8 +18,8 @@ import AboutDoctor from "./site/about-doctor";
 import ViewArticle from "./site/view-article";
 import Login from "./site/login";
 import React from "react";
-import ViewAllFilePrescriptions from "./dashboard/prescripions/all-file-prescriptions";
-import NewPrescription from "./dashboard/prescripions/new-prescription";
+import ViewAllPrescriptions from "./dashboard/prescripions/all-prescriptions";
+import NewPrescription from "./dashboard/prescripions/new-prescription/new-prescription";
 import PrintPrescription from "./dashboard/prescripions/print-prescription";
 import WebsiteManagement from "./dashboard/website-management/website-management";
 import Bookings from "./dashboard/bookings/bookings";
@@ -39,8 +39,8 @@ import Bookings from "./dashboard/bookings/bookings";
 //       <Route path="/Login" element={<Login />} />
 //       <Route path="/Dashboard/*" element={<DashboardLayout />}>
 //         <Route path="*" element={<Dashboard />} />
-//         <Route path="Prescriptions/:fileId" element={<ViewAllFilePrescriptions />}/>
-//         <Route path="New-Prescription/:fileId" element={<NewPrescription />} />
+//         <Route path="Prescriptions/:applicationUserId" element={<ViewAllPrescriptions />}/>
+//         <Route path="New-Prescription/:applicationUserId" element={<NewPrescription />} />
 //         <Route path="Website-Management" element={<WebsiteManagement />}>
 //           <Route path="Name-and-Logo" element={<NameAndLogoMgmt />} />
 //           <Route path="Slideshow" element={<Slideshow />} />
@@ -86,15 +86,17 @@ function App() {
             <Route path="/About-Doctor" element={<AboutDoctor />} />
             <Route path="/Login" element={<Login />} />
             {displayDashboard && (
+              <Route
+                path="/Dashboard/New-Prescription/:applicationUserId"
+                element={<NewPrescription />}
+              />
+            )}
+            {displayDashboard && (
               <Route path="/Dashboard/*" element={<DashboardLayout />}>
                 <Route path="*" element={<Dashboard />} />
                 <Route
-                  path="Prescriptions/:fileId"
-                  element={<ViewAllFilePrescriptions />}
-                />
-                <Route
-                  path="New-Prescription/:fileId"
-                  element={<NewPrescription />}
+                  path="Prescriptions/:applicationUserId"
+                  element={<ViewAllPrescriptions />}
                 />
                 <Route path="Bookings" element={<Bookings />} />
                 <Route

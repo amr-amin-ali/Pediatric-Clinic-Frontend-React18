@@ -1,6 +1,5 @@
 // Example POST method implementation:
 export const httpPUT = async (url = "", data = {}) => {
-  console.log('FILE: httpPUT ',data)
   // Default options are marked with *
   const response = await fetch(url, {
     method: "PUT", // *GET, POST, PUT, DELETE, etc.

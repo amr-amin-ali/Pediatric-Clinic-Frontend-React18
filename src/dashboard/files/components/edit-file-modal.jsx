@@ -295,7 +295,7 @@ const EditFileModal = ({ fileData, modalId }) => {
             dispatch("UPDATE_FILE_IN_STORE", data);
             setFile(file);
             setErrors({});
-            alert("تم تعديل الملف")
+            alert("تم تعديل الملف");
             setIsSubmitting(false);
             closeBootstrapModal();
           });
@@ -398,6 +398,7 @@ const EditFileModal = ({ fileData, modalId }) => {
 
                   <div className="col-sm-12 col-lg-3 my-1 px-1">
                     <SelectInput
+                      selectedValue={file.governorate ?? ""}
                       onChangeHandler={addressChangeHandler}
                       items={governorates}
                       name="governorate"
