@@ -11,14 +11,15 @@ import { httpPOST } from "../../../http/httpPOST";
 import { useStore } from "../../../hooks-store/store";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
 import DashboardLoader from "../../components/loader/dashboardLoader";
+import { httpPUT } from "../../../http/httpPUT";
 
-const CreateMedicineModal = () => {
+const EditMedicineModal = ({ medicineData, modalId }) => {
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormClickHandler = (event) => {
     setModel(medicineModel);
   };
-  const [model, setModel] = useState(medicineModel);
+  const [model, setModel] = useState(medicineData);
   const [nameError, setNameError] = useState(null);
   const inputChangeHandler = (event) => {
     const name = event.target.name;
@@ -26,7 +27,7 @@ const CreateMedicineModal = () => {
     //name is required
     if (name === "name" && value.trim() === "") {
       setNameError("يجب كتبة إسم الدواء");
-      return;
+      // return;
     }
     const oldModel = model;
     oldModel[name] = value;
@@ -41,7 +42,8 @@ const CreateMedicineModal = () => {
     }
     //////////////////////////////////////////////////////
     setIsSubmitting(true);
-    httpPOST(api.medicines.create_medicine, {
+    httpPUT(api.medicines.update_medicine, {
+      id:model.id,
       name: model.name,
       dose: model.dose,
       ageOfUse: model.ageOfUse,
@@ -53,7 +55,7 @@ const CreateMedicineModal = () => {
       precautions: model.precautions,
     })
       .then((response) => {
-        if (response.status === 400) {
+        if (response.status === 400||response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
           setIsSubmitting(false);
         }
@@ -63,9 +65,9 @@ const CreateMedicineModal = () => {
           closeBootstrapModal();
         }
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           response.json().then((data) => {
-            dispatch("ADD_MEDICINES_TO_STORE", data);
+            dispatch("UPDATE_MEDICINES_IN_STORE", data);
             setModel(medicineModel);
             setIsSubmitting(false);
             closeBootstrapModal();
@@ -83,49 +85,55 @@ const CreateMedicineModal = () => {
       <div
         className="modal fade bg-blue-dark"
         data-bs-backdrop="static"
-        id="createNewFileModal"
+        id={modalId}
         tabIndex="-1"
         aria-labelledby="createNewFileModalLabel"
         aria-hidden="true"
       >
         {isSubmitting && <DashboardLoader text="جارى حفظ الدواء" />}
+
         <div className="modal-dialog modal-xl">
           <div className="modal-content bg-blue-light">
             <form>
-              <ModalHeader title="تسجيل دواء جديد" />
+              <ModalHeader title={`تعديل بيانات ${medicineData.name}`} />
               {!isSubmitting && (
                 <div className="row m-0 p-2">
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.name}
                       name="name"
                       placeholder="إسم الدواء"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.dose}
                       name="dose"
                       placeholder="الجرعة"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.ageOfUse}
                       name="ageOfUse"
                       placeholder="عمر الإستخدام"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.drugSensitivity}
                       name="drugSensitivity"
                       placeholder="الحساسية"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.precautions}
                       name="precautions"
                       placeholder="تحذيرات الإستعمال"
                     />
@@ -133,27 +141,31 @@ const CreateMedicineModal = () => {
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.sideEffect}
                       name="sideEffect"
                       placeholder="الآثار الجانبية"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.drugInteraction}
                       name="drugInteraction"
                       placeholder="التفاعلات الدوائية"
-                    />
+                      />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.activeIngreients}
                       name="activeIngreients"
                       placeholder="المواد الفعالة"
-                    />
+                      />
                   </div>
                   <div className="col-12 my-1">
                     <TextareaInput
                       onChangeHandler={inputChangeHandler}
+                      value={model.instructionToUse}
                       name="instructionToUse"
                       placeholder="تعليمات الإستعمال"
                     />
@@ -171,4 +183,4 @@ const CreateMedicineModal = () => {
     </div>
   );
 };
-export default CreateMedicineModal;
+export default EditMedicineModal;

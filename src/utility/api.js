@@ -6,6 +6,12 @@ export const api = {
     create_visit:BASE_URL+"Visits/AddVisit",
     update_visit:BASE_URL+"Visits/UpdateVisit"
   },
+  medicines: {
+    create_medicine:BASE_URL+"Medicines/AddMedicine",
+    get_all_medicines:BASE_URL+"Medicines/GetAllMedicines",
+    update_medicine:BASE_URL+"Medicines/UpdateMedicine",
+    delete_medicine:BASE_URL+"Medicines/DeleteMedicine/",
+  },
   account: {
     login:BASE_URL+"Accounts/Login",
     create_account:BASE_URL+"Accounts/CreatePatientFile",

@@ -8,7 +8,10 @@ const configureMedicinsStore = () => {
       return globalState;
     },
     ADD_MEDICINES_TO_STORE: (globalState, newVaccin) => {
-      globalState.medicines_store.medicines = [...globalState.medicines_store.medicines, newVaccin];
+      globalState.medicines_store.medicines = [
+        ...globalState.medicines_store.medicines,
+        newVaccin,
+      ];
       return globalState;
     },
     UPDATE_MEDICINES_IN_STORE: (globalState, modifiedVaccin) => {
@@ -24,9 +27,10 @@ const configureMedicinsStore = () => {
       return globalState;
     },
     DELETE_MEDICINES: (globalState, medicinesId) => {
-      globalState.medicines_store.medicines = globalState.medicines_store.medicines.filter(
-        (c) => c.id !== medicinesId
-      );
+      globalState.medicines_store.medicines =
+        globalState.medicines_store.medicines.filter(
+          (c) => c.id !== medicinesId
+        );
       return globalState;
     },
   };

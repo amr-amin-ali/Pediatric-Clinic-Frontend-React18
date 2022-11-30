@@ -13,12 +13,10 @@ import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
 
 const CreateVaccineModal = () => {
   const dispatch = useStore()[1];
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormClickHandler = (event) => {
     setModel(vaccinModel);
   };
-  /////////////////////////////////////////////////////////////////////
   const [model, setModel] = useState(vaccinModel);
   const [errors, setErrors] = useState({});
 

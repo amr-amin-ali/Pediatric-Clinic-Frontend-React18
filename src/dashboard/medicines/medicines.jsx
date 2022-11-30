@@ -20,7 +20,7 @@ const Medicines = () => {
             <hr />
             <div className="row mt-5 mb-5">
               <div className="col-4">
-                <LinkButton to="/" title="عرض كل الأدوية المسجلة" color="red" />
+                <LinkButton to="/Dashboard/Medicines/View-All" title="عرض كل الأدوية المسجلة" color="red" />
               </div>
               <div className="col-4">
                 <ShowModalButton

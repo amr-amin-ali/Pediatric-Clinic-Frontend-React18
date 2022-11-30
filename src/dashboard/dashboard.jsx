@@ -14,6 +14,7 @@ import ViewAllPrescriptions from "./prescripions/all-prescriptions";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
+import ViewAllMedicines from "./medicines/view-all";
 const Dashboard = () => {
   document.title = "الإدارة";
   const [state, dispatch] = useStore();
@@ -40,6 +41,7 @@ useEffect(() => {
             element={<ViewAllPrescriptions />}
           />
         </Route>
+        <Route path="Medicines/View-All" element={<ViewAllMedicines />} />
         <Route path="Medicines" element={<Medicines />} />
         <Route path="Tools" element={<Tools />} />
         <Route path="Payments" element={<Payments />} />
