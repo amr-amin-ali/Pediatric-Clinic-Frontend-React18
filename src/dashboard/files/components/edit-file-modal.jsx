@@ -565,7 +565,7 @@ const EditFileModal = ({ fileData, modalId }) => {
               <ModalFooter>
                 <SubmmitButton
                   color="green"
-                  title="أنشئ الآن"
+                  title="حفظ التعديلات"
                   clickHandler={submitFormHandler}
                 />
                 <ResetButton

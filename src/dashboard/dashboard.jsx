@@ -10,7 +10,7 @@ import Payments from "./payments/payments";
 import Purchases from "./purchases/purchases";
 import ViewAllFiles from "./files/view-all";
 import SearchResult from "./files/search-result";
-import ViewAllPrescriptions from "./prescripions/all-prescriptions";
+import ViewAllPrescriptions from "./prescripions/all-prescriptions/all-prescriptions";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";

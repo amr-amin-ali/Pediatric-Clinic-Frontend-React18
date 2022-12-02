@@ -5,7 +5,6 @@ import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
 import ViewFileModal from "../../files/components/view-file-modal";
-import { httpGET } from "../../../http/httpGET";
 import { api } from "../../../utility/api";
 import { useStore } from "../../../hooks-store/store";
 import { useState } from "react";
@@ -14,20 +13,13 @@ import { httpPUT } from "../../../http/httpPUT";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import { useNavigate } from "react-router-dom";
 
-const VisitDetailsForm = ({ applicationUserId }) => {
+const EditVisitDetailsForm = ({ visit }) => {
   const navigate = useNavigate();
-  const exitClickHandler = () => {
-    if (window.confirm("هل تريد إنهاء حفظ الروشتة والخروج؟؟؟")) {
-      navigate("/Dashboard/Files", { replace: true });
-    }
-  };
   const [state, dispatch] = useStore(true);
   const visitId = state.visits_store.new_prescription_data.visit_details.id;
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
-  const [visitDetails, setVisitDetails] = useState({
-    ...state.visits_store.new_prescription_data.visit_details,
-    applicationUserId,
-  });
+  const [visitDetails, setVisitDetails] = useState(visit);
+
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
@@ -36,21 +28,9 @@ const VisitDetailsForm = ({ applicationUserId }) => {
     setVisitDetails({ ...oldDetails });
   };
 
-  const visitDetailsHandler = () => {
-    const actionUrl =
-      visitId === 0 || visitId === undefined
-        ? api.visits.create_visit
-        : api.visits.update_visit;
-    setIsSavingVisitDetails(true);
-    if (visitDetails.price <= 0) {
-      visitDetails.price = 0;
-    }
-    let request =
-      visitId === 0 || visitId === undefined
-        ? httpPOST(actionUrl, { ...visitDetails })
-        : httpPUT(actionUrl, { ...visitDetails });
-    // httpPOST(actionUrl, { ...visitDetails })
-    request
+  const saveVisitDetailsHandler = () => {
+      setIsSavingVisitDetails(true);
+    httpPUT(api.visits.update_visit, { ...visitDetails })
       .then((response) => {
         if (response.status === 400 || response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
@@ -75,45 +55,18 @@ const VisitDetailsForm = ({ applicationUserId }) => {
         setIsSavingVisitDetails(false);
       });
   };
-  useEffect(() => {
-    //Get File data
-    httpGET(api.account.get_account_data + applicationUserId)
-      .then((fileData) => {
-        if (fileData.length !== 0)
-          dispatch("ADD_FILE_DATA_TO_NEW_PRESCRIPTION", fileData);
-      })
-      .catch((c) => {
-        alert("Network error while fetching file data!!");
-      });
-
-    //reset data for differen user
-    setVisitDetails({
-      ...state.visits_store.new_prescription_data.visit_details,
-      applicationUserId,
-    });
-  }, []);
 
   return (
     <section
-      className={`border border-bottom border-1 border-blue-dark rounded bg-blue-light overflow-hidden`}
+      className={`bg-blue-light overflow-hidden`}
     >
-      <div className="row position-relative rounded m-0 bg-gradient rounded-top py-2">
-        <div onClick={exitClickHandler} className="col-1 fw-bold text-warning cursor-pointer ps-5">
-          خروج
-        </div>
-        <h4 className={`col-8 offset-1 text-white text-center p-0`}>تفاصيل الزيارة</h4>
-        <div className="col-2 d-flex justify-content-between align-items-center">
+      <div className="row position-relative m-0 bg-gradient py-2">
+        <h4 className={`col-10 offset-1 text-white text-center p-0`}>
+          تفاصيل الزيارة
+        </h4>
+        <div className="col-1 d-flex justify-content-between align-items-center">
           <svg
-            data-bs-toggle="modal"
-            data-bs-target="#viewFileDataForPrescriptionModal"
-            fill="#fff"
-            width="25"
-            height="25"
-            viewBox="0 0 16 16"
-          >
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
-          </svg>
-          <svg
+          className="cursor-pointer"
             data-bs-toggle="collapse"
             data-bs-target="#prescriptionDetailsCollapse"
             fill="#fff"
@@ -132,7 +85,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
         aria-labelledby="headingThree"
         data-bs-parent="#accordionExample"
       >
-        {isSavingVisitDetails && <DashboardLoader />}
+        {isSavingVisitDetails && <DashboardLoader text="جارى الحفظ" />}
         {!isSavingVisitDetails && (
           <form onSubmit={(_) => _.preventDefault()}>
             <div className="row m-0 p-0">
@@ -202,15 +155,9 @@ const VisitDetailsForm = ({ applicationUserId }) => {
               </div>
               <div className="d-flex justify-content-center m-0 mt-1">
                 <SubmitButton
-                  clickHandler={visitDetailsHandler}
-                  color={
-                    visitId === 0 || visitId === undefined ? "green" : "blue"
-                  }
-                  title={
-                    visitId === 0 || visitId === undefined
-                      ? "إحفظ وافتح الروشتة"
-                      : "تحديث"
-                  }
+                  clickHandler={saveVisitDetailsHandler}
+                  color="blue"
+                  title="حفظ البيانات"
                 />
               </div>
             </div>
@@ -225,4 +172,4 @@ const VisitDetailsForm = ({ applicationUserId }) => {
   );
 };
 
-export default VisitDetailsForm;
+export default EditVisitDetailsForm;

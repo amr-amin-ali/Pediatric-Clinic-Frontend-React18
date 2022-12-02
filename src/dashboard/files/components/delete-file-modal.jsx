@@ -11,11 +11,11 @@ import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
 
 const DeleteFileModal = ({ fileData, modalId }) => {
   const dispatch = useStore()[1];
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDeletingFile, setIsDeletingFile] = useState(false);
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    setIsLoading(true);
+    setIsDeletingFile(true);
     httpDELETE(api.account.delete_account + fileData.id)
       .then((response) => {
         if (response.status === 204) {
@@ -27,12 +27,12 @@ const DeleteFileModal = ({ fileData, modalId }) => {
         if (response.status === 400) {
           response.json().then((result) => alert(Object.values(result)[0]));
         }
-        setIsLoading(false);
+        setIsDeletingFile(false);
         closeBootstrapModal();
       })
       .catch((c) => {
         // alert("Network error while deleting file!!");
-        setIsLoading(false);
+        setIsDeletingFile(false);
         closeBootstrapModal();
       });
 
@@ -50,8 +50,8 @@ const DeleteFileModal = ({ fileData, modalId }) => {
           <div className="modal-content bg-blue-light">
             <form onSubmit={(_) => _.preventDefault()}>
               <ModalHeader title={`حذف ملف ${fileData.firstName}`} />
-              {isLoading && <DashboardLoader text="جارى حذف الملف"/>}
-              {!isLoading && (
+              {isDeletingFile && <DashboardLoader text="جارى حذف الملف"/>}
+              {!isDeletingFile && (
                 <Fragment>
                   <h1 className="text-danger text-center">
                     هل تريد حذف ملف {fileData.firstName}

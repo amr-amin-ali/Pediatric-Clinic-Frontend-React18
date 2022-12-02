@@ -5,7 +5,7 @@ const SelectInput = ({
   items,
   name,
   id = null,
-  selectedValue = null,
+  selectedValue = '',
 }) => {
   return (
     <div className="form-floating">
@@ -17,6 +17,7 @@ const SelectInput = ({
         id={id || name}
         aria-label="Floating label select example"
       >
+        <option value="">--- إختر من القائمة ---</option>
         {items &&
           items.map((item) => (
             <option

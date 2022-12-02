@@ -10,9 +10,8 @@ import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
-const AddTreatmentForm = () => {
+const EditAddTreatmentForm = ({visitId}) => {
   const [state, dispatch] = useStore();
-  const visitId = state.visits_store.new_prescription_data.visit_details.id;
   const [isLoadingMedicines, setIsLoadingMedicines] = useState(false);
   const [isAddingNewMedicine, setIsAddingNewMedicine] = useState(false);
   const [isSavingTreatment, setIsSavingTreatment] = useState(false);
@@ -256,4 +255,4 @@ const AddTreatmentForm = () => {
   );
 };
 
-export default AddTreatmentForm;
+export default EditAddTreatmentForm;

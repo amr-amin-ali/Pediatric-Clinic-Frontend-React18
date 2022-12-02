@@ -27,7 +27,7 @@ const NewPrescription = () => {
               <AddTreatmentForm />
             </div>
             <div className="col-7 mx-0 my-1 p-0">
-              <Prescription />
+              <Prescription treatments={state.visits_store.new_prescription_data.treatments} />
             </div>
           </div>
         )}

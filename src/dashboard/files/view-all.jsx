@@ -10,8 +10,8 @@ const ViewAllFiles = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //get all articles from the server
-    if (!state.articles_store.isInitiated) {
+    //get all files from the server
+    if (!state.accounts_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.account.get_all_accounts)
         .then((filesList) => {
@@ -26,7 +26,7 @@ const ViewAllFiles = () => {
   }, []);
   return (
     <div className="col-sm-12 col-lg-8">
-      {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
+      {isLoading && <DashboardLoader text="جارى تحميل الملفات" />}
       {!isLoading && state.accounts_store.files.length > 0 && (
         <Fragment>
           <h1 className="text-white mt-3">جميع الملفات</h1>

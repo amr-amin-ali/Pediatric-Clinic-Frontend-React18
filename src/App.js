@@ -18,9 +18,8 @@ import AboutDoctor from "./site/about-doctor";
 import ViewArticle from "./site/view-article";
 import Login from "./site/login";
 import React from "react";
-import ViewAllPrescriptions from "./dashboard/prescripions/all-prescriptions";
+import ViewAllPrescriptions from "./dashboard/prescripions/all-prescriptions/all-prescriptions";
 import NewPrescription from "./dashboard/prescripions/new-prescription/new-prescription";
-import PrintPrescription from "./dashboard/prescripions/print-prescription";
 import WebsiteManagement from "./dashboard/website-management/website-management";
 import Bookings from "./dashboard/bookings/bookings";
 
@@ -95,7 +94,7 @@ function App() {
               <Route path="/Dashboard/*" element={<DashboardLayout />}>
                 <Route path="*" element={<Dashboard />} />
                 <Route
-                  path="Prescriptions/:applicationUserId"
+                  path="Prescriptions-For/:name/:applicationUserId"
                   element={<ViewAllPrescriptions />}
                 />
                 <Route path="Bookings" element={<Bookings />} />
@@ -105,10 +104,6 @@ function App() {
                 />
               </Route>
             )}
-            <Route
-              path="/Dashboard/Print-Prescription"
-              element={<PrintPrescription />}
-            />
           </Route>
         )
       )}

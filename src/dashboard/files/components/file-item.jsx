@@ -47,7 +47,7 @@ const FileItem = ({ fileData }) => {
 
           <Link
             className="fs-6 fw-bold text-decoration-none text-warning d-inline-block"
-            to={`/Dashboard/Prescriptions/${fileData.id}`}
+            to={`/Dashboard/Prescriptions-For/${fileData.firstName}-${fileData.middleName}-${fileData.lastName}/${fileData.id}`}
           >
             جميع الروشتات
           </Link>

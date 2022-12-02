@@ -4,6 +4,8 @@ export const api = {
   base_url: BASE_URL,
   visits: {
     create_visit:BASE_URL+"Visits/AddVisit",
+    get_all_visits_for_application_user:BASE_URL+"Visits/GetAllVisits/",
+    delete_visit:BASE_URL+"Visits/DeleteVisit/",
     update_visit:BASE_URL+"Visits/UpdateVisit"
   },
   medicines: {
@@ -11,6 +13,11 @@ export const api = {
     get_all_medicines:BASE_URL+"Medicines/GetAllMedicines",
     update_medicine:BASE_URL+"Medicines/UpdateMedicine",
     delete_medicine:BASE_URL+"Medicines/DeleteMedicine/",
+  },
+  treatments: {
+    create_treatment:BASE_URL+"Treatments/AddTreatment",
+    get_visit_treatments:BASE_URL+"Treatments/GetVisitTreatments/",
+    delete_treatment:BASE_URL+"Treatments/DeleteTreatment/",
   },
   account: {
     login:BASE_URL+"Accounts/Login",

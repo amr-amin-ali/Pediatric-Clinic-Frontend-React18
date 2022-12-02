@@ -1,12 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import PrescriptionFooter from "./prescription-footer";
 import PrescriptionHeader from "./prescription-header";
 import PrescriptionTreatmentRecord from "./prescription-treatment-record";
 
-const Prescription = ({ data }) => {
-  const navigate = useNavigate();
+const Prescription = ({ treatments = [] }) => {
   const printButtonClickHandler = (event) => {
-    navigate("/Dashboard/Print-Prescription");
+    const body = document.body.innerHTML;
+    const prescription = document.querySelector("#printSection").innerHTML;
+    document.body.innerHTML = prescription;
+      window.print();
+    document.body.innerHTML = body;
+    return;
   };
   return (
     <div className="m-0 p-0 position-relative">
@@ -36,9 +39,14 @@ const Prescription = ({ data }) => {
           <div
             className={`d-flex flex-column justify-content-start flex-grow-1 flex-shrink-1 pe-5 pt-5`}
           >
-            <PrescriptionTreatmentRecord />
+            {treatments.map((treatment) => (
+              <PrescriptionTreatmentRecord
+                key={treatment.id}
+                treatment={treatment}
+              />
+            ))}
           </div>
-      
+
           <PrescriptionFooter />
         </div>
       </div>

@@ -287,7 +287,7 @@ const CreateFileModal = () => {
           setIsSubmitting(false);
         }
         if (response.status === 401) {
-          alert("Please login first");
+          alert("يجب تسجيل الدخول كدكتور حتى يمكنك إنشاء الملف");
           dispatch("LOGOUT");
         }
 
@@ -301,12 +301,12 @@ const CreateFileModal = () => {
             closeBootstrapModal();
           });
         } else {
-          alert("Some thing went wrong!");
+          alert("حدث خطأ غير متوقع");
           setIsSubmitting(false);
         }
       })
       .catch((c) => {
-        alert("Network error while publishing article!!");
+        alert("خطأ بالشبكة أثناء إنشاء الملف !!!");
         setIsSubmitting(false);
       });
     ///////////////////////////////////////////////////////////////////////////
