@@ -11,8 +11,17 @@ const AllPrescriptionsItem = ({ visit }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [state, dispatch] = useStore();
   const [isDeleted, setIsDeleted] = useState(false);
-
+  const [visitTreatments, setVisitTreatments] = useState([]);
   const [edit, setEdit] = useState(false);
+  const editPrescriptionClickHandler = () => {
+    if (edit) {
+      setVisitTreatments(state.visits_store.new_prescription_data.treatments);
+      setEdit(!edit);
+    } else {
+      dispatch("SET_NEW_PRESCRIPTION_TREATMENTS", visit.treatments);
+      setEdit(!edit);
+    }
+  };
   const deleteVisitClickHandler = async (visitId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
       setIsDeleting(true);
@@ -36,8 +45,11 @@ const AllPrescriptionsItem = ({ visit }) => {
         });
     }
   };
-
-  
+  useEffect(() => {
+    if (!edit) {
+      setVisitTreatments(visit.treatments);
+    }
+  }, []);
   if (isDeleted) {
     return null;
   }
@@ -48,10 +60,7 @@ const AllPrescriptionsItem = ({ visit }) => {
       <div className="row mx-0 mb-1 bg-dark">
         <div className="col-12 p-0 border border border-start-0 border border-end-0 border-5 border-secondary">
           <button
-            onClick={() => {
-              dispatch("SET_NEW_PRESCRIPTION_TREATMENTS", visit.treatments);
-              setEdit(!edit);
-            }}
+            onClick={editPrescriptionClickHandler}
             className="btn text-primary fw-bold mx-1"
           >
             {edit ? "إنهاء التعديل" : "تعديل"}
@@ -108,7 +117,7 @@ const AllPrescriptionsItem = ({ visit }) => {
             treatments={
               edit
                 ? state.visits_store.new_prescription_data.treatments
-                : visit.treatments
+                : visitTreatments
             }
           />
         </div>
