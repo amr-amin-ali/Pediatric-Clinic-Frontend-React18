@@ -10,7 +10,7 @@ import Payments from "./payments/payments";
 import Purchases from "./purchases/purchases";
 import ViewAllFiles from "./files/view-all";
 import SearchResult from "./files/search-result";
-import ViewAllPrescriptions from "./prescripions/all-prescriptions/all-prescriptions";
+import ViewAllVisits from "./visits/all-visits/view-all-visits";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
@@ -38,7 +38,7 @@ useEffect(() => {
           <Route path="Search" element={<SearchResult />} />
           <Route
             path="View-all/:fileId"
-            element={<ViewAllPrescriptions />}
+            element={<ViewAllVisits />}
           />
         </Route>
         <Route path="Medicines/View-All" element={<ViewAllMedicines />} />

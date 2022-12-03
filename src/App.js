@@ -18,8 +18,8 @@ import AboutDoctor from "./site/about-doctor";
 import ViewArticle from "./site/view-article";
 import Login from "./site/login";
 import React from "react";
-import ViewAllPrescriptions from "./dashboard/prescripions/all-prescriptions/all-prescriptions";
-import NewPrescription from "./dashboard/prescripions/new-prescription/new-prescription";
+import ViewAllVisits from "./dashboard/visits/all-visits/view-all-visits";
+import NewVisit from "./dashboard/visits/new-visit/new-visit";
 import WebsiteManagement from "./dashboard/website-management/website-management";
 import Bookings from "./dashboard/bookings/bookings";
 
@@ -87,7 +87,7 @@ function App() {
             {displayDashboard && (
               <Route
                 path="/Dashboard/New-Prescription/:applicationUserId"
-                element={<NewPrescription />}
+                element={<NewVisit />}
               />
             )}
             {displayDashboard && (
@@ -95,7 +95,7 @@ function App() {
                 <Route path="*" element={<Dashboard />} />
                 <Route
                   path="Prescriptions-For/:name/:applicationUserId"
-                  element={<ViewAllPrescriptions />}
+                  element={<ViewAllVisits />}
                 />
                 <Route path="Bookings" element={<Bookings />} />
                 <Route

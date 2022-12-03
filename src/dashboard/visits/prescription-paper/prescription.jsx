@@ -39,12 +39,12 @@ const Prescription = ({ treatments = [] }) => {
           <div
             className={`d-flex flex-column justify-content-start flex-grow-1 flex-shrink-1 pe-5 pt-5`}
           >
-            {treatments.map((treatment) => (
-              <PrescriptionTreatmentRecord
-                key={treatment.id}
-                treatment={treatment}
-              />
-            ))}
+            {treatments.map((treatment) => {
+              return <PrescriptionTreatmentRecord
+              key={treatment.id}
+              treatment={treatment}
+            />
+            })}
           </div>
 
           <PrescriptionFooter />

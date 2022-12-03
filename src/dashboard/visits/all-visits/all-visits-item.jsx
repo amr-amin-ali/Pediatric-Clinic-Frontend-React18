@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import { api } from "../../../utility/api";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
-const AllPrescriptionsItem = ({ visit }) => {
+const AllVisitsItem = ({ visit }) => {
+
   const [isDeleting, setIsDeleting] = useState(false);
   const [state, dispatch] = useStore();
   const [isDeleted, setIsDeleted] = useState(false);
@@ -18,6 +19,7 @@ const AllPrescriptionsItem = ({ visit }) => {
       setVisitTreatments(state.visits_store.new_prescription_data.treatments);
       setEdit(!edit);
     } else {
+      // console.log("AllPrescriptionsItem:::",visit.treatments)
       dispatch("SET_NEW_PRESCRIPTION_TREATMENTS", visit.treatments);
       setEdit(!edit);
     }
@@ -126,4 +128,4 @@ const AllPrescriptionsItem = ({ visit }) => {
   );
 };
 
-export default AllPrescriptionsItem;
+export default AllVisitsItem;
