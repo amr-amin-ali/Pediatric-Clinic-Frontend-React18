@@ -24,10 +24,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
   const [state, dispatch] = useStore(true);
   const visitId = state.visits_store.new_prescription_data.visit_details.id;
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
-  const [visitDetails, setVisitDetails] = useState({
-    ...state.visits_store.new_prescription_data.visit_details,
-    applicationUserId,
-  });
+  const [visitDetails, setVisitDetails] = useState({});
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
@@ -139,7 +136,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
               <div className="col-3">
                 <TextInput
                   onChangeHandler={inputChangeHandler}
-                  value={visitDetails.price}
+                  value={visitDetails.price??''}
                   name="price"
                   placeholder="السعر"
                 />

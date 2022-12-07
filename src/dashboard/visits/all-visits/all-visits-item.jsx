@@ -31,7 +31,7 @@ const AllVisitsItem = ({ visit }) => {
         .then((response) => {
           if (response.status === 204) {
             setIsDeleted(true);
-            alert("تم حذف الروشتة");
+            // alert("تم حذف الروشتة");
           }
           if (response.status === 404) {
             response.json().then((result) => alert(Object.values(result)[0]));
