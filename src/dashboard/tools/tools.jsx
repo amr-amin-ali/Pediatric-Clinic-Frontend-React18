@@ -25,7 +25,7 @@ const Tools = () => {
               <div className="col-4">
                 <ShowModalButton
                 color="blue"
-                  modalId="#createNewFileModal"
+                  modalId="#createNewToolModal"
                   title="تسجيل آداة"
                 />
               </div>

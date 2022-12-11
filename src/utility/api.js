@@ -19,6 +19,11 @@ export const api = {
     get_visit_treatments:BASE_URL+"Treatments/GetVisitTreatments/",
     delete_treatment:BASE_URL+"Treatments/DeleteTreatment/",
   },
+  tools: {
+    create_tool:BASE_URL+"Tools/AddTool",
+    get_all_tools:BASE_URL+"Tools/GetAllTools",
+    delete_tool:BASE_URL+"Tools/DeleteTool/",
+  },
   account: {
     login:BASE_URL+"Accounts/Login",
     create_account:BASE_URL+"Accounts/CreatePatientFile",

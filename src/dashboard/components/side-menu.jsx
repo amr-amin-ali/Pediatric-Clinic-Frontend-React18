@@ -25,6 +25,7 @@ const SideMenu = () => {
           style={{ height: "402px" }}
         >
           <ul className="list-unstyled m-0 p-0">
+            
             <li
               className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
             >
@@ -63,16 +64,16 @@ const SideMenu = () => {
                   </svg>
                   الحجز
                 </span>
-                {state.bookings_store.bookings && state.bookings_store.bookings.length > 0 && (
-                  <span
-                    className={`${style.menuItemCount} bg-grey-dark text-center px-2 me-3 rounded-pill text-center`}
-                  >
-                    {state.bookings_store.bookings.length}
-                  </span>
-                )}
+                {state.bookings_store.bookings &&
+                  state.bookings_store.bookings.length > 0 && (
+                    <span
+                      className={`${style.menuItemCount} bg-grey-dark text-center px-2 me-3 rounded-pill text-center`}
+                    >
+                      {state.bookings_store.bookings.length}
+                    </span>
+                  )}
               </NavLink>
             </li>
-
             <li
               className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
             >
@@ -95,6 +96,61 @@ const SideMenu = () => {
                 {state.files && state.files.length > 0 && (
                   <span className="menu-item-count bg-grey-dark text-center px-2 me-3 rounded-pill text-center">
                     {state.files.length}
+                  </span>
+                )}
+              </NavLink>
+            </li>
+            <li
+              className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
+            >
+              <NavLink
+                to="Medicines"
+                className="text-decoration-none d-block text-white fs-5"
+              >
+                <span>
+                  <svg
+                    className={`${style.menuItemSvg} mx-3`}
+                    width="30"
+                    height="30"
+                    fill="var(--grey-light)"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536 4.607 4.707ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm-.5 1.041a3 3 0 0 0 0 5.918V9.04Zm1 5.918a3 3 0 0 0 0-5.918v5.918Z"
+                    />
+                  </svg>
+                  الأدوية
+                </span>
+                {state.medicines && state.medicines.length > 0 && (
+                  <span className="menu-item-count bg-grey-dark text-center px-2 me-3 rounded-pill text-center">
+                    {state.medicines.length}
+                  </span>
+                )}
+              </NavLink>
+            </li>
+            <li
+              className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
+            >
+              <NavLink
+                to="Tools"
+                className="text-decoration-none d-block text-white fs-5"
+              >
+                <span>
+                  <svg
+                    className={`${style.menuItemSvg} mx-3`}
+                    width="30"
+                    height="30"
+                    fill="var(--grey-light)"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                  </svg>
+                  الأدوات
+                </span>
+                {state.tools && state.tools.length > 0 && (
+                  <span className="menu-item-count bg-grey-dark text-center px-2 me-3 rounded-pill text-center">
+                    {state.tools.length}
                   </span>
                 )}
               </NavLink>
@@ -153,61 +209,7 @@ const SideMenu = () => {
               </NavLink>
             </li>
 
-            <li
-              className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
-            >
-              <NavLink
-                to="Medicines"
-                className="text-decoration-none d-block text-white fs-5"
-              >
-                <span>
-                  <svg
-                    className={`${style.menuItemSvg} mx-3`}
-                    width="30"
-                    height="30"
-                    fill="var(--grey-light)"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536 4.607 4.707ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm-.5 1.041a3 3 0 0 0 0 5.918V9.04Zm1 5.918a3 3 0 0 0 0-5.918v5.918Z"
-                    />
-                  </svg>
-                  الأدوية
-                </span>
-                {state.medicines && state.medicines.length > 0 && (
-                  <span className="menu-item-count bg-grey-dark text-center px-2 me-3 rounded-pill text-center">
-                    {state.medicines.length}
-                  </span>
-                )}
-              </NavLink>
-            </li>
-            <li
-              className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
-            >
-              <NavLink
-                to="Tools"
-                className="text-decoration-none d-block text-white fs-5"
-              >
-                <span>
-                  <svg
-                    className={`${style.menuItemSvg} mx-3`}
-                    width="30"
-                    height="30"
-                    fill="var(--grey-light)"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                  </svg>
-                  الأدوات
-                </span>
-                {state.tools && state.tools.length > 0 && (
-                  <span className="menu-item-count bg-grey-dark text-center px-2 me-3 rounded-pill text-center">
-                    {state.tools.length}
-                  </span>
-                )}
-              </NavLink>
-            </li>
+  
             <li
               className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
             >
