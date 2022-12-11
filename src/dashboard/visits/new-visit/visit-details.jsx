@@ -25,7 +25,7 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
 
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
   const [visitDetails, setVisitDetails] = useState({
-    id:0,
+    id: 0,
     applicationUserId: applicationUserId,
   });
   const inputChangeHandler = (event) => {
@@ -38,9 +38,7 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
 
   const visitDetailsHandler = () => {
     const actionUrl =
-      visitDetails.id === 0
-        ? api.visits.create_visit
-        : api.visits.update_visit;
+      visitDetails.id === 0 ? api.visits.create_visit : api.visits.update_visit;
     setIsSavingVisitDetails(true);
     if (visitDetails.price <= 0) {
       visitDetails.price = 0;
@@ -79,8 +77,7 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
     //Get File data
     httpGET(api.account.get_account_data + applicationUserId)
       .then((data) => {
-        if (data.length !== 0)
-          setFileData(data);
+        if (data.length !== 0) setFileData(data);
       })
       .catch((c) => {
         alert("Network error while fetching file data!!");
