@@ -16,41 +16,6 @@ const configureVisitsStore = () => {
       globalState.visits_store.isInitiated = true;
       return globalState;
     },
-    SET_NEW_PRESCRIPTION_VISIT_DETAILS: (globalState, visitDetails) => {
-      globalState.visits_store.new_prescription_data.visit_details =
-        visitDetails;
-      return globalState;
-    },
-    SET_NEW_PRESCRIPTION_TREATMENTS: (globalState, treatmentsList) => {
-      globalState.visits_store.new_prescription_data.treatments =
-        treatmentsList;
-      return globalState;
-    },
-    RESET_NEW_PRESCRIPTION_DATA: (globalState) => {
-      globalState.visits_store.new_prescription_data.visit_details = visitModel;
-      globalState.visits_store.new_prescription_data.file_data = {};
-      globalState.visits_store.new_prescription_data.treatments = [];
-
-      return globalState;
-    },
-    ADD_FILE_DATA_TO_NEW_PRESCRIPTION: (
-      globalState,
-      new_prescription_file_data
-    ) => {
-      globalState.visits_store.new_prescription_data.file_data =
-        new_prescription_file_data;
-      return globalState;
-    },
-    ADD_NEW_PRESCRIPTION_TREATMENT: (
-      globalState,
-      new_prescription_treatment
-    ) => {
-      globalState.visits_store.new_prescription_data.treatments = [
-        ...globalState.visits_store.new_prescription_data.treatments,
-        new_prescription_treatment,
-      ];
-      return globalState;
-    },
     UPDATE_VISIT_IN_STORE: (globalState, newUpdatedVisit) => {
       var index = globalState.visits_store.visits.findIndex(
         (c) => c.id === newUpdatedVisit.id
@@ -75,11 +40,6 @@ const configureVisitsStore = () => {
   initStore(actions, {
     visits_store: {
       visits: [],
-      new_prescription_data: {
-        visit_details: visitModel,
-        file_data: {},
-        treatments: [],
-      },
       isInitiated: false,
     },
   });

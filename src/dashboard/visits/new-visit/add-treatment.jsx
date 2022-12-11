@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useStore } from "../../../hooks-store/store";
 import { httpGET } from "../../../http/httpGET";
@@ -10,9 +10,8 @@ import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
-const AddTreatmentForm = () => {
+const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
   const [state, dispatch] = useStore();
-  const visitId = state.visits_store.new_prescription_data.visit_details.id;
   const [isLoadingMedicines, setIsLoadingMedicines] = useState(false);
   const [isAddingNewMedicine, setIsAddingNewMedicine] = useState(false);
   const [isSavingTreatment, setIsSavingTreatment] = useState(false);
@@ -126,8 +125,7 @@ const AddTreatmentForm = () => {
 
                   if (response.status === 201) {
                     response.json().then((data) => {
-
-                      dispatch("ADD_NEW_PRESCRIPTION_TREATMENT", data);
+                      treatmentsListHandler(data);
                       setTreatmentDetails({
                         visitId: visitId,
                         saveDescriptionToMedicine: false,
@@ -167,8 +165,7 @@ const AddTreatmentForm = () => {
 
           if (response.status === 201) {
             response.json().then((data) => {
-
-              dispatch("ADD_NEW_PRESCRIPTION_TREATMENT", data);
+              treatmentsListHandler(data);
               setTreatmentDetails({
                 visitId: visitId,
                 saveDescriptionToMedicine: false,

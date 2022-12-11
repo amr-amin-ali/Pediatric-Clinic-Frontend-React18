@@ -14,7 +14,7 @@ import { httpPUT } from "../../../http/httpPUT";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import { useNavigate } from "react-router-dom";
 
-const VisitDetailsForm = ({ applicationUserId }) => {
+const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
   const navigate = useNavigate();
   const exitClickHandler = () => {
     if (window.confirm("هل تريد إنهاء حفظ الروشتة والخروج؟؟؟")) {
@@ -22,9 +22,12 @@ const VisitDetailsForm = ({ applicationUserId }) => {
     }
   };
   const [state, dispatch] = useStore(true);
-  const visitId = state.visits_store.new_prescription_data.visit_details.id;
+
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
-  const [visitDetails, setVisitDetails] = useState({});
+  const [visitDetails, setVisitDetails] = useState({
+    id:0,
+    applicationUserId: applicationUserId,
+  });
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
@@ -35,7 +38,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
 
   const visitDetailsHandler = () => {
     const actionUrl =
-      visitId === 0 || visitId === undefined
+      visitDetails.id === 0
         ? api.visits.create_visit
         : api.visits.update_visit;
     setIsSavingVisitDetails(true);
@@ -43,10 +46,9 @@ const VisitDetailsForm = ({ applicationUserId }) => {
       visitDetails.price = 0;
     }
     let request =
-      visitId === 0 || visitId === undefined
+      visitDetails.id === 0
         ? httpPOST(actionUrl, { ...visitDetails })
         : httpPUT(actionUrl, { ...visitDetails });
-    // httpPOST(actionUrl, { ...visitDetails })
     request
       .then((response) => {
         if (response.status === 400 || response.status === 404) {
@@ -61,8 +63,8 @@ const VisitDetailsForm = ({ applicationUserId }) => {
 
         if (response.status === 200 || response.status === 201) {
           response.json().then((data) => {
-            dispatch("SET_NEW_PRESCRIPTION_VISIT_DETAILS", data);
             setVisitDetails({ ...data });
+            visitIdHandler(data.id);
             setIsSavingVisitDetails(false);
           });
         }
@@ -72,22 +74,17 @@ const VisitDetailsForm = ({ applicationUserId }) => {
         setIsSavingVisitDetails(false);
       });
   };
+  const [fileData, setFileData] = useState({});
   useEffect(() => {
     //Get File data
     httpGET(api.account.get_account_data + applicationUserId)
-      .then((fileData) => {
-        if (fileData.length !== 0)
-          dispatch("ADD_FILE_DATA_TO_NEW_PRESCRIPTION", fileData);
+      .then((data) => {
+        if (data.length !== 0)
+          setFileData(data);
       })
       .catch((c) => {
         alert("Network error while fetching file data!!");
       });
-
-    //reset data for differen user
-    setVisitDetails({
-      ...state.visits_store.new_prescription_data.visit_details,
-      applicationUserId,
-    });
   }, []);
 
   return (
@@ -95,10 +92,15 @@ const VisitDetailsForm = ({ applicationUserId }) => {
       className={`border border-bottom border-1 border-blue-dark rounded bg-blue-light overflow-hidden`}
     >
       <div className="row position-relative rounded m-0 bg-gradient rounded-top py-2">
-        <div onClick={exitClickHandler} className="col-1 fw-bold text-warning cursor-pointer ps-5">
+        <div
+          onClick={exitClickHandler}
+          className="col-1 fw-bold text-warning cursor-pointer ps-5"
+        >
           خروج
         </div>
-        <h4 className={`col-8 offset-1 text-white text-center p-0`}>تفاصيل الزيارة</h4>
+        <h4 className={`col-8 offset-1 text-white text-center p-0`}>
+          تفاصيل الزيارة
+        </h4>
         <div className="col-2 d-flex justify-content-between align-items-center">
           <svg
             data-bs-toggle="modal"
@@ -136,7 +138,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
               <div className="col-3">
                 <TextInput
                   onChangeHandler={inputChangeHandler}
-                  value={visitDetails.price??''}
+                  value={visitDetails.price ?? ""}
                   name="price"
                   placeholder="السعر"
                 />
@@ -201,10 +203,12 @@ const VisitDetailsForm = ({ applicationUserId }) => {
                 <SubmitButton
                   clickHandler={visitDetailsHandler}
                   color={
-                    visitId === 0 || visitId === undefined ? "green" : "blue"
+                    visitDetails.id === 0 || visitDetails.id === undefined
+                      ? "green"
+                      : "blue"
                   }
                   title={
-                    visitId === 0 || visitId === undefined
+                    visitDetails.id === 0 || visitDetails.id === undefined
                       ? "إحفظ وافتح الروشتة"
                       : "تحديث"
                   }
@@ -215,7 +219,7 @@ const VisitDetailsForm = ({ applicationUserId }) => {
         )}
       </div>
       <ViewFileModal
-        fileData={state.visits_store.new_prescription_data.file_data}
+        fileData={fileData}
         modalId="viewFileDataForPrescriptionModal"
       />
     </section>
