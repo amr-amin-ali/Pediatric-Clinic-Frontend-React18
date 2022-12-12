@@ -11,7 +11,7 @@ const ViewAllMedicines = () => {
 
   useEffect(() => {
     //get all articles from the server
-    if (!state.articles_store.isInitiated) {
+    if (!state.medicines_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.medicines.get_all_medicines)
         .then((medicinesList) => {

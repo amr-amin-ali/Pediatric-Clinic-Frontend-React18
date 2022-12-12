@@ -14,6 +14,8 @@ import configureMetaDataStore from "./hooks-store/meta-data-store";
 import configureVisitsStore from "./hooks-store/visits-store";
 import configureMedicinsStore from "./hooks-store/medicines-store";
 import configureToolsStore from "./hooks-store/tools_store";
+import configurePurchasesStore from "./hooks-store/purchases_store";
+import configurePaymentsStore from "./hooks-store/payments_store";
 configureAccountsStore();
 configureSliderImagessStore();
 configureClinicServicesStore();
@@ -25,6 +27,8 @@ configureMetaDataStore();
 configureVisitsStore();
 configureMedicinsStore();
 configureToolsStore();
+configurePurchasesStore();
+configurePaymentsStore();
 //
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

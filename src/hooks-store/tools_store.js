@@ -11,7 +11,7 @@ const configureToolsStore = () => {
       globalState.tools_store.tools = [...globalState.tools_store.tools, newTool];
       return globalState;
     },
-    DELETE_TOOLS: (globalState, toolsId) => {
+    DELETE_TOOL: (globalState, toolsId) => {
       globalState.tools_store.tools = globalState.tools_store.tools.filter(
         (c) => c.id !== toolsId
       );
