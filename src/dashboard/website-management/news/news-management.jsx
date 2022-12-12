@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
-import { useStore } from "../../../../hooks-store/store";
-import { httpDELETE } from "../../../../http/httpDELETE";
-import { httpGET } from "../../../../http/httpGET";
-import { api } from "../../../../utility/api";
-import ShowModalButton from "../../../components/buttons/show-modal-button";
 import AddNewsModal from "./add-news-modal";
 import NewsItem from "./news-item";
 import EditNewsModal from "./edit-news-modal";
-import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
+import { httpDELETE } from "../../../http/httpDELETE";
+import { httpGET } from "../../../http/httpGET";
+import { api } from "../../../utility/api";
+import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import ShowModalButton from "../../components/buttons/show-modal-button";
 
 const NewsManagement = () => {
   const [state, dispatch] = useStore();

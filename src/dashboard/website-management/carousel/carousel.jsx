@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
-import ButtonWithPressEffect from "../../../components/buttons/button-withPressEffect";
 import CarouselItem from "./carousel-item";
-import { httpPOSTFile } from "../../../../http/httpPOSTFile";
-import { useStore } from "../../../../hooks-store/store";
-import { httpGET } from "../../../../http/httpGET";
-import { api } from "../../../../utility/api";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
+import { httpGET } from "../../../http/httpGET";
+import { httpPOSTFile } from "../../../http/httpPOSTFile";
+import { api } from "../../../utility/api";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
 
 const CarouselManagement = () => {
   const [state, dispatch] = useStore();

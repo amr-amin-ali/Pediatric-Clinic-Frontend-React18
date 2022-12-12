@@ -1,15 +1,15 @@
-import ResetButton from "../../../components/buttons/reset-button";
-import SubmitButton from "../../../components/buttons/submit-button";
-import ModalFooter from "../../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../../components/bootstrap-modal/modal-header";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
-import TextInput from "../../../components/inputs/text-input";
 import { useEffect, useState } from "react";
-import { vaccinModel } from "../../../../models/vaccin-model";
-import { api } from "../../../../utility/api";
-import { httpPUT } from "../../../../http/httpPUT";
-import { useStore } from "../../../../hooks-store/store";
-import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
+import { vaccinModel } from "../../../models/vaccin-model";
+import { httpPUT } from "../../../http/httpPUT";
+import { useStore } from "../../../hooks-store/store";
+import { api } from "../../../utility/api";
+import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
+import ResetButton from "../../components/buttons/reset-button";
+import SubmitButton from "../../components/buttons/submit-button";
+import ModalFooter from "../../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../../components/bootstrap-modal/modal-header";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import TextInput from "../../components/inputs/text-input";
 
 const EditVaccineModal = ({ vaccin }) => {
   const dispatch = useStore()[1];

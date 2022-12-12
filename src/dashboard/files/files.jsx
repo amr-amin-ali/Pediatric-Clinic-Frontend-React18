@@ -9,7 +9,7 @@ const Files = () => {
   return (
     <Fragment>
       <div className="col-8">
-        <div className="card text-center">
+        <div className="card text-center m-3">
           <div className="card-header">الخيارات المتاحة</div>
           <div className="card-body">
             <h5 className="card-title mt-4">

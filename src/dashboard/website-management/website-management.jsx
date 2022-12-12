@@ -4,11 +4,11 @@ import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
 import { api } from "../../utility/api";
 import ArticlesManagement from "./articles/articles-management";
-import CarouselManagement from "./components/carousel/carousel";
-import MetaData from "./components/meta-data/meta-data";
-import NewsManagement from "./components/news/news-management";
-import ServicesManagement from "./components/services/services-management";
-import VaccinesManagemt from "./components/vaccins/vaccin-management";
+import CarouselManagement from "./carousel/carousel";
+import MetaData from "./meta-data/meta-data";
+import NewsManagement from "./news/news-management";
+import ServicesManagement from "./services/services-management";
+import VaccinesManagemt from "./vaccins/vaccin-management";
 import WebsiteManagementSideMenuOptions from "./website-mgmt-side-menu";
 
 const WebsiteManagement = () => {

@@ -9,7 +9,7 @@ const Medicines = () => {
   return (
     <Fragment>
       <div className="col-8">
-        <div className="card text-center">
+        <div className="card text-center m-3">
           <div className="card-header">الخيارات المتاحة</div>
           <div className="card-body">
             <h5 className="card-title mt-4">هذه الإجراءات خاصة بالأدوية</h5>
@@ -27,13 +27,6 @@ const Medicines = () => {
                 color="blue"
                   modalId="#createNewFileModal"
                   title="تسجيل دواء"
-                />
-              </div>
-              <div className="col-4">
-                <ShowModalButton
-                color="green"
-                  modalId="#searchForPatientFileModal"
-                  title="بحث عن دواء"
                 />
               </div>
             </div>

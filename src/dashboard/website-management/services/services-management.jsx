@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
-import { useStore } from "../../../../hooks-store/store";
-import { httpDELETE } from "../../../../http/httpDELETE";
-import { httpGET } from "../../../../http/httpGET";
-import { api } from "../../../../utility/api";
-import ShowModalButton from "../../../components/buttons/show-modal-button";
+import { useStore } from "../../../hooks-store/store";
+import { httpDELETE } from "../../../http/httpDELETE";
+import { httpGET } from "../../../http/httpGET";
 import AddServiceModal from "./add-service-modal";
 import EditServiceModal from "./edit-service-modal";
-import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
-import EditAndDeleteButtons from "../../../components/edit-and-delete-btns/edit-and-delete-btns";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { api } from "../../../utility/api";
+import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
+import EditAndDeleteButtons from "../../components/edit-and-delete-btns/edit-and-delete-btns";
+import ShowModalButton from "../../components/buttons/show-modal-button";
+import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const ServicesManagement = () => {
   const [state, dispatch] = useStore();

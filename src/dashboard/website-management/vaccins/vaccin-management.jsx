@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
-import { useStore } from "../../../../hooks-store/store";
-import { httpGET } from "../../../../http/httpGET";
-import { httpDELETE } from "../../../../http/httpDELETE";
-import { api } from "../../../../utility/api";
-import ShowModalButton from "../../../components/buttons/show-modal-button";
+import { useStore } from "../../../hooks-store/store";
+import { httpGET } from "../../../http/httpGET";
+import { httpDELETE } from "../../../http/httpDELETE";
+import { api } from "../../../utility/api";
+import ShowModalButton from "../../components/buttons/show-modal-button";
 import CreateVaccineModal from "./create-vaccine-modal";
 import EditVaccineModal from "./edit-vaccine-modal";
-import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
-import EditAndDeleteButtons from "../../../components/edit-and-delete-btns/edit-and-delete-btns";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
+import EditAndDeleteButtons from "../../components/edit-and-delete-btns/edit-and-delete-btns";
+import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const VaccinesManagemt = () => {
   const [state, dispatch] = useStore();

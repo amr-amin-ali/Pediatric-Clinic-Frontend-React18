@@ -1,14 +1,14 @@
-import TextInput from "../../../components/inputs/text-input";
 import { Fragment, useEffect, useState } from "react";
-import ButtonGlowOnHover from "../../../components/buttons/button-glowOnHover";
-import TimeInput from "../../../components/inputs/time-input";
-import SwitchInput from "../../../components/inputs/switch-input";
-import { useStore } from "../../../../hooks-store/store";
-import { api } from "../../../../utility/api";
-import { httpGET } from "../../../../http/httpGET";
-import { httpPOSTWithFile } from "../../../../http/httpPOSTWithFile";
-import DoctorSvg from "../../../components/icons/doctor-svg";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
+import { api } from "../../../utility/api";
+import { httpGET } from "../../../http/httpGET";
+import { httpPOSTWithFile } from "../../../http/httpPOSTWithFile";
+import DoctorSvg from "../../components/icons/doctor-svg";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import TextInput from "../../components/inputs/text-input";
+import ButtonGlowOnHover from "../../components/buttons/button-glowOnHover";
+import TimeInput from "../../components/inputs/time-input";
+import SwitchInput from "../../components/inputs/switch-input";
 const MetaData = () => {
   const [state, dispatch] = useStore();
   const [clinicSelectedImage, setClinicSelectedImage] = useState(null);

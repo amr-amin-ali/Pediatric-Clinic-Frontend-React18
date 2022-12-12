@@ -1,18 +1,18 @@
-import ResetButton from "../../../components/buttons/reset-button";
-import SubmitButton from "../../../components/buttons/submit-button";
-import ModalFooter from "../../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../../components/bootstrap-modal/modal-header";
-import TextInput from "../../../components/inputs/text-input";
 import { useEffect, useState } from "react";
-import { api } from "../../../../utility/api";
-import { useStore } from "../../../../hooks-store/store";
-import { httpPUTWithFile } from "../../../../http/httpPUTWithFile";
+import { useStore } from "../../../hooks-store/store";
+import { httpPUTWithFile } from "../../../http/httpPUTWithFile";
 import ServiceItemPreview from "./service-item-preview";
-import ButtonWithPressEffect from "../../../components/buttons/button-withPressEffect";
-import TextareaInput from "../../../components/inputs/textarea-input";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
-import { serviceModel } from "../../../../models/clinic-service-model";
-import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
+import { serviceModel } from "../../../models/clinic-service-model";
+import { api } from "../../../utility/api";
+import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
+import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
+import TextareaInput from "../../components/inputs/textarea-input";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import ResetButton from "../../components/buttons/reset-button";
+import SubmitButton from "../../components/buttons/submit-button";
+import ModalFooter from "../../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../../components/bootstrap-modal/modal-header";
+import TextInput from "../../components/inputs/text-input";
 
 const EditServiceModal = ({ service }) => {
   const dispatch = useStore()[1];

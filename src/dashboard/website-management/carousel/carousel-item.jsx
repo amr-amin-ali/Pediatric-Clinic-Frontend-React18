@@ -1,8 +1,8 @@
-import { useStore } from "../../../../hooks-store/store";
-import { httpDELETE } from "../../../../http/httpDELETE";
-import { api } from "../../../../utility/api";
 import { Fragment, useEffect, useState } from "react";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
+import { httpDELETE } from "../../../http/httpDELETE";
+import { api } from "../../../utility/api";
+import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const CarouselItem = ({ imageUrl, imageId = 0, itemKey }) => {
   const dispatch = useStore()[1];
