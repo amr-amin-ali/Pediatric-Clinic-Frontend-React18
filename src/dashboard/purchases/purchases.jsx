@@ -5,9 +5,9 @@ import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
 import { httpGET } from "../../http/httpGET";
 import ShowModalButton from "../components/buttons/show-modal-button";
-import CreatePurchasesModal from "./components/create-purchase-modal";
 import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
-import DeletePurchaseModal from "./components/delete-purchase-modal";
+import DeletePurchaseModal from "./delete-purchase-modal";
+import CreatePurchasesModal from "./create-purchase-modal";
 
 const Purchases = () => {
   document.title = "المشتريات";

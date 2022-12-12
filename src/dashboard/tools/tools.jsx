@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
-import CreateToolModal from "./components/create-tool-modal";
 import ShowModalButton from "../components/buttons/show-modal-button";
 import { useStore } from "../../hooks-store/store";
 import DashboardLoader from "../components/loader/dashboardLoader";
 import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
 import { httpGET } from "../../http/httpGET";
-import DeleteToolModal from "./components/delete-tool-modal";
+import DeleteToolModal from "./delete-tool-modal";
+import CreateToolModal from "./create-tool-modal";
 
 const Tools = () => {
   const [state, dispatch] = useStore();

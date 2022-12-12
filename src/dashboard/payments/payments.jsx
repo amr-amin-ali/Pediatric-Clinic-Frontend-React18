@@ -1,4 +1,3 @@
-import CreatePaymentModal from "./components/create-payment-modal";
 import { Fragment, useEffect, useState } from "react";
 import { useStore } from "../../hooks-store/store";
 import DashboardLoader from "../components/loader/dashboardLoader";
@@ -7,7 +6,8 @@ import { api } from "../../utility/api";
 import { httpGET } from "../../http/httpGET";
 import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
 import ShowModalButton from "../components/buttons/show-modal-button";
-import DeletePaymentModal from "./components/delete-payment-modal";
+import DeletePaymentModal from "./delete-payment-modal";
+import CreatePaymentModal from "./create-payment-modal";
 
 const Payments = () => {
   document.title = "المدفوعات";

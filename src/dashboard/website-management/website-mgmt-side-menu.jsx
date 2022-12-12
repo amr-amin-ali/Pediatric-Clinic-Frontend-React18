@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useStore } from "../../../hooks-store/store";
+import { useStore } from "../../hooks-store/store";
 import styles from "./website-mgmt-side-menu.module.css";
 const WebsiteManagementSideMenu = () => {
   const state = useStore(false)[0];

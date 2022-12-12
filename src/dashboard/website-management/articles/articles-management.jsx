@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
-import { useStore } from "../../../../hooks-store/store";
-import { httpDELETE } from "../../../../http/httpDELETE";
-import { httpGET } from "../../../../http/httpGET";
-import { api } from "../../../../utility/api";
-import ShowModalButton from "../../../components/buttons/show-modal-button";
+import { useStore } from "../../../hooks-store/store";
 import ArticleItem from "./article-item";
 import AddArticleModal from "./add-article-modal";
-import { openBootstrapModal } from "../../../../utility/open-bootstrap-modal";
+import { httpDELETE } from "../../../http/httpDELETE";
+import { httpGET } from "../../../http/httpGET";
+import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
+import { api } from "../../../utility/api";
 import EditArticleModal from "./edit-article-modal";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import ShowModalButton from "../../components/buttons/show-modal-button";
 
 const ArticlesManagement = () => {
   const [state, dispatch] = useStore();

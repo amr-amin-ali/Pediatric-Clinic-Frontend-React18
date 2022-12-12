@@ -3,13 +3,13 @@ import { Route, Routes } from "react-router-dom";
 import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
 import { api } from "../../utility/api";
-import ArticlesManagement from "./components/articles/articles-management";
+import ArticlesManagement from "./articles/articles-management";
 import CarouselManagement from "./components/carousel/carousel";
 import MetaData from "./components/meta-data/meta-data";
 import NewsManagement from "./components/news/news-management";
 import ServicesManagement from "./components/services/services-management";
 import VaccinesManagemt from "./components/vaccins/vaccin-management";
-import WebsiteManagementSideMenuOptions from "./components/website-mgmt-side-menu";
+import WebsiteManagementSideMenuOptions from "./website-mgmt-side-menu";
 
 const WebsiteManagement = () => {
   const [state, dispatch] = useStore();

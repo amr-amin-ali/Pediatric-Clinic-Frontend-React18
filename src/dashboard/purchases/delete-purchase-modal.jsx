@@ -1,25 +1,25 @@
-import HideModalButton from "../../components/buttons/hide-modal-button";
-import SubmitButton from "../../components/buttons/submit-button";
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import { api } from "../../../utility/api";
-import { httpDELETE } from "../../../http/httpDELETE";
+import HideModalButton from "../components/buttons/hide-modal-button";
+import SubmitButton from "../components/buttons/submit-button";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import { api } from "../../utility/api";
+import { httpDELETE } from "../../http/httpDELETE";
 import { Fragment, useState } from "react";
-import { useStore } from "../../../hooks-store/store";
-import DashboardLoader from "../../components/loader/dashboardLoader";
-import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import { cSharpDateToJsDateConverter } from "../../../utility/cSharpDateToJsDateConverter";
+import { useStore } from "../../hooks-store/store";
+import DashboardLoader from "../components/loader/dashboardLoader";
+import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
+import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
 
-const DeletePaymentModal = ({ payment, modalId }) => {
+const DeletePurchaseModal = ({ purchase, modalId }) => {
   const dispatch = useStore()[1];
-  const [isDeletingPayment, setIsDeletingPayment] = useState(false);
+  const [isDeletingPurchase, setIsDeletingPurchase] = useState(false);
   const submitFormHandler = (event) => {
     event.preventDefault();
-    setIsDeletingPayment(true);
-    httpDELETE(api.payments.delete_payment + payment.id)
+    setIsDeletingPurchase(true);
+    httpDELETE(api.purchases.delete_purchase + purchase.id)
       .then((response) => {
         if (response.status === 204) {
-          dispatch("DELETE_PAYMENT", payment.id);
+          dispatch("DELETE_PURCHASE", purchase.id);
         }
         if (response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
@@ -27,12 +27,12 @@ const DeletePaymentModal = ({ payment, modalId }) => {
         if (response.status === 400) {
           response.json().then((result) => alert(Object.values(result)[0]));
         }
-        setIsDeletingPayment(false);
+        setIsDeletingPurchase(false);
         closeBootstrapModal();
       })
       .catch((c) => {
         // alert("Network error while deleting file!!");
-        setIsDeletingPayment(false);
+        setIsDeletingPurchase(false);
         closeBootstrapModal();
       });
 
@@ -49,15 +49,15 @@ const DeletePaymentModal = ({ payment, modalId }) => {
         <div className="modal-dialog  modal-xl modal-dialog-centered">
           <div className="modal-content bg-blue-light">
             <form onSubmit={(_) => _.preventDefault()}>
-              <ModalHeader title={`حذف مدفوعات شهر ${payment.month} عام ${payment.year} `} />
-              {isDeletingPayment && <DashboardLoader text="جارى حذف الآداة"/>}
-              {!isDeletingPayment && (
+              <ModalHeader title={`حذف مشتريات ${purchase.tool.name}`} />
+              {isDeletingPurchase && <DashboardLoader text="جارى حذف الآداة"/>}
+              {!isDeletingPurchase && (
                 <Fragment>
                   <h1 className="text-danger text-center">
-                  {`هل تريد حذف مدفوعات شهر ${payment.month} عام ${payment.year} `}
-                     </h1>
+                 هل تريد حذف مشترياتك من {purchase.tool.name} بتاريخ {cSharpDateToJsDateConverter(purchase.createdAt)} ؟
+                  </h1>
                   <p className="text-center text-white">
-                    إذا قمت بالحذف لن تستطيع إستعادة هذه البيانات مرة أخرى! ولكن يمكنك إضافتها من جديد.
+                    إذا قمت بالحذف لن تستطيع إستعادة الآداة مرة أخرى! ولكن يمكنك إضافتها من جديد.
                   </p>
                   <ModalFooter>
                     <SubmitButton
@@ -76,4 +76,4 @@ const DeletePaymentModal = ({ payment, modalId }) => {
     </div>
   );
 };
-export default DeletePaymentModal;
+export default DeletePurchaseModal;

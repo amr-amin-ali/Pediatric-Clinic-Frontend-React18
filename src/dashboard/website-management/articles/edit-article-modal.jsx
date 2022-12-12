@@ -1,18 +1,18 @@
-import ResetButton from "../../../components/buttons/reset-button";
-import SubmitButton from "../../../components/buttons/submit-button";
-import ModalFooter from "../../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../../components/bootstrap-modal/modal-header";
-import TextInput from "../../../components/inputs/text-input";
+import ResetButton from "../../components/buttons/reset-button";
+import SubmitButton from "../../components/buttons/submit-button";
+import ModalFooter from "../../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../../components/bootstrap-modal/modal-header";
+import TextInput from "../../components/inputs/text-input";
 import { useEffect, useState } from "react";
-import { api } from "../../../../utility/api";
-import { useStore } from "../../../../hooks-store/store";
-import { httpPUTWithFile } from "../../../../http/httpPUTWithFile";
-import ButtonWithPressEffect from "../../../components/buttons/button-withPressEffect";
-import TextareaInput from "../../../components/inputs/textarea-input";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
-import { newsModel } from "../../../../models/news-model";
+import { api } from "../../../utility/api";
+import { useStore } from "../../../hooks-store/store";
+import { httpPUTWithFile } from "../../../http/httpPUTWithFile";
+import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
+import TextareaInput from "../../components/inputs/textarea-input";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import { newsModel } from "../../../models/news-model";
 import ArticleItemPreview from "./article-item-preview";
-import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
+import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
 
 const EditArticleModal = ({ article }) => {
 

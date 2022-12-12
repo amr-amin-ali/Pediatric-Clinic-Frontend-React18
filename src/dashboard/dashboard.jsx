@@ -1,20 +1,20 @@
-import SideMenu from "./components/side-menu";
-import DoctorProfile from "./components/doctor-profile";
-import TodayPrescriptions from "./components/today-prescriptions";
 import { Route, Routes } from "react-router-dom";
 import { Fragment, useEffect } from "react";
 import Files from "./files/files";
-import Medicines from "./medicines/medicines";
 import Tools from "./tools/tools";
 import Payments from "./payments/payments";
 import Purchases from "./purchases/purchases";
-import ViewAllFiles from "./files/view-all";
+import ViewAllFiles from "./files/view-all-files";
 import SearchResult from "./files/search-result";
 import ViewAllVisits from "./visits/all-visits/view-all-visits";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
-import ViewAllMedicines from "./medicines/view-all";
+import ViewAllMedicines from "./medicines/view-all-medicines";
+import Medicines from "./medicines/medicines";
+import SideMenu from "./components/side-menu";
+import DoctorProfile from "./components/doctor-profile";
+import TodayPrescriptions from "./components/today-prescriptions";
 const Dashboard = () => {
   document.title = "الإدارة";
   const [state, dispatch] = useStore();

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useStore } from "../../../../hooks-store/store";
-import { httpPOSTWithFile } from "../../../../http/httpPOSTWithFile";
-import { api } from "../../../../utility/api";
-import ButtonWithPressEffect from "../../../components/buttons/button-withPressEffect";
-import ResetButton from "../../../components/buttons/reset-button";
-import DashboardLoader from "../../../components/loader/dashboardLoader";
-import ModalFooter from "../../../components/bootstrap-modal/modal-footer";
-import TextInput from "../../../components/inputs/text-input";
-import TextareaInput from "../../../components/inputs/textarea-input";
-import ModalHeader from "../../../components/bootstrap-modal/modal-header";
-import SubmitButton from "../../../components/buttons/submit-button";
-import { articleModel } from "../../../../models/article-model";
+import { useStore } from "../../../hooks-store/store";
+import { httpPOSTWithFile } from "../../../http/httpPOSTWithFile";
+import { api } from "../../../utility/api";
+import { articleModel } from "../../../models/article-model";
 import ArticleItemPreview from "./article-item-preview";
-import { closeBootstrapModal } from "../../../../utility/close-bootstrap-modal";
+import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
+import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
+import ResetButton from "../../components/buttons/reset-button";
+import DashboardLoader from "../../components/loader/dashboardLoader";
+import ModalFooter from "../../components/bootstrap-modal/modal-footer";
+import TextInput from "../../components/inputs/text-input";
+import TextareaInput from "../../components/inputs/textarea-input";
+import ModalHeader from "../../components/bootstrap-modal/modal-header";
+import SubmitButton from "../../components/buttons/submit-button";
 
 const AddArticleModal = () => {
   const dispatch = useStore()[1];
