@@ -198,11 +198,24 @@ const CreatePaymentModal = () => {
                     </div>
                   </div>
                   <ModalFooter>
-                    <SubmitButton
-                      title="تسجيل"
-                      clickHandler={submitFormHandler}
-                    />
-                    <ResetButton title="تفريغ الحقول" />
+                    <button
+                      onClick={submitFormHandler}
+                      type="button"
+                      className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                      style={{ width: "190px" }}
+                    >
+                      تسجيل
+                    </button>
+                    <button
+                      type="reset"
+                      style={{
+                        backgroundColor: "var(--blue-dark)",
+                        width: "190px",
+                      }}
+                      className="my-btn btn py-3 px-5 fw-bold btn-dark text-white"
+                    >
+                      تفريغ الحقول
+                    </button>{" "}
                   </ModalFooter>
                 </Fragment>
               )}

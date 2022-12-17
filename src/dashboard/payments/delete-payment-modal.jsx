@@ -60,12 +60,21 @@ const DeletePaymentModal = ({ payment, modalId }) => {
                     إذا قمت بالحذف لن تستطيع إستعادة هذه البيانات مرة أخرى! ولكن يمكنك إضافتها من جديد.
                   </p>
                   <ModalFooter>
-                    <SubmitButton
-                      color="red"
-                      title="إحذف"
-                      clickHandler={submitFormHandler}
-                    />
-                    <HideModalButton title="تراجع" />
+               
+                    <button
+                      onClick={submitFormHandler}
+                      type="button"
+                      className="my-btn btn btn-danger py-3 px-5 fw-bold"
+                      style={{ width: "190px" }}
+                    >
+                      إحذف
+                    </button>
+                    <button
+                      className="my-btn btn btn-secondary py-3 px-5 fw-bold"
+                      data-bs-dismiss="modal"
+                    >
+                      تراجع
+                    </button>
                   </ModalFooter>
                 </Fragment>
               )}

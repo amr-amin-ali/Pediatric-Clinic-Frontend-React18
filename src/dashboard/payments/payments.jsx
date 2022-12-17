@@ -55,8 +55,8 @@ const Payments = () => {
 
   return (
     <Fragment>
-    <div className="col-8">
-      <div className="card text-center m-3">
+      <div className="col-8">
+        <div className="card text-center m-3">
           <div className="card-header">الخيارات المتاحة</div>
           <div className="card-body">
             <h5 className="card-title mt-4">
@@ -67,14 +67,17 @@ const Payments = () => {
               مسبقا أو عرض مدفوعات شهر محدد أو عرض جميع المدفوعات أو حتى حذفها.
             </p>
             <hr />
-            <div className="row m-0">
-              <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
-                <ShowModalButton
-                  color="blue"
-                  modalId="#createNewPaymentModal"
-                  title="تسجيل مدفوعات"
-                />
-              </div>
+            <div className="row justify-content-center m-0">
+                <div className="col-4">
+                <button
+                  type="button"
+                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createNewPaymentModal"
+                >
+                  تسجيل مدفوعات
+                </button>
+                </div>
             </div>
           </div>
           <div className="card-footer text-muted">
