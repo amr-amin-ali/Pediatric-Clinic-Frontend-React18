@@ -17,9 +17,6 @@ const ViewMedicineModal = ({ medicineData, modalId }) => {
           <div className="modal-content bg-blue-light">
             <ModalHeader title={`بيانات ${medicineData.name} `} />
             <div className="row m-0 p-2">
-           
-           
-
               <div className="col-12 p-0 mt-1">
                 <div
                   className="row m-0 border border-1 border-secondary p-2"
@@ -160,7 +157,12 @@ const ViewMedicineModal = ({ medicineData, modalId }) => {
             </div>
 
             <ModalFooter>
-              <HideModalButton title="Ok" />
+              <button
+                className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Ok
+              </button>
             </ModalFooter>
           </div>
         </div>

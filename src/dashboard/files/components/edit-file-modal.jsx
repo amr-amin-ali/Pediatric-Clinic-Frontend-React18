@@ -585,21 +585,6 @@ const EditFileModal = ({ fileData, modalId }) => {
                   تفريغ الحقول
                 </button>
               </ModalFooter>
-
-              {/* <ModalFooter>
-                <SubmmitButton
-                  color="green"
-                  title="حفظ التعديلات"
-                  clickHandler={submitFormHandler}
-                />
-                <ResetButton
-                  onClickHandler={() => {
-                    setFile(fileData);
-                    setErrors({});
-                  }}
-                  title="تفريغ الحقول"
-                />
-              </ModalFooter> */}
             </form>
           </div>
         </div>

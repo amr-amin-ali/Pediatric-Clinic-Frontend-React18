@@ -21,12 +21,10 @@ const SearchFilesModal = () => {
                 </div>
                 <div className="col-4">
                   <button
-                className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
-                data-bs-dismiss="modal"
-              >
-                بحث
-              </button>
-
+                    className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                  >
+                    بحث
+                  </button>
                 </div>
               </div>
             </form>

@@ -23,7 +23,6 @@ const Files = () => {
             <hr />
             <div className="row mt-5 mb-5">
               <div className="col-4">
-                {/* <LinkButton  title=" color="red" /> */}
                 <Link
                   className="my-btn my-danger btn btn-danger w-100 py-3 fw-bold"
                   to="View-All"

@@ -1,8 +1,6 @@
 import { Fragment } from "react";
 import CreateMedicineModal from "./components/create-medicine-modal";
-import SearchMedicinesModal from "./components/search-medicine-modal";
-import LinkButton from "../components/buttons/link-button";
-import ShowModalButton from "../components/buttons/show-modal-button";
+import { Link } from "react-router-dom";
 
 const Medicines = () => {
   document.title = "الأدوية";
@@ -18,16 +16,24 @@ const Medicines = () => {
               حتى البحث عن دواء مسجل بالإسم.
             </p>
             <hr />
-            <div className="row mt-5 mb-5">
+            <div className="row justify-content-around mt-5 mb-5">
               <div className="col-4">
-                <LinkButton to="/Dashboard/Medicines/View-All" title="عرض كل الأدوية المسجلة" color="red" />
+                <Link
+                  className="my-btn my-danger btn btn-danger w-100 py-3 fw-bold"
+                  to="/Dashboard/Medicines/View-All"
+                >
+                  عرض كل الأدوية المسجلة
+                </Link>
               </div>
               <div className="col-4">
-                <ShowModalButton
-                color="blue"
-                  modalId="#createNewFileModal"
-                  title="تسجيل دواء"
-                />
+                <button
+                  type="button"
+                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createNewFileModal"
+                >
+                  تسجيل دواء
+                </button>
               </div>
             </div>
           </div>
@@ -36,7 +42,6 @@ const Medicines = () => {
           </div>
         </div>
         <CreateMedicineModal />
-        <SearchMedicinesModal />
       </div>
     </Fragment>
   );

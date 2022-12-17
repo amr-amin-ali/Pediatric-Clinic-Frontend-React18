@@ -31,17 +31,9 @@ const ViewAllFiles = () => {
         <Fragment>
           <h1 className="text-white mt-3">جميع الملفات</h1>
 
-          {state.accounts_store.files.map((file) => {
-            if (file) {
-              return (
-                <FileItem key={file.id}
-                  fileData={file}
-                />
-              );
-            } else {
-              return null;
-            }
-          })}
+          {state.accounts_store.files.map((file) => 
+            file ? <FileItem key={file.id} fileData={file} /> : null
+          )}
         </Fragment>
       )}
       {!isLoading && state.accounts_store.files.length < 1 && (
@@ -49,7 +41,6 @@ const ViewAllFiles = () => {
           لم تقم بإنشاء ملفات حتى الآن
         </h1>
       )}
-
     </div>
   );
 };
