@@ -28,7 +28,6 @@ const CreateToolModal = () => {
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
-    console.log("submitFormHandler:  Form submitted");
 
     if (!error && toolName) {
       setIsSubmitting(true);
@@ -89,10 +88,14 @@ const CreateToolModal = () => {
                     />
                   </div>
                   <div className="col-5">
-                    <SubmitButton
-                      title="تسجيل"
-                      clickHandler={submitFormHandler}
-                    />
+                    <button
+                      onClick={submitFormHandler}
+                      type="button"
+                      className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                      style={{ width: "177px" }}
+                    >
+                      تسجيل
+                    </button>
                   </div>
                 </div>
               )}
