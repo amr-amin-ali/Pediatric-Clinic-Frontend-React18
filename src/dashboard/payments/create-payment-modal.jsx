@@ -215,7 +215,7 @@ const CreatePaymentModal = () => {
                       className="my-btn btn py-3 px-5 fw-bold btn-dark text-white"
                     >
                       تفريغ الحقول
-                    </button>{" "}
+                    </button>
                   </ModalFooter>
                 </Fragment>
               )}

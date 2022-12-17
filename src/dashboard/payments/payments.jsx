@@ -68,7 +68,7 @@ const Payments = () => {
             </p>
             <hr />
             <div className="row justify-content-center m-0">
-                <div className="col-4">
+              <div className="col-4">
                 <button
                   type="button"
                   class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
@@ -77,7 +77,7 @@ const Payments = () => {
                 >
                   تسجيل مدفوعات
                 </button>
-                </div>
+              </div>
             </div>
           </div>
           <div className="card-footer text-muted">

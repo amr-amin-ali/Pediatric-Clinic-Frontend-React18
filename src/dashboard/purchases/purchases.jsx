@@ -14,28 +14,6 @@ const Purchases = () => {
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const deletePurchase = async (purchaseId) => {
-    if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
-      setIsDeleting(true);
-      httpDELETE(api.purchases.delete_purchase + purchaseId)
-        .then((response) => {
-          if (response.status === 204) {
-            dispatch("DELETE_PURCHASE", purchaseId);
-          }
-          if (response.status === 404) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-          }
-          if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-          }
-          setIsDeleting(false);
-        })
-        .catch((c) => {
-          alert("Network error while deleting article!!");
-          setIsDeleting(false);
-        });
-    }
-  };
 
   useEffect(() => {
     if (!state.purchaeses_store.isInitiated) {
@@ -63,13 +41,16 @@ const Purchases = () => {
             يمكنك الإختيار ما بين تسجيل عملية شراء جديدة أو حتى تصفح كل مشترياتك
           </p>
           <hr />
-          <div className="row m-0">
-            <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
-              <ShowModalButton
-                color="blue"
-                modalId="#createNewPurchaseModal"
-                title="تسجيل مشتريات"
-              />
+          <div className="row justify-content-center m-0">
+            <div className="col-4">
+              <button
+                type="button"
+                className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                data-bs-toggle="modal"
+                data-bs-target="#createNewPurchaseModal"
+              >
+                تسجيل مشتريات
+              </button>
             </div>
           </div>
         </div>
