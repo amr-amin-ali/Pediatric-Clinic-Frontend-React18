@@ -226,7 +226,12 @@ const ViewFileModal = ({ fileData, modalId }) => {
             </div>
 
             <ModalFooter>
-              <HideModalButton title="Ok" />
+              <button
+                className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Ok
+              </button>
             </ModalFooter>
           </div>
         </div>

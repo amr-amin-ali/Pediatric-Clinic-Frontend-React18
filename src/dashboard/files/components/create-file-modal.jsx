@@ -264,7 +264,7 @@ const CreateFileModal = () => {
 
     httpPOST(api.account.create_account, file)
       .then((response) => {
-        alert("response.status:"+response.status)
+        alert("response.status:" + response.status);
         if (response.status === 400) {
           response.json().then((result) => {
             const backendErrors = [];
@@ -296,7 +296,7 @@ const CreateFileModal = () => {
             dispatch("ADD_FILE_IN_STORE", data);
             setFile(file);
             setErrors({});
-            alert("تم إضافة الملف")
+            alert("تم إضافة الملف");
             setIsSubmitting(false);
             closeBootstrapModal();
           });
@@ -315,8 +315,6 @@ const CreateFileModal = () => {
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-  
   };
   return (
     <div>
@@ -336,7 +334,7 @@ const CreateFileModal = () => {
                 <span style={{ color: "red", backgroundColor: "black" }}>
                   {serverErrors &&
                     serverErrors.map((error) => {
-                      return <p>{error}</p> ;
+                      return <p>{error}</p>;
                     })}
                 </span>
               </div>
@@ -569,18 +567,28 @@ const CreateFileModal = () => {
               )}
 
               <ModalFooter>
-                <SubmmitButton
-                  color="green"
-                  title="أنشئ الآن"
-                  clickHandler={submitFormHandler}
-                />
-                <ResetButton
-                  onClickHandler={() => {
+                <button
+                  onClick={submitFormHandler}
+                  type="button"
+                  className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                  style={{ width: "190px" }}
+                >
+                  أنشئ الآن
+                </button>
+                <button
+                  onClick={() => {
                     setFile(userFile);
                     setErrors({});
                   }}
-                  title="تفريغ الحقول"
-                />
+                  type="reset"
+                  style={{
+                    backgroundColor: "var(--blue-dark)",
+                    width: "190px",
+                  }}
+                  className="my-btn btn py-3 px-5 fw-bold btn-dark text-white"
+                >
+                  تفريغ الحقول
+                </button>
               </ModalFooter>
             </form>
           </div>

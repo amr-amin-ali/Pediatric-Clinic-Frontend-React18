@@ -1,8 +1,8 @@
+import "./bookings.css";
 import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
 import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
-import "./bookings.css";
 import FeedingBottleSvg from "../components/icons/feeding-bottle-svg";
 import { useEffect } from "react";
 const Bookings = () => {
@@ -12,8 +12,7 @@ const Bookings = () => {
   const deleteBooking = async (bookingId) => {
     const response = await httpDELETE(api.bookings.delete_booking + bookingId);
     if (response.status === 400) {
-      // const data = await response.json();
-      // console.log(data);
+      response.json().then((result) => alert(Object.values(result)[0]));
       return;
     }
     dispatch("DELETE_BOOKING", bookingId);
@@ -25,8 +24,7 @@ const Bookings = () => {
         if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
       });
     }
-  
-}, []);
+  }, []);
 
   return (
     <div className="col-lg-6 mx-auto col-sm-12 px- py-3">
@@ -36,11 +34,12 @@ const Bookings = () => {
       >
         <h1 className="bg-green-light text-white m-0 py-3 text-center fs-1">
           <svg width="50" height="50" fill="#FFF" viewBox="0 0 16 16">
-            <path
-              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-            />
+            <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
           </svg>
-          الحجوزات <span className="text-success">{state.bookings_store.bookings.length}</span>
+          الحجوزات
+          <span className="text-success">
+            {state.bookings_store.bookings.length}
+          </span>
         </h1>
 
         <div
@@ -54,7 +53,7 @@ const Bookings = () => {
                 className="menuItem d-flex justify-content-between text-white fs-5 py-3 border border-blue-dark"
               >
                 <span>
-                  <FeedingBottleSvg/>
+                  <FeedingBottleSvg />
 
                   {booking.name}
                   <p className="lead m-0 py-0 ps-5 fs-6 text-warning">

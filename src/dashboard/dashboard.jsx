@@ -46,7 +46,6 @@ useEffect(() => {
         <Route path="Tools" element={<Tools />} />
         <Route path="Payments" element={<Payments />} />
         <Route path="Purchases" element={<Purchases />} />
-        {/* <Route path="Bookings" element={<Bookings />} /> */}
         <Route
           path="*"
           element={

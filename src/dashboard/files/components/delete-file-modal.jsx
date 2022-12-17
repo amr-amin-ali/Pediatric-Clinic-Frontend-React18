@@ -35,7 +35,6 @@ const DeleteFileModal = ({ fileData, modalId }) => {
         setIsDeletingFile(false);
         closeBootstrapModal();
       });
-
   };
   return (
     <div>
@@ -50,7 +49,7 @@ const DeleteFileModal = ({ fileData, modalId }) => {
           <div className="modal-content bg-blue-light">
             <form onSubmit={(_) => _.preventDefault()}>
               <ModalHeader title={`حذف ملف ${fileData.firstName}`} />
-              {isDeletingFile && <DashboardLoader text="جارى حذف الملف"/>}
+              {isDeletingFile && <DashboardLoader text="جارى حذف الملف" />}
               {!isDeletingFile && (
                 <Fragment>
                   <h1 className="text-danger text-center">
@@ -61,12 +60,21 @@ const DeleteFileModal = ({ fileData, modalId }) => {
                     به مرة أخرى!
                   </p>
                   <ModalFooter>
-                    <SubmitButton
-                      color="red"
-                      title="إحذف"
-                      clickHandler={submitFormHandler}
-                    />
-                    <HideModalButton title="تراجع" />
+                    <button
+                      onClick={submitFormHandler}
+                      type="button"
+                      className="my-btn btn btn-danger py-3 px-5 fw-bold"
+                      style={{ width: "190px" }}
+                    >
+                      إحذف
+                    </button>
+                    <button
+                      className="my-btn btn btn-secondary py-3 px-5 fw-bold"
+                      data-bs-dismiss="modal"
+                    >
+                      تراجع
+                    </button>
+
                   </ModalFooter>
                 </Fragment>
               )}

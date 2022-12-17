@@ -3,6 +3,7 @@ import CreateFileModal from "./components/create-file-modal";
 import SearchFiles from "./components/search-files-modal";
 import LinkButton from "../components/buttons/link-button";
 import ShowModalButton from "../components/buttons/show-modal-button";
+import { Link } from "react-router-dom";
 
 const Files = () => {
   document.title = "الملفات";
@@ -22,21 +23,33 @@ const Files = () => {
             <hr />
             <div className="row mt-5 mb-5">
               <div className="col-4">
-                <LinkButton to="View-All" title="عرض كل الموجودة" color="red" />
+                {/* <LinkButton  title=" color="red" /> */}
+                <Link
+                  className="my-btn my-danger btn btn-danger w-100 py-3 fw-bold"
+                  to="View-All"
+                >
+                  عرض كل الموجودة
+                </Link>
               </div>
               <div className="col-4">
-                <ShowModalButton
-                  color="blue"
-                  modalId="#createNewFileModal"
-                  title="إنشاء ملف جديد"
-                />
+                <button
+                  type="button"
+                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createNewFileModal"
+                >
+                  إنشاء ملف جديد
+                </button>
               </div>
               <div className="col-4">
-                <ShowModalButton
-                  color="green"
-                  modalId="#searchForPatientFileModal"
-                  title="بحث عن ملف"
-                />
+                <button
+                  type="button"
+                  class="my-btn my-success btn btn-success w-100 py-3 fw-bold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#searchForPatientFileModal"
+                >
+                  بحث عن ملف
+                </button>
               </div>
             </div>
           </div>

@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+//START: bootstrap to use offline -> un comment cdn in index.html to use them for production instead to minimize application size
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
+//END.
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";

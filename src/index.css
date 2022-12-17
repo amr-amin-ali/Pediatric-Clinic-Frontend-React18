@@ -127,7 +127,17 @@ code {
   }
 }
 /* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard*  */
-
+/*START Override bootstrap buttons */
+.my-btn{
+  border-radius: 0px !important;
+}
+.my-success{
+  background-color: #0f9295 !important;
+}
+.my-primary{
+  background-color: #1a4e95 !important;
+}
+/*END Override bootstrap buttons */
 .bg-blue-light {
   background-color: var(--blue-light);
 }

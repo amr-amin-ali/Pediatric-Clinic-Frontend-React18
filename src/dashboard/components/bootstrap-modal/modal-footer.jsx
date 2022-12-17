@@ -4,7 +4,7 @@ const ModalFooter = (props) => {
   return (
    <Fragment>
      <hr className="text-blue-dark opacity-100"/>
-    <div className="row pb-3 m-0 d-flex flex-row justify-content-center">
+    <div className="pb-3 d-flex flex-row justify-content-center">
         {props.children}
     </div>
    </Fragment>

@@ -561,8 +561,32 @@ const EditFileModal = ({ fileData, modalId }) => {
                   </div>
                 </div>
               )}
-
               <ModalFooter>
+                <button
+                  onClick={submitFormHandler}
+                  type="button"
+                  className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                  style={{ width: "190px" }}
+                >
+                  أنشئ الآن
+                </button>
+                <button
+                  onClick={() => {
+                    setFile(fileData);
+                    setErrors({});
+                  }}
+                  type="reset"
+                  style={{
+                    backgroundColor: "var(--blue-dark)",
+                    width: "190px",
+                  }}
+                  className="my-btn btn py-3 px-5 fw-bold btn-dark text-white"
+                >
+                  تفريغ الحقول
+                </button>
+              </ModalFooter>
+
+              {/* <ModalFooter>
                 <SubmmitButton
                   color="green"
                   title="حفظ التعديلات"
@@ -575,7 +599,7 @@ const EditFileModal = ({ fileData, modalId }) => {
                   }}
                   title="تفريغ الحقول"
                 />
-              </ModalFooter>
+              </ModalFooter> */}
             </form>
           </div>
         </div>
