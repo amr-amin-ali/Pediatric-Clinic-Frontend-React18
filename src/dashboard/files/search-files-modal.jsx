@@ -1,5 +1,5 @@
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import TextInput from "../../components/inputs/text-input";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import TextInput from "../components/inputs/text-input";
 const SearchFilesModal = () => {
   return (
     <div>

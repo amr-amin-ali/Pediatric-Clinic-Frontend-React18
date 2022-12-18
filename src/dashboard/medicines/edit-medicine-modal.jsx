@@ -1,14 +1,14 @@
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import TextInput from "../../components/inputs/text-input";
-import TextareaInput from "../../components/inputs/textarea-input";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import TextInput from "../components/inputs/text-input";
+import TextareaInput from "../components/inputs/textarea-input";
 import { useState } from "react";
-import { medicineModel } from "../../../models/medicine-model";
-import { api } from "../../../utility/api";
-import { useStore } from "../../../hooks-store/store";
-import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import DashboardLoader from "../../components/loader/dashboardLoader";
-import { httpPUT } from "../../../http/httpPUT";
+import { medicineModel } from "../../models/medicine-model";
+import { api } from "../../utility/api";
+import { useStore } from "../../hooks-store/store";
+import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
+import DashboardLoader from "../components/loader/dashboardLoader";
+import { httpPUT } from "../../http/httpPUT";
 
 const EditMedicineModal = ({ medicineData, modalId }) => {
   const dispatch = useStore()[1];

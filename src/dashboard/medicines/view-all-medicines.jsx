@@ -3,7 +3,7 @@ import { useStore } from "../../hooks-store/store";
 import { httpGET } from "../../http/httpGET";
 import { api } from "../../utility/api";
 import DashboardLoader from "../components/loader/dashboardLoader";
-import MedicineItem from "./components/medicine-item";
+import MedicineItem from "./medicine-item";
 
 const ViewAllMedicines = () => {
   const [state, dispatch] = useStore();

@@ -1,11 +1,11 @@
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import { api } from "../../../utility/api";
-import { httpDELETE } from "../../../http/httpDELETE";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import { api } from "../../utility/api";
+import { httpDELETE } from "../../http/httpDELETE";
 import { Fragment, useState } from "react";
-import { useStore } from "../../../hooks-store/store";
-import DashboardLoader from "../../components/loader/dashboardLoader";
-import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
+import { useStore } from "../../hooks-store/store";
+import DashboardLoader from "../components/loader/dashboardLoader";
+import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
 
 const DeleteFileModal = ({ fileData, modalId }) => {
   const dispatch = useStore()[1];

@@ -1,10 +1,7 @@
-import { useEffect } from "react";
-// import SubmitButton from "../../components/buttons/submit-button";
 import NumberInput from "../../components/inputs/number-input";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
-import ViewFileModal from "../../files/components/view-file-modal";
 import { api } from "../../../utility/api";
 import { useStore } from "../../../hooks-store/store";
 import { useState } from "react";
@@ -12,7 +9,7 @@ import { httpPUT } from "../../../http/httpPUT";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const EditVisitDetailsForm = ({ visit }) => {
-  const [state, dispatch] = useStore(true);
+  const  dispatch = useStore(true)[1];
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
   const [visitDetails, setVisitDetails] = useState({...visit});
 

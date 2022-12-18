@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Fragment } from "react";
-import { useStore } from "../../../hooks-store/store";
-import { httpDELETE } from "../../../http/httpDELETE";
-import { api } from "../../../utility/api";
-import DashboardLoader from "../../components/loader/dashboardLoader";
+import { useStore } from "../../hooks-store/store";
+import { httpDELETE } from "../../http/httpDELETE";
+import { api } from "../../utility/api";
+import DashboardLoader from "../components/loader/dashboardLoader";
 import EditMedicineModal from "./edit-medicine-modal";
 import ViewMedicineModal from "./view-medicine-modal";
 

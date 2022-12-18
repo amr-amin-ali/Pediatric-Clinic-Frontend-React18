@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import CreateFileModal from "./components/create-file-modal";
-import SearchFiles from "./components/search-files-modal";
+import CreateFileModal from "./create-file-modal";
+import SearchFiles from "./search-files-modal";
 import { Link } from "react-router-dom";
 
 const Files = () => {

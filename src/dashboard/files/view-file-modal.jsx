@@ -1,9 +1,9 @@
-import { getAge } from "../../../utility/age-calculator";
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import Stethoscope from "../../components/icons/stethoscope";
-import MaleSvg from "../../components/icons/male-svg";
-import FemaleSvg from "../../components/icons/female-svg";
+import { getAge } from "../../utility/age-calculator";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import Stethoscope from "../components/icons/stethoscope";
+import MaleSvg from "../components/icons/male-svg";
+import FemaleSvg from "../components/icons/female-svg";
 const ViewFileModal = ({ fileData, modalId }) => {
   let date = getAge(fileData.birthDate);
   return (

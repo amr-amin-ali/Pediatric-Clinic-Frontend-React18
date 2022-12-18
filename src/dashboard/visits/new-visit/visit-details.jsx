@@ -4,7 +4,7 @@ import NumberInput from "../../components/inputs/number-input";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
-import ViewFileModal from "../../files/components/view-file-modal";
+import ViewFileModal from "../../files/view-file-modal";
 import { httpGET } from "../../../http/httpGET";
 import { api } from "../../../utility/api";
 import { useStore } from "../../../hooks-store/store";

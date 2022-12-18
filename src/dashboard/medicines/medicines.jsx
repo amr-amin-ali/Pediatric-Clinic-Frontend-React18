@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import CreateMedicineModal from "./components/create-medicine-modal";
+import CreateMedicineModal from "./create-medicine-modal";
 import { Link } from "react-router-dom";
 
 const Medicines = () => {

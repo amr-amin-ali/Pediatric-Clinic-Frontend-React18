@@ -1,20 +1,20 @@
-import DateTimeInput from "../../components/inputs/date-time-input";
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import NumberInput from "../../components/inputs/number-input";
-import RadioInput from "../../components/inputs/radio-input";
-import SelectInput from "../../components/inputs/select-input";
-import TextInput from "../../components/inputs/text-input";
-import TextareaInput from "../../components/inputs/textarea-input";
-import { api } from "../../../utility/api";
+import DateTimeInput from "../components/inputs/date-time-input";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import NumberInput from "../components/inputs/number-input";
+import RadioInput from "../components/inputs/radio-input";
+import SelectInput from "../components/inputs/select-input";
+import TextInput from "../components/inputs/text-input";
+import TextareaInput from "../components/inputs/textarea-input";
+import { api } from "../../utility/api";
 import { useState } from "react";
-import { validateName } from "../../../utility/create-file-validators";
-import { validateEmail } from "../../../utility/validate-email";
-import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import DashboardLoader from "../../components/loader/dashboardLoader";
-import { governorates } from "../../../models/governorates-list";
-import { httpPUT } from "../../../http/httpPUT";
-import { useStore } from "../../../hooks-store/store";
+import { validateName } from "../../utility/create-file-validators";
+import { validateEmail } from "../../utility/validate-email";
+import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
+import DashboardLoader from "../components/loader/dashboardLoader";
+import { governorates } from "../../models/governorates-list";
+import { httpPUT } from "../../http/httpPUT";
+import { useStore } from "../../hooks-store/store";
 
 const EditFileModal = ({ fileData, modalId }) => {
   const dispatch = useStore()[1];

@@ -1,6 +1,6 @@
-import ModalFooter from "../../components/bootstrap-modal/modal-footer";
-import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import Stethoscope from "../../components/icons/stethoscope";
+import ModalFooter from "../components/bootstrap-modal/modal-footer";
+import ModalHeader from "../components/bootstrap-modal/modal-header";
+import Stethoscope from "../components/icons/stethoscope";
 
 const ViewMedicineModal = ({ medicineData, modalId }) => {
   return (
