@@ -18,22 +18,23 @@ const NewsManagement = () => {
   const deleteNews = async (newsId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
       setIsDeleting(true);
-      httpDELETE(api.news.delete_news + newsId).then((response) => {
-        if (response.status === 204) {
-          dispatch("DELETE_NEWS", newsId);
-        }
-        if (response.status === 404) {
-          response.json().then((result) => alert(Object.values(result)[0]));
-        }
-        if (response.status === 400) {
-          response.json().then((result) => alert(Object.values(result)[0]));
-        }
-        setIsDeleting(false);
-      })
-      .catch((c) => {
-        alert("Network error while deleting article!!");
-        setIsDeleting(false);
-      });
+      httpDELETE(api.news.delete_news + newsId)
+        .then((response) => {
+          if (response.status === 204) {
+            dispatch("DELETE_NEWS", newsId);
+          }
+          if (response.status === 404) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          if (response.status === 400) {
+            response.json().then((result) => alert(Object.values(result)[0]));
+          }
+          setIsDeleting(false);
+        })
+        .catch((c) => {
+          alert("Network error while deleting article!!");
+          setIsDeleting(false);
+        });
     }
   };
 
@@ -70,13 +71,16 @@ const NewsManagement = () => {
             أو تعديله.
           </p>
           {/* <hr /> */}
-          <div className="row m-0">
-            <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
-              <ShowModalButton
-                color="blue"
-                modalId="#addNewsModalB"
-                title="نشر خبر"
-              />
+          <div className="row justify-content-center m-0">
+            <div className="col-4">
+              <button
+                type="button"
+                className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                data-bs-toggle="modal"
+                data-bs-target="#addNewsModalB"
+              >
+                نشر خبر
+              </button>
             </div>
           </div>
         </div>
@@ -86,8 +90,8 @@ const NewsManagement = () => {
       <EditNewsModal news={newsToEdit} />
 
       <div className="row justify-content-between m-3">
-      {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
-      {isDeleting&& <DashboardLoader text="جارى الحذف"/> }
+        {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
+        {isDeleting && <DashboardLoader text="جارى الحذف" />}
 
         {!isLoading && state.newsStore.news.length > 0 && (
           <Fragment>

@@ -66,13 +66,16 @@ const ServicesManagement = () => {
             إضافتها أو حتى حذف خدمة.
           </p>
 
-          <div className="row m-0">
-            <div className="col-md-4 col-sm-8 offset-md-4 offset-sm-2 d-flex justify-content-center">
-              <ShowModalButton
-                color="blue"
-                modalId="#addServiceModal"
-                title="إضافة خدمة"
-              />
+          <div className="row justify-content-center m-0">
+            <div className="col-4">
+              <button
+                type="button"
+                className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                data-bs-toggle="modal"
+                data-bs-target="#addServiceModal"
+              >
+                إضافة خدمة
+              </button>
             </div>
           </div>
         </div>

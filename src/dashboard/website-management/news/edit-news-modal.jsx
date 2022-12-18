@@ -191,8 +191,7 @@ const EditNewsModal = ({ news }) => {
                   <div className="col-sm-12 col-lg-6">
                     <NewsItemPreview
                       image={
-                        imageUrl ??
-                        (news.image && api.base_url + news.image)
+                        imageUrl ?? (news.image && api.base_url + news.image)
                       }
                       title={newsToEdit.title}
                       text={newsToEdit.text}
@@ -216,14 +215,25 @@ const EditNewsModal = ({ news }) => {
               )}
 
               <ModalFooter>
-                <SubmitButton
-                  title="حفظ التعديلات"
-                  clickHandler={submitFormHandler}
-                />
-                <ResetButton
-                  onClickHandler={resetFormClickHandler}
-                  title="تفريغ الحقول"
-                />
+                <button
+                  onClick={submitFormHandler}
+                  type="button"
+                  className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                  style={{ width: "200px" }}
+                >
+                  حفظ التعديلات
+                </button>
+                <button
+                  onClick={resetFormClickHandler}
+                  type="reset"
+                  style={{
+                    backgroundColor: "var(--blue-dark)",
+                    width: "190px",
+                  }}
+                  className="my-btn btn py-3 px-5 fw-bold btn-dark text-white"
+                >
+                  تفريغ الحقول
+                </button>
               </ModalFooter>
             </form>
           </div>

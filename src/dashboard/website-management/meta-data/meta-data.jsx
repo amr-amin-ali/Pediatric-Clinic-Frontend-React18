@@ -295,11 +295,14 @@ const MetaData = () => {
                         />
                       </label>
                     </div>
-                    <div className="row m-0 justify-content-center my-5">
-                      <ButtonGlowOnHover
-                        buttonClickHandler={submitFormHandler}
-                        text="حفظ"
-                      />
+                    <div className="row m-0 my-5">
+                      <button
+                        onClick={submitFormHandler}
+                        type="button"
+                        className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                      >
+                        حفظ
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -490,11 +493,14 @@ const MetaData = () => {
                       />
                     </label>
                   </div>
-                  <div className="row m-0 justify-content-center my-5">
-                    <ButtonGlowOnHover
-                      buttonClickHandler={submitFormHandler}
-                      text="حفظ"
-                    />
+                  <div className="row m-0 my-5">
+                    <button
+                      onClick={submitFormHandler}
+                      type="button"
+                      className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                    >
+                      حفظ
+                    </button>
                   </div>
                 </div>
               </div>

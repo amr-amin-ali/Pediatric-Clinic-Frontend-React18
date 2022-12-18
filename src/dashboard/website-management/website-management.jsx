@@ -67,7 +67,8 @@ const WebsiteManagement = () => {
           <Route path="Services" element={<ServicesManagement />} />
           <Route path="Articles" element={<ArticlesManagement />} />
           <Route path="News" element={<NewsManagement />} />
-          <Route path="Vaccines" element={<VaccinesManagemt />} />{" "}
+          <Route path="Vaccines" element={<VaccinesManagemt />} />
+          <Route path="*" element={<h1 className="text-center text-warning mt-5">من هنا يمكنك إدارة موقع الويب</h1>}/>
         </Routes>
       </div>
     </div>
