@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { api } from "../../../utility/api";
-import EditAndDeleteButtons from "../../components/edit-and-delete-btns/edit-and-delete-btns";
+import EditAndDeleteButtons from "../../components/buttons/edit-and-delete-btns";
 const NewsItem = ({ news, deleteClickHandler, editClickHandler }) => {
   if (!news) {
     return null;

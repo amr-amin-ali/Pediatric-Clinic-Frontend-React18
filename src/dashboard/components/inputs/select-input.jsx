@@ -1,4 +1,3 @@
-import styles from "./select-input.module.css";
 const SelectInput = ({
   title,
   onChangeHandler = null,
@@ -13,7 +12,7 @@ const SelectInput = ({
         name={name}
         onChange={onChangeHandler}
         value={selectedValue}
-        className={`form-select ${styles.selectInputStyle}`}
+        className={`form-select my-dashboard-textAndNumber-inputs  bg-grey-dark border-1 border-blue-dark `}
         id={id || name}
         aria-label="Floating label select example"
       >
@@ -28,7 +27,7 @@ const SelectInput = ({
             </option>
           ))}
       </select>
-      <label className={styles.label} htmlFor={id || name}>
+      <label className="my-dashboard-labels" htmlFor={id || name}>
         {title}
       </label>
     </div>

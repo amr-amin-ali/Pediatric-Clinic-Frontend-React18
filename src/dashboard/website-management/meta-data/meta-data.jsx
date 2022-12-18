@@ -6,7 +6,7 @@ import { httpPOSTWithFile } from "../../../http/httpPOSTWithFile";
 import DoctorSvg from "../../components/icons/doctor-svg";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import TextInput from "../../components/inputs/text-input";
-import TimeInput from "../../components/inputs/time-input";
+import DateTimeInput from "../../components/inputs/date-time-input";
 import SwitchInput from "../../components/inputs/switch-input";
 const MetaData = () => {
   const [state, dispatch] = useStore();
@@ -180,7 +180,8 @@ const MetaData = () => {
                       />
                     </div>
                     <div className="">
-                      <TimeInput
+                      <DateTimeInput
+                        type="time"
                         onChangeHandler={(event) =>
                           setMetaDatasUpdate({
                             ...metaDatasUpdate,
@@ -193,7 +194,8 @@ const MetaData = () => {
                       />
                     </div>
                     <div className="">
-                      <TimeInput
+                      <DateTimeInput
+                        type="time"
                         onChangeHandler={(event) =>
                           setMetaDatasUpdate({
                             ...metaDatasUpdate,

@@ -6,7 +6,7 @@ import { api } from "../../../utility/api";
 import CreateVaccineModal from "./create-vaccine-modal";
 import EditVaccineModal from "./edit-vaccine-modal";
 import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
-import EditAndDeleteButtons from "../../components/edit-and-delete-btns/edit-and-delete-btns";
+import EditAndDeleteButtons from "../../components/buttons/edit-and-delete-btns";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const VaccinesManagemt = () => {

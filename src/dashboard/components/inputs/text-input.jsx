@@ -1,4 +1,3 @@
-import styles from "./text-input.module.css";
 const TextInput = ({
   required = false,
   onChangeHandler = null,
@@ -11,7 +10,7 @@ const TextInput = ({
     <div className="form-floating">
       <input
         type="text"
-        className={`form-control form-control-lg ${styles.textInputStyle}`}
+        className={`form-control form-control-lg bg-grey-dark  border-1 border-blue-dark my-dashboard-textAndNumber-inputs`}
         id={id || name}
         name={name}
         required={required}
@@ -20,7 +19,7 @@ const TextInput = ({
         onChange={onChangeHandler}
         
       />
-      <label className={styles.label} htmlFor={name}>
+      <label className="my-dashboard-labels" htmlFor={name}>
         {placeholder}
       </label>
     </div>

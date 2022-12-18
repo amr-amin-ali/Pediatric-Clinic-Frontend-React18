@@ -1,5 +1,5 @@
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import DateInput from "../../components/inputs/date-input";
+import DateTimeInput from "../../components/inputs/date-time-input";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import NumberInput from "../../components/inputs/number-input";
@@ -389,7 +389,8 @@ const CreateFileModal = () => {
                     />
                   </div>
                   <div className="col-sm-12 col-lg-4   my-1 px-1">
-                    <DateInput
+                  <DateTimeInput
+                        type="date"
                       onChangeHandler={birthDateChangeHandler}
                       title="تاريخ الميلاد"
                       name="birthDate"
@@ -401,6 +402,7 @@ const CreateFileModal = () => {
 
                   <div className="col-sm-12 col-lg-3 my-1 px-1">
                     <SelectInput
+                    selectedValue={file.governorate}
                       onChangeHandler={addressChangeHandler}
                       items={governorates}
                       name="governorate"

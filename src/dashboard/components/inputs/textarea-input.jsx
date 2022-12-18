@@ -1,4 +1,3 @@
-import styles from "./textarea-input.module.css";
 const TextareaInput = ({
   placeholder,
   onChangeHandler = null,
@@ -10,13 +9,14 @@ const TextareaInput = ({
     <div className="form-floating">
       <textarea
         onChange={onChangeHandler}
-        className={`form-control ${styles.textareaInputStyle}`}
+        style={{height: "180px"}}
+        className={`form-control  bg-grey-dark  border-1 border-blue-dark my-dashboard-textAndNumber-inputs`}
         id={id || name}
         name={name}
         placeholder={placeholder}
         value={value}
       ></textarea>
-      <label className={styles.label} htmlFor={name}>
+      <label className="my-dashboard-labels" htmlFor={name}>
         {placeholder}
       </label>
     </div>

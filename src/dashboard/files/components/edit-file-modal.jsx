@@ -1,4 +1,4 @@
-import DateInput from "../../components/inputs/date-input";
+import DateTimeInput from "../../components/inputs/date-time-input";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import NumberInput from "../../components/inputs/number-input";
@@ -384,7 +384,8 @@ const EditFileModal = ({ fileData, modalId }) => {
                     />
                   </div>
                   <div className="col-sm-12 col-lg-4   my-1 px-1">
-                    <DateInput
+                  <DateTimeInput
+                        type="date"
                       onChangeHandler={birthDateChangeHandler}
                       title="تاريخ الميلاد"
                       name="birthDate"

@@ -67,7 +67,7 @@ code {
 .font-family-hacen {
   font-family: var(--hacen-font);
 }
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 /* Appointment  */
@@ -87,19 +87,19 @@ code {
   font-weight: bold;
   font-size: 1.2rem;
   background-color: #ffd9a9;
-  box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+  box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0
+    var(--bs-accordion-border-color);
 }
 /* Mobile */
-@media screen and (max-width: 320px)  and (max-width: 414px) {
-  .dashboard-container{
+@media screen and (max-width: 320px) and (max-width: 414px) {
+  .dashboard-container {
     padding-left: 0px !important;
     padding-right: 0px !important;
     padding-top: 0px !important;
   }
-  .dashboard-content-container{
+  .dashboard-content-container {
     padding: 3% !important;
   }
-  
 }
 /* Tablet */
 @media screen and (min-width: 720px) {
@@ -128,14 +128,31 @@ code {
 }
 /* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard* *Dashboard*  */
 /*START Override bootstrap buttons */
-.my-btn{
+.my-btn {
   border-radius: 0px !important;
 }
-.my-success{
+.my-success {
   background-color: #0f9295 !important;
 }
-.my-primary{
+.my-primary {
   background-color: #1a4e95 !important;
+}
+/* dashboard inputs */
+.my-dashboard-textAndNumber-inputs {
+  height: 50px;
+  background: var(--grey-dark);
+  color: #9aafff !important;
+}
+.my-dashboard-textAndNumber-inputs:focus {
+  outline: none;
+  font-size: 1.2rem;
+  color: white !important;
+  border-color: #9c95ff !important;
+  box-shadow: none;
+}
+.my-dashboard-labels {
+  color: #c8f3c1 !important;
+  font-size: 1.2rem;
 }
 /*END Override bootstrap buttons */
 .bg-blue-light {
