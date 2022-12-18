@@ -1,6 +1,5 @@
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import TextInput from "../../components/inputs/text-input";
-import SubmitButton from "../../components/buttons/submit-button";
 const SearchFilesModal = () => {
   return (
     <div>

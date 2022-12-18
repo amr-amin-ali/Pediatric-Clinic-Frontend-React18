@@ -1,29 +1,21 @@
 import EditVisitDetailsForm from "../edit-visit/edit-visit-details-form";
 import EditAddTreatmentForm from "../edit-visit/edit-add-treatment";
-import { useStore } from "../../../hooks-store/store";
 import Prescription from "../prescription-paper/prescription";
 import { httpDELETE } from "../../../http/httpDELETE";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "../../../utility/api";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const AllVisitsItem = ({ visit }) => {
+  const [treatments, setTreatments] = useState(visit.treatments);
+  const treatmentsListHandler = (treatment) => {
+    setTreatments([...treatments, treatment]);
+  };
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [state, dispatch] = useStore();
   const [isDeleted, setIsDeleted] = useState(false);
-  const [visitTreatments, setVisitTreatments] = useState([]);
   const [edit, setEdit] = useState(false);
-  const editPrescriptionClickHandler = () => {
-    if (edit) {
-      setVisitTreatments(state.visits_store.new_prescription_data.treatments);
-      setEdit(!edit);
-    } else {
-      // console.log("AllPrescriptionsItem:::",visit.treatments)
-      dispatch("SET_NEW_PRESCRIPTION_TREATMENTS", visit.treatments);
-      setEdit(!edit);
-    }
-  };
+
   const deleteVisitClickHandler = async (visitId) => {
     if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
       setIsDeleting(true);
@@ -31,7 +23,6 @@ const AllVisitsItem = ({ visit }) => {
         .then((response) => {
           if (response.status === 204) {
             setIsDeleted(true);
-            // alert("تم حذف الروشتة");
           }
           if (response.status === 404) {
             response.json().then((result) => alert(Object.values(result)[0]));
@@ -47,11 +38,6 @@ const AllVisitsItem = ({ visit }) => {
         });
     }
   };
-  useEffect(() => {
-    if (!edit) {
-      setVisitTreatments(visit.treatments);
-    }
-  }, []);
   if (isDeleted) {
     return null;
   }
@@ -62,7 +48,7 @@ const AllVisitsItem = ({ visit }) => {
       <div className="row mx-0 mb-1 bg-dark">
         <div className="col-12 p-0 border border border-start-0 border border-end-0 border-5 border-secondary">
           <button
-            onClick={editPrescriptionClickHandler}
+            onClick={() => setEdit(!edit)}
             className="btn text-primary fw-bold mx-1"
           >
             {edit ? "إنهاء التعديل" : "تعديل"}
@@ -112,16 +98,15 @@ const AllVisitsItem = ({ visit }) => {
               </div>
             </div>
           )}
-          {edit && <EditAddTreatmentForm visitId={visit.id} />}
+          {edit && (
+            <EditAddTreatmentForm
+              visitId={visit.id}
+              treatmentsListHandler={treatmentsListHandler}
+            />
+          )}
         </div>
         <div className="col-7 m-0 p-2">
-          <Prescription
-            treatments={
-              edit
-                ? state.visits_store.new_prescription_data.treatments
-                : visitTreatments
-            }
-          />
+          <Prescription treatments={treatments} />
         </div>
       </div>
     </div>

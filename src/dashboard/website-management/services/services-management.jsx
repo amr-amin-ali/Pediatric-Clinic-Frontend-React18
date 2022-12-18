@@ -7,7 +7,6 @@ import EditServiceModal from "./edit-service-modal";
 import { api } from "../../../utility/api";
 import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
 import EditAndDeleteButtons from "../../components/edit-and-delete-btns/edit-and-delete-btns";
-import ShowModalButton from "../../components/buttons/show-modal-button";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const ServicesManagement = () => {

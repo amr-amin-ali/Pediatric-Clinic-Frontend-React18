@@ -5,7 +5,6 @@ import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
 import { httpGET } from "../../http/httpGET";
 import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
-import ShowModalButton from "../components/buttons/show-modal-button";
 import DeletePaymentModal from "./delete-payment-modal";
 import CreatePaymentModal from "./create-payment-modal";
 
@@ -71,7 +70,7 @@ const Payments = () => {
               <div className="col-4">
                 <button
                   type="button"
-                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                   data-bs-toggle="modal"
                   data-bs-target="#createNewPaymentModal"
                 >

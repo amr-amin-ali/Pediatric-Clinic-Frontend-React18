@@ -1,8 +1,6 @@
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import HideModalButton from "../../components/buttons/hide-modal-button";
 import Stethoscope from "../../components/icons/stethoscope";
-import SubmitButton from "../../components/buttons/submit-button";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const DeleteTreatmentConfirmationModal = ({
@@ -168,12 +166,12 @@ const DeleteTreatmentConfirmationModal = ({
             )}
             {!isDeleting && (
               <ModalFooter>
-                <HideModalButton title="لا" color="green" />
+                {/* <HideModalButton title="لا" color="green" />
                 <SubmitButton
                   clickHandler={() => deleteAction()}
                   title="حذف"
                   color="red"
-                />
+                /> */}
               </ModalFooter>
             )}
           </div>

@@ -1,5 +1,3 @@
-import HideModalButton from "../components/buttons/hide-modal-button";
-import SubmitButton from "../components/buttons/submit-button";
 import ModalFooter from "../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../components/bootstrap-modal/modal-header";
 import { api } from "../../utility/api";
@@ -8,7 +6,6 @@ import { Fragment, useState } from "react";
 import { useStore } from "../../hooks-store/store";
 import DashboardLoader from "../components/loader/dashboardLoader";
 import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
-import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
 
 const DeletePaymentModal = ({ payment, modalId }) => {
   const dispatch = useStore()[1];

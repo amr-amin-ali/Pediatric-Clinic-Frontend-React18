@@ -1,13 +1,10 @@
-import ResetButton from "../../components/buttons/reset-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
-import SubmitButton from "../../components/buttons/submit-button";
 import { useState } from "react";
 import { medicineModel } from "../../../models/medicine-model";
 import { api } from "../../../utility/api";
-import { httpPOST } from "../../../http/httpPOST";
 import { useStore } from "../../../hooks-store/store";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
 import DashboardLoader from "../../components/loader/dashboardLoader";
@@ -43,7 +40,7 @@ const EditMedicineModal = ({ medicineData, modalId }) => {
     //////////////////////////////////////////////////////
     setIsSubmitting(true);
     httpPUT(api.medicines.update_medicine, {
-      id:model.id,
+      id: model.id,
       name: model.name,
       dose: model.dose,
       ageOfUse: model.ageOfUse,
@@ -55,7 +52,7 @@ const EditMedicineModal = ({ medicineData, modalId }) => {
       precautions: model.precautions,
     })
       .then((response) => {
-        if (response.status === 400||response.status === 404) {
+        if (response.status === 400 || response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
           setIsSubmitting(false);
         }
@@ -101,39 +98,39 @@ const EditMedicineModal = ({ medicineData, modalId }) => {
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.name}
+                      value={model.name ?? ""}
                       name="name"
                       placeholder="إسم الدواء"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.dose}
+                      value={model.dose?? ""}
                       name="dose"
                       placeholder="الجرعة"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.ageOfUse}
+                      value={model.ageOfUse?? ""}
                       name="ageOfUse"
                       placeholder="عمر الإستخدام"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.drugSensitivity}
+                      value={model.drugSensitivity?? ""}
                       name="drugSensitivity"
                       placeholder="الحساسية"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.precautions}
+                      value={model.precautions?? ""}
                       name="precautions"
                       placeholder="تحذيرات الإستعمال"
                     />
@@ -141,38 +138,38 @@ const EditMedicineModal = ({ medicineData, modalId }) => {
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.sideEffect}
+                      value={model.sideEffect?? ""}
                       name="sideEffect"
                       placeholder="الآثار الجانبية"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.drugInteraction}
+                      value={model.drugInteraction?? ""}
                       name="drugInteraction"
                       placeholder="التفاعلات الدوائية"
-                      />
+                    />
                   </div>
                   <div className="col-6 my-1">
                     <TextInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.activeIngreients}
+                      value={model.activeIngreients?? ""}
                       name="activeIngreients"
                       placeholder="المواد الفعالة"
-                      />
+                    />
                   </div>
                   <div className="col-12 my-1">
                     <TextareaInput
                       onChangeHandler={inputChangeHandler}
-                      value={model.instructionToUse}
+                      value={model.instructionToUse?? ""}
                       name="instructionToUse"
                       placeholder="تعليمات الإستعمال"
                     />
                   </div>
                 </div>
               )}
-                 <ModalFooter>
+              <ModalFooter>
                 <button
                   onClick={submitFormHandler}
                   type="button"

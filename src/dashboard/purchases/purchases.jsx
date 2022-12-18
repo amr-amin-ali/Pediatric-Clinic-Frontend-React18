@@ -4,7 +4,6 @@ import DashboardLoader from "../components/loader/dashboardLoader";
 import { httpDELETE } from "../../http/httpDELETE";
 import { api } from "../../utility/api";
 import { httpGET } from "../../http/httpGET";
-import ShowModalButton from "../components/buttons/show-modal-button";
 import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
 import DeletePurchaseModal from "./delete-purchase-modal";
 import CreatePurchasesModal from "./create-purchase-modal";

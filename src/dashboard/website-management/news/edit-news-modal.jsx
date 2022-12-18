@@ -5,12 +5,9 @@ import { useStore } from "../../../hooks-store/store";
 import { httpPUTWithFile } from "../../../http/httpPUTWithFile";
 import { api } from "../../../utility/api";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import ResetButton from "../../components/buttons/reset-button";
-import SubmitButton from "../../components/buttons/submit-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import TextInput from "../../components/inputs/text-input";
-import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
 import TextareaInput from "../../components/inputs/textarea-input";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
@@ -199,8 +196,12 @@ const EditNewsModal = ({ news }) => {
                     <div className="mx-0 my-1">
                       <div className="my-3">
                         <label htmlFor="updateNewsImage">
-                          <ButtonWithPressEffect text={buttonText} />
-                          <input
+                        <button
+                          type="button"
+                          class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                        >
+                          {buttonText}
+                        </button>                          <input
                             onChange={imgInputChangeHandler}
                             type="file"
                             name="clinicLogoUpdate"

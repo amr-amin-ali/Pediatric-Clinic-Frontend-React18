@@ -1,5 +1,3 @@
-import HideModalButton from "../../components/buttons/hide-modal-button";
-import SubmitButton from "../../components/buttons/submit-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import { api } from "../../../utility/api";

@@ -41,6 +41,24 @@ const configureVisitsStore = () => {
     visits_store: {
       visits: [],
       isInitiated: false,
+
+
+      new_prescription_data:{
+        visit_details:{},
+        treatments:[]
+      }
+
+
+
+
+
+
+
+
+
+
+
+
     },
   });
 };

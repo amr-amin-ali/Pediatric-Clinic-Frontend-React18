@@ -1,8 +1,6 @@
 import { Fragment } from "react";
 import CreateFileModal from "./components/create-file-modal";
 import SearchFiles from "./components/search-files-modal";
-import LinkButton from "../components/buttons/link-button";
-import ShowModalButton from "../components/buttons/show-modal-button";
 import { Link } from "react-router-dom";
 
 const Files = () => {
@@ -33,7 +31,7 @@ const Files = () => {
               <div className="col-4">
                 <button
                   type="button"
-                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                   data-bs-toggle="modal"
                   data-bs-target="#createNewFileModal"
                 >
@@ -43,7 +41,7 @@ const Files = () => {
               <div className="col-4">
                 <button
                   type="button"
-                  class="my-btn my-success btn btn-success w-100 py-3 fw-bold"
+                  className="my-btn my-success btn btn-success w-100 py-3 fw-bold"
                   data-bs-toggle="modal"
                   data-bs-target="#searchForPatientFileModal"
                 >

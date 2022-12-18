@@ -5,7 +5,6 @@ import { httpGET } from "../../../http/httpGET";
 import { httpPOSTFile } from "../../../http/httpPOSTFile";
 import { api } from "../../../utility/api";
 import DashboardLoader from "../../components/loader/dashboardLoader";
-import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
 
 const CarouselManagement = () => {
   const [state, dispatch] = useStore();
@@ -90,7 +89,12 @@ const CarouselManagement = () => {
           <div>
             <div className="my-3">
               <label htmlFor="uploadSliderImage">
-                <ButtonWithPressEffect text={buttonText} />
+                <button
+                  type="button"
+                  class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                >
+                  {buttonText}
+                </button>{" "}
               </label>
               <input
                 onChange={imgInputChangeHandler}
@@ -105,10 +109,13 @@ const CarouselManagement = () => {
               <div className="my-3">
                 {isUploading && <DashboardLoader text="جارى تحميل الصورة" />}
                 {!isUploading && (
-                  <ButtonWithPressEffect
-                    text="حفظ الصورة"
-                    buttonClickHandler={saveImageButtonClickHandler}
-                  />
+                  <button
+                    onClick={saveImageButtonClickHandler}
+                    type="button"
+                    class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                  >
+                    حفظ الصورة
+                  </button>
                 )}
               </div>
             )}

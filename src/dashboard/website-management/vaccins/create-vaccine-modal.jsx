@@ -4,8 +4,6 @@ import { httpPOST } from "../../../http/httpPOST";
 import { useStore } from "../../../hooks-store/store";
 import { api } from "../../../utility/api";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import ResetButton from "../../components/buttons/reset-button";
-import SubmitButton from "../../components/buttons/submit-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import TextInput from "../../components/inputs/text-input";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import SubmitButton from "../../components/buttons/submit-button";
+// import SubmitButton from "../../components/buttons/submit-button";
 import NumberInput from "../../components/inputs/number-input";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
@@ -8,28 +8,24 @@ import ViewFileModal from "../../files/components/view-file-modal";
 import { api } from "../../../utility/api";
 import { useStore } from "../../../hooks-store/store";
 import { useState } from "react";
-import { httpPOST } from "../../../http/httpPOST";
 import { httpPUT } from "../../../http/httpPUT";
 import DashboardLoader from "../../components/loader/dashboardLoader";
-import { useNavigate } from "react-router-dom";
 
 const EditVisitDetailsForm = ({ visit }) => {
-  const navigate = useNavigate();
   const [state, dispatch] = useStore(true);
-  const visitId = state.visits_store.new_prescription_data.visit_details.id;
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
-  const [visitDetails, setVisitDetails] = useState(visit);
+  const [visitDetails, setVisitDetails] = useState({...visit});
 
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
-    const oldDetails = visitDetails;
+    const oldDetails = {...visitDetails};
     oldDetails[name] = value;
     setVisitDetails({ ...oldDetails });
   };
 
   const saveVisitDetailsHandler = () => {
-      setIsSavingVisitDetails(true);
+    setIsSavingVisitDetails(true);
     httpPUT(api.visits.update_visit, { ...visitDetails })
       .then((response) => {
         if (response.status === 400 || response.status === 404) {
@@ -57,16 +53,14 @@ const EditVisitDetailsForm = ({ visit }) => {
   };
 
   return (
-    <section
-      className={`bg-blue-light overflow-hidden`}
-    >
+    <section className={`bg-blue-light overflow-hidden`}>
       <div className="row position-relative m-0 bg-gradient py-2">
         <h4 className={`col-10 offset-1 text-white text-center p-0`}>
           تفاصيل الزيارة
         </h4>
         <div className="col-1 d-flex justify-content-between align-items-center">
           <svg
-          className="cursor-pointer"
+            className="cursor-pointer"
             data-bs-toggle="collapse"
             data-bs-target="#prescriptionDetailsCollapse"
             fill="#fff"
@@ -154,20 +148,19 @@ const EditVisitDetailsForm = ({ visit }) => {
                 </div>
               </div>
               <div className="d-flex justify-content-center m-0 mt-1">
-                <SubmitButton
-                  clickHandler={saveVisitDetailsHandler}
-                  color="blue"
-                  title="حفظ البيانات"
-                />
+                <button
+                  onClick={saveVisitDetailsHandler}
+                  type="button"
+                  className="my-btn btn btn-primary py-3 px-5 fw-bold"
+                  style={{ width: "250px" }}
+                >
+                  حفظ البيانات
+                </button>
               </div>
             </div>
           </form>
         )}
       </div>
-      <ViewFileModal
-        fileData={state.visits_store.new_prescription_data.file_data}
-        modalId="viewFileDataForPrescriptionModal"
-      />
     </section>
   );
 };

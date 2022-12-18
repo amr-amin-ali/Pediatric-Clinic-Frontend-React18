@@ -4,8 +4,6 @@ import { httpPUT } from "../../../http/httpPUT";
 import { useStore } from "../../../hooks-store/store";
 import { api } from "../../../utility/api";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import ResetButton from "../../components/buttons/reset-button";
-import SubmitButton from "../../components/buttons/submit-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import DashboardLoader from "../../components/loader/dashboardLoader";
@@ -85,7 +83,7 @@ const EditVaccineModal = ({ vaccin }) => {
 
     if (errors && Object.keys(errors).length === 0) {
       setIsSubmitting(true);
-      const response = await httpPUT(api.vaccins.update_vaccin, {
+      httpPUT(api.vaccins.update_vaccin, {
         id: model.id,
         name: model.name,
         age: model.age,

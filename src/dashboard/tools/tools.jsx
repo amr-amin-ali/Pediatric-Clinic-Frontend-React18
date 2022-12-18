@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import ShowModalButton from "../components/buttons/show-modal-button";
 import { useStore } from "../../hooks-store/store";
 import DashboardLoader from "../components/loader/dashboardLoader";
 import { httpDELETE } from "../../http/httpDELETE";
@@ -12,29 +11,6 @@ const Tools = () => {
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const deleteTool = async (toolId) => {
-    if (window.confirm("هل تريد الحذف فعلاً؟") === true) {
-      setIsDeleting(true);
-      httpDELETE(api.tools.delete_tool + toolId)
-        .then((response) => {
-          if (response.status === 204) {
-            dispatch("DELETE_TOOL", toolId);
-          }
-          if (response.status === 404) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-          }
-          if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-          }
-          setIsDeleting(false);
-        })
-        .catch((c) => {
-          alert("Network error while deleting article!!");
-          setIsDeleting(false);
-        });
-    }
-  };
 
   useEffect(() => {
     if (!state.tools_store.isInitiated) {

@@ -6,7 +6,6 @@ import { httpPOSTWithFile } from "../../../http/httpPOSTWithFile";
 import DoctorSvg from "../../components/icons/doctor-svg";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import TextInput from "../../components/inputs/text-input";
-import ButtonGlowOnHover from "../../components/buttons/button-glowOnHover";
 import TimeInput from "../../components/inputs/time-input";
 import SwitchInput from "../../components/inputs/switch-input";
 const MetaData = () => {

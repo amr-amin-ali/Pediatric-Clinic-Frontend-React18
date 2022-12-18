@@ -1,7 +1,6 @@
 import { getAge } from "../../../utility/age-calculator";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import HideModalButton from "../../components/buttons/hide-modal-button";
 import Stethoscope from "../../components/icons/stethoscope";
 import MaleSvg from "../../components/icons/male-svg";
 import FemaleSvg from "../../components/icons/female-svg";

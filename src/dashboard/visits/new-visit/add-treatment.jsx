@@ -4,7 +4,7 @@ import { useStore } from "../../../hooks-store/store";
 import { httpGET } from "../../../http/httpGET";
 import { httpPOST } from "../../../http/httpPOST";
 import { api } from "../../../utility/api";
-import SubmitButton from "../../components/buttons/submit-button";
+// import SubmitButton from "../../components/buttons/submit-button";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
@@ -240,12 +240,20 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
           </div>
 
           <div className="flex-fill mt-1">
-            <SubmitButton
+            <button
+              onClick={submitHandler}
+              type="button"
+              className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+            >
+              إكتب للروشتة
+            </button>
+
+            {/* <SubmitButton
               clickHandler={submitHandler}
               width={"100%"}
               color="blue"
               title="إكتب للروشتة"
-            />
+            /> */}
           </div>
         </form>
       )}

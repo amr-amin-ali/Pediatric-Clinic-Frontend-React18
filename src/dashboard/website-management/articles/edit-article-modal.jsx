@@ -1,5 +1,3 @@
-import ResetButton from "../../components/buttons/reset-button";
-import SubmitButton from "../../components/buttons/submit-button";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
 import TextInput from "../../components/inputs/text-input";
@@ -7,7 +5,6 @@ import { useEffect, useState } from "react";
 import { api } from "../../../utility/api";
 import { useStore } from "../../../hooks-store/store";
 import { httpPUTWithFile } from "../../../http/httpPUTWithFile";
-import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
 import TextareaInput from "../../components/inputs/textarea-input";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import { newsModel } from "../../../models/news-model";
@@ -198,8 +195,12 @@ const EditArticleModal = ({ article }) => {
                     />
                     <div className="my-3">
                       <label htmlFor="updateArticleImage">
-                        <ButtonWithPressEffect text={buttonText} />
-                      </label>
+                      <button
+                          type="button"
+                          class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                        >
+                          {buttonText}
+                        </button>                      </label>
                       <input
                         onChange={imgInputChangeHandler}
                         type="file"

@@ -1,5 +1,3 @@
-import ResetButton from "../components/buttons/reset-button";
-import SubmitButton from "../components/buttons/submit-button";
 import ModalFooter from "../components/bootstrap-modal/modal-footer";
 import ModalHeader from "../components/bootstrap-modal/modal-header";
 import NumberInput from "../components/inputs/number-input";

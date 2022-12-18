@@ -5,14 +5,11 @@ import { httpPOSTWithFile } from "../../../http/httpPOSTWithFile";
 import { serviceModel } from "../../../models/clinic-service-model";
 import { api } from "../../../utility/api";
 import { closeBootstrapModal } from "../../../utility/close-bootstrap-modal";
-import ButtonWithPressEffect from "../../components/buttons/button-withPressEffect";
-import ResetButton from "../../components/buttons/reset-button";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 import ModalFooter from "../../components/bootstrap-modal/modal-footer";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
 import ModalHeader from "../../components/bootstrap-modal/modal-header";
-import SubmitButton from "../../components/buttons/submit-button";
 
 const AddServiceModal = () => {
   const dispatch = useStore()[1];
@@ -174,8 +171,12 @@ const AddServiceModal = () => {
                     />
 
                     <label htmlFor="service-image" className="my-1">
-                      <ButtonWithPressEffect text={buttonText} />
-                      <input
+                    <button
+                          type="button"
+                          class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                        >
+                          {buttonText}
+                        </button>                      <input
                         onChange={imgInputChangeHandler}
                         type="file"
                         name="clinicLogo"

@@ -8,7 +8,6 @@ import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
 import { api } from "../../../utility/api";
 import EditArticleModal from "./edit-article-modal";
 import DashboardLoader from "../../components/loader/dashboardLoader";
-import ShowModalButton from "../../components/buttons/show-modal-button";
 
 const ArticlesManagement = () => {
   const [state, dispatch] = useStore();

@@ -1,16 +1,15 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useStore } from "../../../hooks-store/store";
 import { httpGET } from "../../../http/httpGET";
 import { httpPOST } from "../../../http/httpPOST";
 import { api } from "../../../utility/api";
-import SubmitButton from "../../components/buttons/submit-button";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
 import TextareaInput from "../../components/inputs/textarea-input";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
-const EditAddTreatmentForm = ({visitId}) => {
+const EditAddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
   const [state, dispatch] = useStore();
   const [isLoadingMedicines, setIsLoadingMedicines] = useState(false);
   const [isAddingNewMedicine, setIsAddingNewMedicine] = useState(false);
@@ -20,7 +19,6 @@ const EditAddTreatmentForm = ({visitId}) => {
     visitId: visitId,
     saveDescriptionToMedicine: false,
   });
-  // console.log(treatmentDetails);
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
@@ -125,8 +123,8 @@ const EditAddTreatmentForm = ({visitId}) => {
 
                   if (response.status === 201) {
                     response.json().then((data) => {
+                      treatmentsListHandler(data);
 
-                      dispatch("ADD_NEW_PRESCRIPTION_TREATMENT", data);
                       setTreatmentDetails({
                         visitId: visitId,
                         saveDescriptionToMedicine: false,
@@ -166,8 +164,8 @@ const EditAddTreatmentForm = ({visitId}) => {
 
           if (response.status === 201) {
             response.json().then((data) => {
+              treatmentsListHandler(data);
 
-              dispatch("ADD_NEW_PRESCRIPTION_TREATMENT", data);
               setTreatmentDetails({
                 visitId: visitId,
                 saveDescriptionToMedicine: false,
@@ -242,12 +240,13 @@ const EditAddTreatmentForm = ({visitId}) => {
           </div>
 
           <div className="flex-fill mt-1">
-            <SubmitButton
-              clickHandler={submitHandler}
-              width={"100%"}
-              color="blue"
-              title="إكتب للروشتة"
-            />
+            <button
+              onClick={submitHandler}
+              type="button"
+              className="my-btn btn btn-primary w-100 py-3 px-5 fw-bold"
+            >
+              إكتب للروشتة
+            </button>
           </div>
         </form>
       )}

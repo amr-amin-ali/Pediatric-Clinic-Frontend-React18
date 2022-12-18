@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import SubmitButton from "../../components/buttons/submit-button";
+// import SubmitButton from "../../components/buttons/submit-button";
 import NumberInput from "../../components/inputs/number-input";
 import SelectInput from "../../components/inputs/select-input";
 import TextInput from "../../components/inputs/text-input";
@@ -197,19 +197,27 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
                 </div>
               </div>
               <div className="d-flex justify-content-center m-0 mt-1">
-                <SubmitButton
-                  clickHandler={visitDetailsHandler}
-                  color={
-                    visitDetails.id === 0 || visitDetails.id === undefined
-                      ? "green"
-                      : "blue"
-                  }
-                  title={
-                    visitDetails.id === 0 || visitDetails.id === undefined
-                      ? "إحفظ وافتح الروشتة"
-                      : "تحديث"
-                  }
-                />
+                {visitDetails.id === 0 || visitDetails.id === undefined ? (
+                  <button
+                    onClick={visitDetailsHandler}
+                    type="button"
+                    className="my-btn my-success btn btn-success py-3 px-5 fw-bold"
+                    style={{ width: "250px" }}
+                  >
+                    إحفظ وافتح الروشتة
+                  </button>
+                ) : (
+                  <button
+                    onClick={visitDetailsHandler}
+                    type="button"
+                    className="my-btn btn btn-primary py-3 px-5 fw-bold"
+                    style={{ width: "190px" }}
+                  >
+                    تحديث
+                  </button>
+                )}
+
+         
               </div>
             </div>
           </form>

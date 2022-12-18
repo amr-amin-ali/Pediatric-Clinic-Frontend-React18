@@ -8,7 +8,6 @@ import { httpGET } from "../../../http/httpGET";
 import { api } from "../../../utility/api";
 import { openBootstrapModal } from "../../../utility/open-bootstrap-modal";
 import DashboardLoader from "../../components/loader/dashboardLoader";
-import ShowModalButton from "../../components/buttons/show-modal-button";
 
 const NewsManagement = () => {
   const [state, dispatch] = useStore();
