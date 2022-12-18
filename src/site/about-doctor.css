@@ -1,26 +1,18 @@
-:root {
-  --red: #e64c65;
-  --green: #11a8ab;
-  --yellow: #fcb150;
-  --black: #1f253d;
-  --grey: #50597b;
-}
-
 .text-red-active {
-  color: #e64c65 !important;
+  color: var(--g-plus-light) !important;
 }
 .text-green-active {
-  color: #11a8ab !important;
+  color: var(--green-light) !important;
 }
 .text-yellow-active {
-  color: #fcb150 !important;
+  color: var(--yellow) !important;
 }
 .bg-grey-active {
   background-color: #50597b !important;
 }
 
 .doctor-profile-container {
-  background-color: var(--black);
+  background-color: var(--blue-dark);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +44,7 @@
   width: 140px;
   height: 140px;
   text-align: center;
-  border: 5px solid var(--grey);
+  border: 5px solid var(--grey-dark);
   border-radius: 50%;
   margin-top: 50px;
   animation: scale-up-center 3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
@@ -135,13 +127,13 @@
   border-top: 3px solid var(--yellow);
 }
 .second-pane-tab {
-  border-top: 3px solid var(--green);
+  border-top: 3px solid var(--green-light);
 }
 .third-pane-tab {
-  border-top: 3px solid var(--red);
+  border-top: 3px solid var(--g-plus-light);
 }
 .tabs-content {
-  background-color: var(--grey);
+  background-color: var(--grey-dark);
   height: 100%;
 }
 .first-content {
@@ -149,10 +141,10 @@
   font-size: 1rem;
 }
 .second-content {
-  color: var(--green);
+  color: var(--green-light);
   font-size: 1rem;
 }
 .third-content {
-  color: var(--red);
+  color: var(--g-plus-light);
   font-size: 1rem;
 }
