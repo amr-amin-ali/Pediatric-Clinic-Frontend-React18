@@ -41,7 +41,6 @@ const CarouselManagement = () => {
           alert("Please login first");
           dispatch("LOGOUT");
         }
-
         if (response.status === 201) {
           response.json().then((data) => {
             //AFTER SUCCESS

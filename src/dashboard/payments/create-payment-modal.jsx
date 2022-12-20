@@ -51,7 +51,6 @@ const CreatePaymentModal = () => {
           dispatch("LOGOUT");
           closeBootstrapModal();
         }
-
         if (response.status === 201) {
           response.json().then((data) => {
             dispatch("ADD_PAYMENT_TO_STORE", data);
@@ -119,7 +118,7 @@ const CreatePaymentModal = () => {
                       </div>
                       <div className="col-8">
                         <DateTimeInput
-                        type="date"
+                          type="date"
                           name="waterPaymentDate"
                           title="تاريخ دفع المياه"
                           onChangeHandler={inputChangeHandler}
@@ -135,8 +134,8 @@ const CreatePaymentModal = () => {
                         />
                       </div>
                       <div className="col-8">
-                      <DateTimeInput
-                        type="date"
+                        <DateTimeInput
+                          type="date"
                           name="gasPaymentDate"
                           title="تاريخ دفع الغاز"
                           onChangeHandler={inputChangeHandler}
@@ -152,8 +151,8 @@ const CreatePaymentModal = () => {
                         />
                       </div>
                       <div className="col-8">
-                      <DateTimeInput
-                        type="date"
+                        <DateTimeInput
+                          type="date"
                           name="electricityPaymentDate"
                           title="تاريخ دفع الكهرباء"
                           onChangeHandler={inputChangeHandler}
@@ -170,8 +169,8 @@ const CreatePaymentModal = () => {
                         />
                       </div>
                       <div className="col-8">
-                      <DateTimeInput
-                        type="date"
+                        <DateTimeInput
+                          type="date"
                           name="rentPaymentDate"
                           title="تاريخ دفع الإيجار"
                           onChangeHandler={inputChangeHandler}
@@ -188,8 +187,8 @@ const CreatePaymentModal = () => {
                         />
                       </div>
                       <div className="col-8">
-                      <DateTimeInput
-                        type="date"
+                        <DateTimeInput
+                          type="date"
                           name="secretaryWagePaymentDate"
                           title="تاريخ دفع المرتب"
                           onChangeHandler={inputChangeHandler}

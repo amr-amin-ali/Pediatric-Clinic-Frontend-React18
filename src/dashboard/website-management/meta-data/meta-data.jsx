@@ -94,7 +94,6 @@ const MetaData = () => {
           alert("Please login first");
           dispatch("LOGOUT");
         }
-
         if (response.status === 200) {
           response.json().then((data) => {
             dispatch("ADD_META_DATA_TO_STORE", data);

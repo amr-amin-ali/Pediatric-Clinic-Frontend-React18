@@ -102,7 +102,6 @@ const CreateVaccineModal = () => {
             dispatch("LOGOUT");
             closeBootstrapModal();
           }
-
           if (response.status === 201) {
             response.json().then((data) => {
               dispatch("ADD_VACCINS_TO_STORE", data);

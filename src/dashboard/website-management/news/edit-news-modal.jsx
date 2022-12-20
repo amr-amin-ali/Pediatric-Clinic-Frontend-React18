@@ -104,7 +104,6 @@ const EditNewsModal = ({ news }) => {
             alert("Please login first");
             dispatch("LOGOUT");
           }
-
           if (response.status === 200) {
             response.json().then((data) => {
               dispatch("UPDATE_NEWS_IN_STORE", data);

@@ -29,6 +29,10 @@ const ServicesManagement = () => {
           if (response.status === 400) {
             response.json().then((result) => alert(Object.values(result)[0]));
           }
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
           setIsDeleting(false);
         })
         .catch((c) => {

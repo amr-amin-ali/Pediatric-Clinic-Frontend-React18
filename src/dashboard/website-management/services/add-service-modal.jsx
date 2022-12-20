@@ -95,7 +95,6 @@ const AddServiceModal = () => {
             alert("Please login first");
             dispatch("LOGOUT");
           }
-
           if (response.status === 201) {
             response.json().then((data) => {
               dispatch("ADD_SERVICE_TO_STORE", data);

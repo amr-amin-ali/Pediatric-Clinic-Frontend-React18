@@ -287,7 +287,6 @@ const EditFileModal = ({ fileData, modalId }) => {
           alert("Please login first");
           dispatch("LOGOUT");
         }
-
         if (response.status === 200) {
           response.json().then((data) => {
             dispatch("UPDATE_FILE_IN_STORE", data);

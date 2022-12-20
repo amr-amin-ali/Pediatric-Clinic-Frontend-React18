@@ -94,7 +94,6 @@ const AddNewsModal = () => {
             alert("Please login first");
             dispatch("LOGOUT");
           }
-
           if (response.status === 201) {
             response.json().then((data) => {
               dispatch("ADD_NEWS_TO_STORE", data);

@@ -288,7 +288,6 @@ const CreateFileModal = () => {
           alert("يجب تسجيل الدخول كدكتور حتى يمكنك إنشاء الملف");
           dispatch("LOGOUT");
         }
-
         if (response.status === 201) {
           response.json().then((data) => {
             dispatch("ADD_FILE_IN_STORE", data);

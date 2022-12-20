@@ -15,7 +15,17 @@ const Bookings = () => {
       response.json().then((result) => alert(Object.values(result)[0]));
       return;
     }
-    dispatch("DELETE_BOOKING", bookingId);
+    if (response.status === 404) {
+      alert("NotFound");
+      return;
+    }
+    if (response.status === 401) {
+      alert("Please login first");
+      dispatch("LOGOUT");
+    }
+    if (response.status === 204) {
+      dispatch("DELETE_BOOKING", bookingId);
+    }
   };
   useEffect(() => {
     //get all bookings from the server

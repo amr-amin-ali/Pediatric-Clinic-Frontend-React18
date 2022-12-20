@@ -61,7 +61,6 @@ const EditMedicineModal = ({ medicineData, modalId }) => {
           dispatch("LOGOUT");
           closeBootstrapModal();
         }
-
         if (response.status === 200) {
           response.json().then((data) => {
             dispatch("UPDATE_MEDICINES_IN_STORE", data);

@@ -107,7 +107,6 @@ const EditArticleModal = ({ article }) => {
             alert("Please login first");
             dispatch("LOGOUT");
           }
-
           if (response.status === 200) {
             response.json().then((data) => {
               dispatch("UPDATE_ARTICLE_IN_STORE", data);
