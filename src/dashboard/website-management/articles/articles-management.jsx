@@ -51,8 +51,16 @@ const ArticlesManagement = () => {
     if (!state.articles_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.articles.get_all_articles)
-        .then((articles) => {
-          if (articles.length !== 0) dispatch("INITIATE_ARTICLES", articles);
+      .then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {            
+            if (data.length !== 0) dispatch("INITIATE_ARTICLES", data);
+          });
+        }
           setIsLoading(false);
         })
         .catch((c) => {

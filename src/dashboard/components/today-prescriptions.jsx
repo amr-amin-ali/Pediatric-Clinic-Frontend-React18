@@ -9,6 +9,12 @@ import DashboardLoader from "../components/loader/dashboardLoader";
 import { convertcSharpTimeTo12HourSystem } from "../../utility/date-time-functionalities";
 const TodayPrescriptions = () => {
   const [state, dispatch] = useStore();
+  const visityOfTypeZero = state.visits_store.visits_of_today.filter(
+    (visit) => visit.type === 0
+  );
+  const visityOfTypeNotZero = state.visits_store.visits_of_today.filter(
+    (visit) => visit.type !== 0
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -16,9 +22,17 @@ const TodayPrescriptions = () => {
     if (state.visits_store.visits_of_today.length < 1) {
       setIsLoading(true);
       httpGET(api.visits.get_visits_of_today)
-        .then((visitsOfTodayList) => {
-          if (visitsOfTodayList.length !== 0)
-            dispatch("INITIATE_VISITS_OF_TODAY", visitsOfTodayList);
+      .then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0)
+            dispatch("INITIATE_VISITS_OF_TODAY", data);
+          });
+        }         
           setIsLoading(false);
         })
         .catch((c) => {
@@ -47,14 +61,24 @@ const TodayPrescriptions = () => {
             {isLoading && <DashboardLoader />}
             {!isLoading && (
               <ul className="list-unstyled m-0 p-0">
-                {state.visits_store.visits_of_today.map((v) =>
+                {visityOfTypeZero.length < 1 ? (
+                  <li
+                    className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
+                  >
+                    <span className="ps-3 d-block text-info fs-6">
+                      لم تسجل كشوفات لهذا اليوم
+                    </span>
+                  </li>
+                ) : null}
+
+                {visityOfTypeZero.map((v) =>
                   v.type === 0 ? (
                     <li
                       key={v.id}
                       className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
                     >
                       <NavLink
-                        to="Bookings"
+                        to={`/Dashboard/Prescriptions-For/${v.applicationUser.firstName}-${v.applicationUser.middleName}-${v.applicationUser.lastName}/${v.applicationUser.id}`}
                         className="d-flex justify-content-between text-decoration-none d-block text-white fs-5"
                       >
                         <span>
@@ -97,14 +121,23 @@ const TodayPrescriptions = () => {
             {isLoading && <DashboardLoader />}
             {!isLoading && (
               <ul className="list-unstyled m-0 p-0">
-                {state.visits_store.visits_of_today.map((v) =>
+                {visityOfTypeNotZero.length < 1 ? (
+                  <li
+                    className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
+                  >
+                    <span className="ps-3 d-block text-info fs-6">
+                      لم تسجل استشارات لهذا اليوم
+                    </span>
+                  </li>
+                ) : null}
+                {visityOfTypeNotZero.map((v) =>
                   v.type !== 0 ? (
                     <li
                       key={v.id}
                       className={`${style.menuItem} position-relative py-3 border border-blue-dark`}
                     >
                       <NavLink
-                        to="Bookings"
+                        to={`/Dashboard/Prescriptions-For/${v.applicationUser.firstName}-${v.applicationUser.middleName}-${v.applicationUser.lastName}/${v.applicationUser.id}`}
                         className="d-flex justify-content-between text-decoration-none d-block text-white fs-5"
                       >
                         <span>

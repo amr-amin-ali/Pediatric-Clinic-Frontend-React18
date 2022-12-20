@@ -33,13 +33,22 @@ const CreatePurchasesModal = () => {
     if (!state.tools_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.tools.get_all_tools)
-        .then((tools) => {
-          if (tools.length !== 0) dispatch("INITIATE_TOOLS", tools);
-          setTools(
-            tools.map((tool) => {
-              return { text: tool.name, value: tool.id };
-            })
-          );
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_TOOLS", data);
+              setTools(
+                data.map((tool) => {
+                  return { text: tool.name, value: tool.id };
+                })
+              );
+            });
+          }
+  
           setIsLoading(false);
         })
         .catch((c) => {

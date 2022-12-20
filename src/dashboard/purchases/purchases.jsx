@@ -18,9 +18,17 @@ const Purchases = () => {
     if (!state.purchaeses_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.purchases.get_all_purchases)
-        .then((purchaeses) => {
-          if (purchaeses.length !== 0)
-            dispatch("INITIATE_PURCHASES", purchaeses);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_PURCHASES", data);
+            });
+          }
+
           setIsLoading(false);
         })
         .catch((c) => {

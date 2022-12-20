@@ -116,14 +116,22 @@ const MetaData = () => {
     //Initiale meta datas
     //get all meta datas from the server
     if (!state.metaDatas_store.isInitiated) {
-      httpGET(api.metaDatas.get_meta_data).then((metaDatas) => {
-        if (Object.keys(metaDatas).length !== 0)
-          dispatch("ADD_META_DATA_TO_STORE", metaDatas);
-        setMetaDatasUpdate(metaDatas);
-        if (metaDatas.clinicLogo)
-          setClinicImageUrl(api.base_url + metaDatas.clinicLogo);
-        if (metaDatas.doctorImage)
-          setDoctorImageUrl(api.base_url + metaDatas.doctorImage);
+      httpGET(api.metaDatas.get_meta_data).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (Object.keys(data).length !== 0)
+              dispatch("ADD_META_DATA_TO_STORE", data);
+            setMetaDatasUpdate(data);
+            if (data.clinicLogo)
+              setClinicImageUrl(api.base_url + data.clinicLogo);
+            if (data.doctorImage)
+              setDoctorImageUrl(api.base_url + data.doctorImage);
+          });
+        }
       });
     }
 

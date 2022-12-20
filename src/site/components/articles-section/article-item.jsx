@@ -9,7 +9,7 @@ const ArticleItem = ({ article }) => {
         style={{ maxHeight: "200px" }}
       >
         <img
-          src={api.base_url + article.image}
+          src={article.image ? `${api.base_url}${article.image}` : null}
           alt={article.title}
           style={{ maxHeight: "100%", width: "100%" }}
         />

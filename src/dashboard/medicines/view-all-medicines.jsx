@@ -14,8 +14,17 @@ const ViewAllMedicines = () => {
     if (!state.medicines_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.medicines.get_all_medicines)
-        .then((medicinesList) => {
-          if (medicinesList.length !== 0) dispatch("INITIATE_MEDICINES", medicinesList);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_MEDICINES", data);
+            });
+          }
+  
           setIsLoading(false);
         })
         .catch((c) => {

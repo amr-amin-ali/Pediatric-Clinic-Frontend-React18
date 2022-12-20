@@ -7,20 +7,29 @@ const Vaccines = () => {
 
   const [state, dispatch] = useStore();
   let vaccinesCounter = 0;
-useEffect(() => {
-  if (!state.vaccins_store.isInitiated) {
-    httpGET(api.vaccins.get_all_vaccins).then((vaccins) => {
-      if (vaccins.length !== 0) dispatch("INITIATE_VACCINS", vaccins);
-    });
-  }
-
-}, []);
+  useEffect(() => {
+    if (!state.vaccins_store.isInitiated) {
+      httpGET(api.vaccins.get_all_vaccins).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_VACCINS", data);
+          });
+        }
+      });
+    }
+  }, []);
   if (state.vaccins_store.vaccins.length === 0) {
     return null;
   }
   return (
     <Fragment>
-      <h1 className="text-success font-family-hacen text-center my-3">التطعيمات</h1>
+      <h1 className="text-success font-family-hacen text-center my-3">
+        التطعيمات
+      </h1>
       <div className="accordion accordion-flush" id="accordionFlushExample">
         {state.vaccins_store.vaccins.map((vaccin) => {
           vaccinesCounter++;
@@ -35,7 +44,7 @@ useEffect(() => {
                   aria-expanded="false"
                   aria-controls={`flush-collapse${vaccin.id}`}
                 >
-                {vaccinesCounter} - {vaccin.name}
+                  {vaccinesCounter} - {vaccin.name}
                 </button>
               </h2>
               <div

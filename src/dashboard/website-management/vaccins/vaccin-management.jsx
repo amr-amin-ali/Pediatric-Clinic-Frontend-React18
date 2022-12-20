@@ -34,7 +34,7 @@ const VaccinesManagemt = () => {
           if (response.status === 401) {
             alert("Please login first");
             dispatch("LOGOUT");
-          }  
+          }
           setIsDeleting(false);
         })
         .catch((c) => {
@@ -47,9 +47,17 @@ const VaccinesManagemt = () => {
     if (!state.vaccins_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.vaccins.get_all_vaccins)
-        .then((vaccins) => {
-          if (vaccins.length !== 0) dispatch("INITIATE_VACCINS", vaccins);
-          setIsLoading(false);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_VACCINS", data);
+              setIsLoading(false);
+            });
+          }
         })
         .catch((c) => {
           alert("Network error while fetching vaccins!!");

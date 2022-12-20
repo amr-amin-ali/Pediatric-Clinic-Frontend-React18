@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import SiteLoadindSpiner from "../site/components/site-loading-spinner";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
+import { useStore } from "../hooks-store/store";
 
 const ViewArticle = () => {
+  const dispatch = useStore(false)[1];
   const params = useParams();
   const articleId = params.id;
   const [article, setArticle] = useState(null);
@@ -13,12 +15,26 @@ const ViewArticle = () => {
 
   if (!requested) {
     setIsLoading(true);
-    httpGET(api.articles.get_article_by_id + articleId).then((response) => {
-      if (article === null) {
-        setArticle(response);
-      }
-      setIsLoading(false);
-    }).catch(c=>{alert('Network error !!!');setIsLoading(false);});
+    httpGET(api.articles.get_article_by_id + articleId)
+      .then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (article === null) {
+              setArticle(data);
+            }
+          });
+        }
+
+        setIsLoading(false);
+      })
+      .catch((c) => {
+        alert("Network error !!!");
+        setIsLoading(false);
+      });
     setRequested(true);
   }
   return (
@@ -30,7 +46,7 @@ const ViewArticle = () => {
             <div className="col-12 p-0">
               <img
                 className="img-thumbnail border-danger bg-danger"
-                src={api.base_url + article.image}
+                src={article.image ? `${api.base_url}${article.image}` : null}
                 alt={article.title}
               />
             </div>

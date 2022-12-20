@@ -43,15 +43,22 @@ const EditAddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
     if (!state.medicines_store.isInitiated) {
       setIsLoadingMedicines(true);
       httpGET(api.medicines.get_all_medicines)
-        .then((medicinesList) => {
-          if (medicinesList.length !== 0)
-            dispatch("INITIATE_MEDICINES", medicinesList);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_MEDICINES", data);
 
-          setMedicinesForSelectlist(
-            medicinesList.map((medicine) => {
-              return { text: medicine.name, value: medicine.id };
-            })
-          );
+              setMedicinesForSelectlist(
+                data.map((medicine) => {
+                  return { text: medicine.name, value: medicine.id };
+                })
+              );
+            });
+          }
           setIsLoadingMedicines(false);
         })
         .catch((c) => {

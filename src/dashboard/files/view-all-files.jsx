@@ -14,8 +14,17 @@ const ViewAllFiles = () => {
     if (!state.accounts_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.account.get_all_accounts)
-        .then((filesList) => {
-          if (filesList.length !== 0) dispatch("INITIATE_FILES", filesList);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_FILES", data);
+            });
+          }
+  
           setIsLoading(false);
         })
         .catch((c) => {

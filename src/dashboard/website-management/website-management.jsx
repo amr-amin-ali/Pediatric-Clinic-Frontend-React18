@@ -16,35 +16,74 @@ const WebsiteManagement = () => {
   useEffect(() => {
     //Initiate Articles
     if (state.articles_store.articles.length === 0) {
-      httpGET(api.articles.get_all_articles).then((articles) => {
-        if (articles.length !== 0) dispatch("INITIATE_ARTICLES", articles);
+      httpGET(api.articles.get_all_articles).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_ARTICLES", data);
+          });
+        }
       });
     }
     //Initiate Slider Images
     if (!state.sliderImages.isInitiated) {
-      httpGET(api.slider_images.get_all_slider_images).then((result) =>
-        dispatch("INITIATE_SLIDER_IMAGES", result)
-      );
+      httpGET(api.slider_images.get_all_slider_images).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            dispatch("INITIATE_SLIDER_IMAGES", data);
+          });
+        }
+      });
     }
     //Initiate News
     if (!state.newsStore.isInitiated) {
-      httpGET(api.news.get_all_news).then((news) => {
-        if (news.length !== 0) dispatch("INITIATE_NEWS", news);
+      httpGET(api.news.get_all_news).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_NEWS", data);
+          });
+        }
       });
     }
 
     //Initiate Services
     if (!state.clinic_services_store.isInitiated) {
-      httpGET(api.clinic_services.get_all_services).then((services) => {
-        if (services.length !== 0)
-          dispatch("INITIATE_CLINIC_SERVICES", services);
+      httpGET(api.clinic_services.get_all_services).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_CLINIC_SERVICES", data);
+          });
+        }
       });
     }
     //Initiate Vaccines
     // alert(!state.vaccins_store.isInitiated);
     if (!state.vaccins_store.isInitiated) {
-      httpGET(api.vaccins.get_all_vaccins).then((vaccins) => {
-        if (vaccins.length !== 0) dispatch("INITIATE_VACCINS", vaccins);
+      httpGET(api.vaccins.get_all_vaccins).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_VACCINS", data);
+          });
+        }
       });
     }
   }, [
@@ -68,7 +107,14 @@ const WebsiteManagement = () => {
           <Route path="Articles" element={<ArticlesManagement />} />
           <Route path="News" element={<NewsManagement />} />
           <Route path="Vaccines" element={<VaccinesManagemt />} />
-          <Route path="*" element={<h1 className="text-center text-warning mt-5">من هنا يمكنك إدارة موقع الويب</h1>}/>
+          <Route
+            path="*"
+            element={
+              <h1 className="text-center text-warning mt-5">
+                من هنا يمكنك إدارة موقع الويب
+              </h1>
+            }
+          />
         </Routes>
       </div>
     </div>

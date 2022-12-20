@@ -16,8 +16,17 @@ const Tools = () => {
     if (!state.tools_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.tools.get_all_tools)
-        .then((tools) => {
-          if (tools.length !== 0) dispatch("INITIATE_TOOLS", tools);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_TOOLS", data);
+            });
+          }
+
           setIsLoading(false);
         })
         .catch((c) => {
@@ -50,7 +59,6 @@ const Tools = () => {
               </button>
             </div>
           </div>
-
         </div>
         <div className="card-footer text-muted">لا تنسى أن تحظى بيوم سعيد</div>
       </div>
@@ -58,12 +66,12 @@ const Tools = () => {
       {isLoading && <DashboardLoader text="جارى تحميل البيانات" />}
       {!isLoading && state.tools_store.tools.length < 1 && (
         <h1 className="text-center text-white mt-3">لم تقم بإضافة أدواتك</h1>
-        )}
+      )}
       {!isLoading && state.tools_store.tools.length > 0 && (
         <h1 className="text-center text-white mt-3"> أدواتك</h1>
-        )}
+      )}
 
-        {isDeleting && <DashboardLoader text="جارى الحذف" />}
+      {isDeleting && <DashboardLoader text="جارى الحذف" />}
       {!isLoading &&
         state.tools_store.tools.length > 0 &&
         state.tools_store.tools.map((tool) => (

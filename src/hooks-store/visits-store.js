@@ -11,19 +11,19 @@ const configureVisitsStore = () => {
       globalState.visits_store.visits_of_today = visitsOfTodayList;
       return globalState;
     },
-    ADD_VISIT_TO_VISITS_OF_TODAY: (globalState, newVisit) => {
-      globalState.visits_store.visits_of_today = [
-        ...globalState.visits_store.visits_of_today,
-        newVisit,
-      ];
-      return globalState;
-    },
     ADD_VISIT_TO_STORE: (globalState, newVisit) => {
       globalState.visits_store.visits = [
         ...globalState.visits_store.visits,
         newVisit,
       ];
       globalState.visits_store.isInitiated = true;
+      return globalState;
+    },
+    ADD_VISIT_TO_VISITS_OF_TODAY: (globalState, newVisit) => {
+      globalState.visits_store.visits_of_today = [
+        ...globalState.visits_store.visits_of_today,
+        newVisit,
+      ];
       return globalState;
     },
     UPDATE_VISIT_IN_STORE: (globalState, newUpdatedVisit) => {
@@ -42,6 +42,12 @@ const configureVisitsStore = () => {
     DELETE_VISIT: (globalState, visitId) => {
       globalState.visits_store.visits = globalState.visits_store.visits.filter(
         (c) => c.id !== visitId
+      );
+      return globalState;
+    },
+    DELETE_VISIT_FROM_VISITS_OF_TODAY: (globalState, visitOfTodayId) => {
+      globalState.visits_store.visits_of_today = globalState.visits_store.visits_of_today.filter(
+        (c) => c.id !== visitOfTodayId
       );
       return globalState;
     },

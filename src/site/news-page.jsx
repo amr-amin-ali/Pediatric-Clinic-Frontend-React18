@@ -18,8 +18,16 @@ const NewsPage = () => {
     //get all news from the server
     if (!state.newsStore.isInitiated) {
       httpGET(api.news.get_all_news)
-        .then((news) => {
-          if (news.length !== 0) dispatch("INITIATE_NEWS", news);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_NEWS", data);
+            });
+          }
           setIsLoading(false);
         })
         .catch((c) => {

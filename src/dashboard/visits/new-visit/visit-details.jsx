@@ -80,8 +80,16 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
   useEffect(() => {
     //Get File data
     httpGET(api.account.get_account_data + applicationUserId)
-      .then((data) => {
-        if (data.length !== 0) setFileData(data);
+      .then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) setFileData(data);
+          });
+        }
       })
       .catch((c) => {
         alert("Network error while fetching file data!!");

@@ -30,8 +30,16 @@ const Bookings = () => {
   useEffect(() => {
     //get all bookings from the server
     if (!state.bookings_store.isInitiated) {
-      httpGET(api.bookings.get_all_bookings).then((bookings) => {
-        if (bookings.length !== 0) dispatch("INITIATE_BOOKINGS", bookings);
+      httpGET(api.bookings.get_all_bookings).then((response) => {
+        if (response.status === 401) {
+          alert("Please login first");
+          dispatch("LOGOUT");
+        }
+        if (response.status === 200) {
+          response.json().then((data) => {
+            if (data.length !== 0) dispatch("INITIATE_BOOKINGS", data);
+          });
+        }
       });
     }
   }, []);

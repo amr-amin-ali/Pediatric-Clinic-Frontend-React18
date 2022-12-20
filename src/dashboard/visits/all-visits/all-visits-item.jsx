@@ -5,8 +5,10 @@ import { httpDELETE } from "../../../http/httpDELETE";
 import { useState } from "react";
 import { api } from "../../../utility/api";
 import DashboardLoader from "../../components/loader/dashboardLoader";
+import { useStore } from "../../../hooks-store/store";
 
 const AllVisitsItem = ({ visit }) => {
+  const dispatch = useStore(false)[1];
   const [treatments, setTreatments] = useState(visit.treatments);
   const treatmentsListHandler = (treatment) => {
     setTreatments([...treatments, treatment]);
@@ -23,6 +25,7 @@ const AllVisitsItem = ({ visit }) => {
         .then((response) => {
           if (response.status === 204) {
             setIsDeleted(true);
+            dispatch("DELETE_VISIT_FROM_VISITS_OF_TODAY", visitId);
           }
           if (response.status === 404) {
             response.json().then((result) => alert(Object.values(result)[0]));

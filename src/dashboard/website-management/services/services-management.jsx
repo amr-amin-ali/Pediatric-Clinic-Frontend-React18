@@ -45,9 +45,17 @@ const ServicesManagement = () => {
     if (!state.clinic_services_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.clinic_services.get_all_services)
-        .then((services) => {
-          if (services.length !== 0)
-            dispatch("INITIATE_CLINIC_SERVICES", services);
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_CLINIC_SERVICES", data);
+            });
+          }
+
           setIsLoading(false);
         })
         .catch((c) => {
