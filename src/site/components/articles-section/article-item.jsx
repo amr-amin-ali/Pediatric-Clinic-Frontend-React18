@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { api } from "../../../utility/api";
+import clinicLogo from "../../../assets/clinicLogo.jpg";
 
 const ArticleItem = ({ article }) => {
   return (
@@ -9,7 +10,7 @@ const ArticleItem = ({ article }) => {
         style={{ maxHeight: "200px" }}
       >
         <img
-          src={article.image ? `${api.base_url}${article.image}` : null}
+          src={article.image ? `${api.base_url}${article.image}` : clinicLogo}
           alt={article.title}
           style={{ maxHeight: "100%", width: "100%" }}
         />

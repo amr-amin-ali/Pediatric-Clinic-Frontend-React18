@@ -8,7 +8,7 @@ const DoctorProfile = () => {
     <div className="col-lg-4 col-sm-12 px-3 py-3">
       <div
         className="profile rounded position-relative overflow-hidden bg-blue-light mx-auto"
-        style={{ height: "489px", maxWidth: "325px"}}
+        style={{ height: "489px", maxWidth: "325px" }}
       >
         <div className="image-container mt-5 position-relative text-center">
           {state.metaDatas_store.metaDatas.doctorImage && (
@@ -27,9 +27,11 @@ const DoctorProfile = () => {
         </div>
         <div className="text-container text-center px-5">
           <h1 className="my-3 text-white font-family-hacen">
-            {state.metaDatas_store.metaDatas.doctorFirstName ?? ""}{" "}
-            {state.metaDatas_store.metaDatas.doctorMiddleName ?? ""}{" "}
-            {state.metaDatas_store.metaDatas.doctorLastName ?? ""}
+            {`
+              ${state.metaDatas_store.metaDatas.doctorFirstName ?? ""} 
+              ${state.metaDatas_store.metaDatas.doctorMiddleName ?? ""} 
+              ${state.metaDatas_store.metaDatas.doctorLastName ?? ""}
+            `}
           </h1>
           <p
             className="m-auto text-grey-light"

@@ -1,11 +1,6 @@
-const BabySvg = () => {
+const BabySvg = ({ width = "50", height = "50", fill = "#11a8ab" }) => {
   return (
-    <svg
-      width="50"
-      height="50"
-      fill="#11a8ab"
-      viewBox="0 0 480 480"
-    >
+    <svg width={width} height={height} fill={fill} viewBox="0 0 480 480">
       <path
         id="XMLID_819_"
         d="M251,90c0-5.523,4.477-10,10-10h2c5.523,0,10,4.477,10,10s-4.477,10-10,10h-2

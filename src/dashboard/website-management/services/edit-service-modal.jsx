@@ -197,7 +197,7 @@ const EditServiceModal = ({ service }) => {
                       <label htmlFor="updatedServiceImage">
                       <button
                           type="button"
-                          class="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                          className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                         >
                           {buttonText}
                         </button>                        <input

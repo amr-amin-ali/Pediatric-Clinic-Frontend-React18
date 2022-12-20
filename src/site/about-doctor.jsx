@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import clinicLogo from "../assets/clinicLogo.jpg";
 import { useStore } from "../hooks-store/store";
 import { api } from "../utility/api";
 import "./about-doctor.css";
@@ -44,14 +45,16 @@ const AboutDoctor = () => {
               </svg>
             </Link>
           </div>
-          {state.metaDatas_store.metaDatas.doctorImage && (
-            <div className="doctor-profile-picture">
-              <img
-                src={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
-                alt={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
-              />
-            </div>
-          )}
+          <div className="doctor-profile-picture">
+            <img
+              src={
+                state.metaDatas_store.metaDatas.doctorImage
+                  ? `${api.base_url}${state.metaDatas_store.metaDatas.doctorImage}`
+                  : clinicLogo
+              }
+              alt={api.base_url + state.metaDatas_store.metaDatas.doctorImage}
+            />
+          </div>
         </div>
 
         <div className="doctor-profile-title">
@@ -98,23 +101,35 @@ const AboutDoctor = () => {
                       </li>
                     )}
                   {state.metaDatas_store.metaDatas.doctorPhone1 && (
-                    <li className="m-0 ps-5">{state.metaDatas_store.metaDatas.doctorPhone1}</li>
+                    <li className="m-0 ps-5">
+                      {state.metaDatas_store.metaDatas.doctorPhone1}
+                    </li>
                   )}
                   {state.metaDatas_store.metaDatas.doctorPhone2 && (
-                    <li className="m-0 ps-5">{state.metaDatas_store.metaDatas.doctorPhone2}</li>
+                    <li className="m-0 ps-5">
+                      {state.metaDatas_store.metaDatas.doctorPhone2}
+                    </li>
                   )}
 
                   {state.metaDatas_store.metaDatas.doctorWhatsapp && (
-                    <li>Whatsapp: {state.metaDatas_store.metaDatas.doctorWhatsapp}</li>
+                    <li>
+                      Whatsapp: {state.metaDatas_store.metaDatas.doctorWhatsapp}
+                    </li>
                   )}
                   {state.metaDatas_store.metaDatas.doctorTelegram && (
-                    <li>Telegram: {state.metaDatas_store.metaDatas.doctorTelegram}</li>
+                    <li>
+                      Telegram: {state.metaDatas_store.metaDatas.doctorTelegram}
+                    </li>
                   )}
                   {state.metaDatas_store.metaDatas.doctorFacebook && (
-                    <li>Facebook: {state.metaDatas_store.metaDatas.doctorFacebook}</li>
+                    <li>
+                      Facebook: {state.metaDatas_store.metaDatas.doctorFacebook}
+                    </li>
                   )}
                   {state.metaDatas_store.metaDatas.doctorEmail && (
-                    <li>Facebook: {state.metaDatas_store.metaDatas.doctorEmail}</li>
+                    <li>
+                      Facebook: {state.metaDatas_store.metaDatas.doctorEmail}
+                    </li>
                   )}
                 </ul>
               </div>

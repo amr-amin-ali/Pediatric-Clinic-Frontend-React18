@@ -1,4 +1,5 @@
 import { api } from "../../../utility/api";
+import clinicLogo from "../../../assets/clinicLogo.jpg";
 
 const NewsItem = ({ news }) => {
   return (
@@ -8,7 +9,7 @@ const NewsItem = ({ news }) => {
         style={{ maxHeight: "200px" }}
       >
         <img
-          src={news.image ? `${api.base_url}${news.image}` : null}
+          src={news.image ? `${api.base_url}${news.image}` : clinicLogo}
           alt={news.title}
           style={{ maxHeight: "100%", width: "100%" }}
         />

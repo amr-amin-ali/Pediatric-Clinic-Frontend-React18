@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import clinicLogo from "../assets/clinicLogo.jpg";
 import SiteLoadindSpiner from "../site/components/site-loading-spinner";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";
@@ -46,7 +47,9 @@ const ViewArticle = () => {
             <div className="col-12 p-0">
               <img
                 className="img-thumbnail border-danger bg-danger"
-                src={article.image ? `${api.base_url}${article.image}` : null}
+                src={
+                  article.image ? `${api.base_url}${article.image}` : clinicLogo
+                }
                 alt={article.title}
               />
             </div>

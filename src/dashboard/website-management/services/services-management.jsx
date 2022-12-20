@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import clinicLogo from '../../../assets/clinicLogo.jpg'
 import { useStore } from "../../../hooks-store/store";
 import { httpDELETE } from "../../../http/httpDELETE";
 import { httpGET } from "../../../http/httpGET";
@@ -115,22 +116,14 @@ const ServicesManagement = () => {
                     }}
                   />
                 </div>
-                {servc.image && (
-                  <img
-                    src={api.base_url + servc.image}
-                    className="service-image img-fluid rounded-top"
-                    style={{ height: "13rem", width: "100%" }}
-                    alt={servc.title}
-                  />
-                )}
-                {!servc.image && (
-                  <img
-                    src="https://www.drrajeshclinic.com/images/logo.png"
-                    className="service-image img-fluid rounded-top"
-                    style={{ height: "13rem", width: "100%" }}
-                    alt="https://www.drrajeshclinic.com/images/logo.png"
-                  />
-                )}
+
+                <img
+                  src={servc.image ? `${api.base_url}${servc.image}` : clinicLogo}
+                  className="service-image img-fluid rounded-top"
+                  style={{ height: "13rem", width: "100%" }}
+                  alt={servc.title}
+                />
+
                 <h4 className="p-2 mb-0">{servc.title}</h4>
                 <p className="p-1 mb-5 text-truncate">{servc.text} </p>
               </div>

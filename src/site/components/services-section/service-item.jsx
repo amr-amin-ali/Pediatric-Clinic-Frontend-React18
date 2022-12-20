@@ -1,12 +1,13 @@
 import { api } from "../../../utility/api";
+import clinicLogo from "../../../assets/clinicLogo.jpg";
 
 const ServiceItem = ({ service }) => {
   return (
     <div className="row m-0">
       <div className="col-sm-12 col-md-6 shadow mx-auto border border-dark border-opacity-50 rounded-3 p-1">
         <img
-          src={service.image ? `${api.base_url}${service.image}` : null}
-          className="img-fluid rounded-top w-100"
+          src={service.image ? `${api.base_url}${service.image}` : clinicLogo}
+          className="img-fluid rounded-top w--100"
           style={{ height: "270px" }}
           alt={service.title}
         />

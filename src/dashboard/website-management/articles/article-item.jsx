@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import clinicLogo from "../../../assets/clinicLogo.jpg";
 import { api } from "../../../utility/api";
 import EditAndDeleteButtons from "../../components/buttons/edit-and-delete-btns";
 const ArticleItem = ({ article, deleteClickHandler, editClickHandler }) => {
@@ -11,7 +12,7 @@ const ArticleItem = ({ article, deleteClickHandler, editClickHandler }) => {
       <div className={`row rounded-3`} style={{ overflow: "hidden" }}>
         <div className="col-sm-5 p-0 ">
           <img
-            src={api.base_url + article.image}
+            src={article.image ? `${api.base_url}${article.image}` : clinicLogo}
             alt=""
             style={{ width: "100%", maxHeight: "200px" }}
           />
