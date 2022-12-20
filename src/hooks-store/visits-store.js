@@ -1,4 +1,3 @@
-import { visitModel } from "../models/visit-model";
 import { initStore } from "./store";
 
 const configureVisitsStore = () => {
@@ -6,6 +5,17 @@ const configureVisitsStore = () => {
     INITIATE_VISITS: async (globalState, visitsList) => {
       globalState.visits_store.visits = visitsList;
       globalState.visits_store.isInitiated = true;
+      return globalState;
+    },
+    INITIATE_VISITS_OF_TODAY: async (globalState, visitsOfTodayList) => {
+      globalState.visits_store.visits_of_today = visitsOfTodayList;
+      return globalState;
+    },
+    ADD_VISIT_TO_VISITS_OF_TODAY: (globalState, newVisit) => {
+      globalState.visits_store.visits_of_today = [
+        ...globalState.visits_store.visits_of_today,
+        newVisit,
+      ];
       return globalState;
     },
     ADD_VISIT_TO_STORE: (globalState, newVisit) => {
@@ -40,25 +50,8 @@ const configureVisitsStore = () => {
   initStore(actions, {
     visits_store: {
       visits: [],
+      visits_of_today: [],
       isInitiated: false,
-
-
-      new_prescription_data:{
-        visit_details:{},
-        treatments:[]
-      }
-
-
-
-
-
-
-
-
-
-
-
-
     },
   });
 };

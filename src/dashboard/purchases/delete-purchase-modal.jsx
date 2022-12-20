@@ -6,7 +6,7 @@ import { Fragment, useState } from "react";
 import { useStore } from "../../hooks-store/store";
 import DashboardLoader from "../components/loader/dashboardLoader";
 import { closeBootstrapModal } from "../../utility/close-bootstrap-modal";
-import { cSharpDateToJsDateConverter } from "../../utility/cSharpDateToJsDateConverter";
+import { cSharpDateToJsDateConverter } from "../../utility/date-time-functionalities";
 
 const DeletePurchaseModal = ({ purchase, modalId }) => {
   const dispatch = useStore()[1];

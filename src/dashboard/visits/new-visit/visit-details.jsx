@@ -64,6 +64,10 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
             setVisitDetails({ ...data });
             visitIdHandler(data.id);
             setIsSavingVisitDetails(false);
+            if (response.status === 201) {
+              //add this visit to the visits of today
+              dispatch("ADD_VISIT_TO_VISITS_OF_TODAY", data);
+            }
           });
         }
       })
@@ -216,8 +220,6 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
                     تحديث
                   </button>
                 )}
-
-         
               </div>
             </div>
           </form>

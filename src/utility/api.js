@@ -79,6 +79,7 @@ export const api = {
   visits: {
     create_visit: BASE_URL + "Visits",
     get_all_visits_for_application_user: BASE_URL + "Visits/",
+    get_visits_of_today: BASE_URL + "Visits/VisitsOfToday",
     delete_visit: BASE_URL + "Visits/",
     update_visit: BASE_URL + "Visits",
   },
