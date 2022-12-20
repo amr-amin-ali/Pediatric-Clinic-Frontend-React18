@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import NewsItem from "../site/components/news-section/news-item";
+import NewsItem from "./news-item";
 import { useStore } from "../hooks-store/store";
 import { httpGET } from "../http/httpGET";
 import { api } from "../utility/api";

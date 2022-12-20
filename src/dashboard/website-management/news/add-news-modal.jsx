@@ -169,12 +169,13 @@ const AddNewsModal = () => {
                     />
                     <div className="my-3">
                       <label htmlFor="new-news-image">
-                      <button
+                        <div
                           type="button"
                           className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                         >
                           {buttonText}
-                        </button>                        <input
+                        </div>
+                        <input
                           onChange={imgInputChangeHandler}
                           type="file"
                           name="clinicLogo"

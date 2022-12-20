@@ -72,7 +72,7 @@ const ArticleItem = ({ article }) => {
           className="text-truncate"
           style={{ fontSize: "12px", textIndent: "20px" }}
         >
-          {article.text}{" "}
+          {article.text}
         </p>
 
         <Link

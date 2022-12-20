@@ -195,12 +195,13 @@ const EditNewsModal = ({ news }) => {
                     <div className="mx-0 my-1">
                       <div className="my-3">
                         <label htmlFor="updateNewsImage">
-                        <button
-                          type="button"
-                          className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
-                        >
-                          {buttonText}
-                        </button>                          <input
+                          <div
+                            type="button"
+                            className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                          >
+                            {buttonText}
+                          </div>
+                          <input
                             onChange={imgInputChangeHandler}
                             type="file"
                             name="clinicLogoUpdate"

@@ -31,7 +31,7 @@ const ArticlesManagement = () => {
           if (response.status === 401) {
             alert("Please login first");
             dispatch("LOGOUT");
-          }  
+          }
           setIsDeleting(false);
         })
         .catch((c) => {
@@ -51,16 +51,16 @@ const ArticlesManagement = () => {
     if (!state.articles_store.isInitiated) {
       setIsLoading(true);
       httpGET(api.articles.get_all_articles)
-      .then((response) => {
-        if (response.status === 401) {
-          alert("Please login first");
-          dispatch("LOGOUT");
-        }
-        if (response.status === 200) {
-          response.json().then((data) => {            
-            if (data.length !== 0) dispatch("INITIATE_ARTICLES", data);
-          });
-        }
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              if (data.length !== 0) dispatch("INITIATE_ARTICLES", data);
+            });
+          }
           setIsLoading(false);
         })
         .catch((c) => {
@@ -84,14 +84,14 @@ const ArticlesManagement = () => {
           </p>
           <div className="row justify-content-center m-0">
             <div className="col-4">
-              <button
+              <div
                 type="button"
                 className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                 data-bs-toggle="modal"
                 data-bs-target="#add-article-modal"
               >
                 إضافة مقالة
-              </button>
+              </div>
             </div>
           </div>
         </div>

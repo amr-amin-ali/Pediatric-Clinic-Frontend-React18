@@ -170,12 +170,13 @@ const AddServiceModal = () => {
                     />
 
                     <label htmlFor="service-image" className="my-1">
-                    <button
-                          type="button"
-                          className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
-                        >
-                          {buttonText}
-                        </button>                      <input
+                      <div
+                        type="button"
+                        className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
+                      >
+                        {buttonText}
+                      </div>
+                      <input
                         onChange={imgInputChangeHandler}
                         type="file"
                         name="clinicLogo"

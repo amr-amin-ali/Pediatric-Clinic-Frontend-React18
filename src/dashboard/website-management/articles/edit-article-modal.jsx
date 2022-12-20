@@ -194,12 +194,13 @@ const EditArticleModal = ({ article }) => {
                     />
                     <div className="my-3">
                       <label htmlFor="updateArticleImage">
-                      <button
+                        <div
                           type="button"
                           className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
                         >
                           {buttonText}
-                        </button>                      </label>
+                        </div>
+                      </label>
                       <input
                         onChange={imgInputChangeHandler}
                         type="file"
