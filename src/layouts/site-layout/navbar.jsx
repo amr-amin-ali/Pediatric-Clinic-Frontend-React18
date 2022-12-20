@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useStore } from "../../hooks-store/store";
 import { api } from "../../utility/api";
 import BabySvg from "../../dashboard/components/icons/baby-svg";
@@ -8,8 +8,10 @@ const Navbar = () => {
   const [state, dispatch] = useStore(true);
   const navbarTogglerRef = useRef();
   const navlinlClickHandler = () => {
-    // Collapse Navbar
-    navbarTogglerRef.current.click();
+    // automatically collapse Navbar for mobile and tablet
+    if (window.innerWidth < 992) {
+      navbarTogglerRef.current.click();
+    }
   };
 
   return (
@@ -132,12 +134,12 @@ const Navbar = () => {
                         </li>
                       )}
                     <li>
-                      <a
+                      <Link
                         className="nav-link text-success fs-5 fw-bold"
-                        href="/"
+                        to="/About-Doctor"
                       >
                         البروفايل
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <button

@@ -67,16 +67,16 @@ const CarouselManagement = () => {
     if (!state.sliderImages.isInitiated) {
       setIsLoading(true);
       httpGET(api.slider_images.get_all_slider_images)
-      .then((response) => {
-        if (response.status === 401) {
-          alert("Please login first");
-          dispatch("LOGOUT");
-        }
-        if (response.status === 200) {
-          response.json().then((data) => {            
-            dispatch("INITIATE_SLIDER_IMAGES", data);
-          });
-        }
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Please login first");
+            dispatch("LOGOUT");
+          }
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("INITIATE_SLIDER_IMAGES", data);
+            });
+          }
           setIsLoading(false);
         })
         .catch((c) => {
@@ -96,12 +96,9 @@ const CarouselManagement = () => {
           <div>
             <div className="my-3">
               <label htmlFor="uploadSliderImage">
-                <button
-                  type="button"
-                  className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold"
-                >
+                <div className="my-btn my-primary btn btn-primary w-100 py-3 fw-bold">
                   {buttonText}
-                </button>{" "}
+                </div>
               </label>
               <input
                 onChange={imgInputChangeHandler}

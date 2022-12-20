@@ -25,6 +25,7 @@ import Bookings from "./dashboard/bookings/bookings";
 
 function App() {
   const [state, dispatch] = useStore(true);
+  //Get web site meta data
   if (!state.metaDatas_store.isInitiated) {
     httpGET(api.metaDatas.get_meta_data)
       .then((response) => {
