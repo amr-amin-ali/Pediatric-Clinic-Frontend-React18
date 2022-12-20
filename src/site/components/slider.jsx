@@ -14,13 +14,16 @@ const Slider = () => {
     if (!state.sliderImages.isInitiated) {
       setIsLoading(true);
       httpGET(api.slider_images.get_all_slider_images)
-        .then((result) => {
-          dispatch("INITIATE_SLIDER_IMAGES", result);
-          setIsLoading(false);
+        .then((response) => {
+          if (response.status === 200) {
+            response.json().then((data) => {
+              dispatch("INITIATE_SLIDER_IMAGES", data);
+              setIsLoading(false);
+            });
+          }
         })
         .catch((c) => {
-          alert("Network error while fetching slider images !!");
-          setIsLoading(false);
+          alert("Network error while fetching metaDatas !!");
         });
     }
   }, []);
