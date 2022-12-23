@@ -15,6 +15,7 @@ const EditArticleModal = ({ article }) => {
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [articleToEdit, setArticleToEdit] = useState(article);
+  const [serverErrors, setServerErrors] = useState([]);
 
   /////////Image////////////////////////
   const [buttonText, setButtonText] = useState("إضافة صورة");
@@ -88,15 +89,14 @@ const EditArticleModal = ({ article }) => {
         .then((response) => {
           if (response.status === 400) {
             response.json().then((result) => {
+              const backendErrors = [];
               for (const key in result) {
-                if (result.hasOwnProperty(key)) {
-                  alert(result[key]);
-                }
+                backendErrors.push(`${key}: ${result[key]}`);
               }
+              setServerErrors(backendErrors);
+              setIsSubmitting(false);
             });
-
-            isSubmitting(false);
-            closeBootstrapModal();
+            return;
           }
           if (response.status === 404) {
             response.json().then((result) => alert(Object.values(result)[0]));
@@ -154,7 +154,25 @@ const EditArticleModal = ({ article }) => {
           <div className="modal-content bg-blue-light">
             <form onSubmit={(E) => E.preventDefault()}>
               <ModalHeader title="تعديل بيانات الخدمة" />
-
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row justify-content-between m-0">

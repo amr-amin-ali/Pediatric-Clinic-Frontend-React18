@@ -1,13 +1,15 @@
 import { governorates } from "./governorates-list";
 export const userFile = {
-  id:null,
+  id: null,
   email: "",
   firstName: "",
   middleName: "",
   lastName: "",
   causeOfNicuAdmission: "",
-  birthDate: null,
-  birthWeight: "",
+  birthDate: `${new Date().getFullYear()}-${
+    1 + new Date().getMonth()
+  }-${new Date().getDate()}`,
+  birthWeight: 0,
   governorate: governorates.at(0).value,
   city: "",
   village: "",

@@ -12,6 +12,8 @@ import DashboardLoader from "../../components/loader/dashboardLoader";
 const CreateVaccineModal = () => {
   const dispatch = useStore()[1];
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverErrors, setServerErrors] = useState([]);
+
   const resetFormClickHandler = (event) => {
     setModel(vaccinModel);
   };
@@ -94,8 +96,15 @@ const CreateVaccineModal = () => {
       })
         .then((response) => {
           if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-            setIsSubmitting(false);
+            response.json().then((result) => {
+              const backendErrors = [];
+              for (const key in result) {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+              setServerErrors(backendErrors);
+              setIsSubmitting(false);
+            });
+            return;
           }
           if (response.status === 401) {
             alert("Please login first");
@@ -134,6 +143,25 @@ const CreateVaccineModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="إضافة لقاح جديد" />
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row m-0 p-2">

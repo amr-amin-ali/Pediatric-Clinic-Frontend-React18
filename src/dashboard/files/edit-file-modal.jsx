@@ -322,14 +322,25 @@ const EditFileModal = ({ fileData, modalId }) => {
               <ModalHeader
                 title={`تعديل  ملف ${file.firstName} ${file.middleName} ${file.firstName}`}
               />
-              <div style={{ textAlign: "center" }}>
-                <span style={{ color: "red", backgroundColor: "black" }}>
-                  {serverErrors &&
-                    serverErrors.map((error) => {
-                      return error;
-                    })}
-                </span>
-              </div>
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader text="جارى التعديل" />}
               {!isSubmitting && (
                 <div className="row m-0 p-2">

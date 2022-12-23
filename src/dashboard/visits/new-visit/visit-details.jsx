@@ -22,6 +22,7 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
     }
   };
   const [state, dispatch] = useStore(true);
+  const [serverErrors, setServerErrors] = useState([]);
 
   const [isSavingVisitDetails, setIsSavingVisitDetails] = useState(false);
   const [visitDetails, setVisitDetails] = useState({
@@ -50,8 +51,15 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
     request
       .then((response) => {
         if (response.status === 400 || response.status === 404) {
-          response.json().then((result) => alert(Object.values(result)[0]));
-          setIsSavingVisitDetails(false);
+          response.json().then((result) => {
+            console.log(result);
+            const backendErrors = [];
+            for (const key in result) {
+              backendErrors.push(`${key}: ${result[key]}`);
+            }
+            setServerErrors(backendErrors);
+            setIsSavingVisitDetails(false);
+          });
         }
 
         if (response.status === 401) {
@@ -140,6 +148,25 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
         aria-labelledby="headingThree"
         data-bs-parent="#accordionExample"
       >
+        {serverErrors.length > 0 && (
+          <div
+            className="alert alert-danger alert-dismissible fade show border-0"
+            role="alert"
+          >
+            <button
+              type="button"
+              className="btn-close bg-danger"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+            <ul className="text-danger" dir="ltr">
+              {serverErrors &&
+                serverErrors.map((error) => {
+                  return <li key={error}>{error}</li>;
+                })}
+            </ul>
+          </div>
+        )}
         {isSavingVisitDetails && <DashboardLoader />}
         {!isSavingVisitDetails && (
           <form onSubmit={(_) => _.preventDefault()}>

@@ -19,6 +19,7 @@ const CreatePurchasesModal = () => {
   const [tools, setTools] = useState([]);
   const [purchase, setPurchase] = useState({});
   const [errors, setErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState([]);
 
   const inputChangeHandler = (event) => {
     const value = event.target.value.trim();
@@ -48,7 +49,7 @@ const CreatePurchasesModal = () => {
               );
             });
           }
-  
+
           setIsLoading(false);
         })
         .catch((c) => {
@@ -88,7 +89,15 @@ const CreatePurchasesModal = () => {
     })
       .then((response) => {
         if (response.status === 400) {
-          response.json().then((result) => alert(Object.values(result)[0]));
+          response.json().then((result) => {
+            console.log(result);
+            const backendErrors = [];
+            for (const key in result) {
+              backendErrors.push(`${key}: ${result[key]}`);
+            }
+            setServerErrors(backendErrors);
+            setIsSubmitting(false);
+          });
           setIsSubmitting(false);
         }
         if (response.status === 401) {
@@ -126,7 +135,25 @@ const CreatePurchasesModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="تسجيل مشتريات" />
-
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               <div className="row m-0 p-2">
                 <div className="col-4">
                   {isLoading && <DashboardLoader text="تحميل الأدوات..." />}

@@ -175,9 +175,16 @@ const CreateFileModal = () => {
     setFile({ ...file, notes: event.target.value.trim() });
   };
   const birthDateChangeHandler = (event) => {
-    setFile({ ...file, birthDate: new Date(event.target.value) });
+    const birthDate = new Date(event.target.value);
+    setFile({
+      ...file,
+      birthDate: `${birthDate.getFullYear()}-${
+        1 + birthDate.getMonth()
+      }-${birthDate.getDate()}`,
+    });
     const formErrors = { ...errors };
     delete formErrors[event.target.name];
+    console.log(file.birthDate);
     setErrors(formErrors);
   };
   const phoneNumberChangeHandler = (event) => {
@@ -226,16 +233,15 @@ const CreateFileModal = () => {
       setErrors({ ...errors, birthDate: "تاريخ الميلاد مطلوب" });
       return false;
     }
+    if (!file.birthWeight) {
+      setErrors({ ...errors, birthWeight: "وزن الولادة مطلوب" });
+    }
     if (!file.email) {
       setErrors({ ...errors, email: "الإيميل مطلوب" });
       return false;
     }
     if (!file.password) {
       setErrors({ ...errors, password: "كلمة المرور مطلوبة" });
-      return false;
-    }
-    if (!file.birthWeight) {
-      setErrors({ ...errors, birthWeight: "وزن الولادة مطلوب" });
       return false;
     }
     if (!file.gender) {
@@ -256,15 +262,15 @@ const CreateFileModal = () => {
   const submitFormHandler = async (event) => {
     event.preventDefault();
     if (!validateFileForSubmission(file)) {
-      return;
+      // return;
     }
     setIsSubmitting(true);
 
     httpPOST(api.account.create_account, file)
       .then((response) => {
-        alert("response.status:" + response.status);
         if (response.status === 400) {
           response.json().then((result) => {
+            console.log(result)
             const backendErrors = [];
             for (const key in result) {
               if (key.includes("DuplicateUserName")) {
@@ -298,7 +304,7 @@ const CreateFileModal = () => {
             closeBootstrapModal();
           });
         } else {
-          alert("حدث خطأ غير متوقع");
+          // alert("حدث خطأ غير متوقع");
           setIsSubmitting(false);
         }
       })
@@ -327,14 +333,25 @@ const CreateFileModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="إنشاء ملف جديد" />
-              <div style={{ textAlign: "center" }}>
-                <span style={{ color: "red", backgroundColor: "black" }}>
-                  {serverErrors &&
-                    serverErrors.map((error) => {
-                      return <p>{error}</p>;
-                    })}
-                </span>
-              </div>
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader text="جارى إنشاء الملف" />}
               {!isSubmitting && (
                 <div className="row m-0 p-2">
@@ -388,11 +405,12 @@ const CreateFileModal = () => {
                     />
                   </div>
                   <div className="col-sm-12 col-lg-4   my-1 px-1">
-                  <DateTimeInput
-                        type="date"
+                    <DateTimeInput
+                      type="date"
                       onChangeHandler={birthDateChangeHandler}
                       title="تاريخ الميلاد"
                       name="birthDate"
+                      value={file.birthDate}
                     />
                     {errors.birthDate && (
                       <span style={{ color: "red" }}>{errors.birthDate}</span>
@@ -401,7 +419,7 @@ const CreateFileModal = () => {
 
                   <div className="col-sm-12 col-lg-3 my-1 px-1">
                     <SelectInput
-                    selectedValue={file.governorate}
+                      selectedValue={file.governorate}
                       onChangeHandler={addressChangeHandler}
                       items={governorates}
                       name="governorate"
@@ -482,7 +500,7 @@ const CreateFileModal = () => {
                     <NumberInput
                       placeholder="وزن الولادة"
                       onChangeHandler={requiredOnlyInputChangeHandler}
-                      value={file.birthWeight ?? ""}
+                      value={file.birthWeight === 0 ? "" : file.birthWeight}
                       name="birthWeight"
                     />
                     {errors.birthWeight && (

@@ -16,6 +16,7 @@ const AddServiceModal = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newService, setNewService] = useState(serviceModel);
   const [errors, setErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState([]);
 
   /////////Image////////////////////////
   const [buttonText, setButtonText] = useState("إضافة صورة");
@@ -87,9 +88,15 @@ const AddServiceModal = () => {
       httpPOSTWithFile(api.clinic_services.add_new_service, formData)
         .then((response) => {
           if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-            setIsSubmitting(false);
-            closeBootstrapModal();
+            response.json().then((result) => {
+              const backendErrors = [];
+              for (const key in result) {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+              setServerErrors(backendErrors);
+              setIsSubmitting(false);
+            });
+            return;
           }
           if (response.status === 401) {
             alert("Please login first");
@@ -132,7 +139,25 @@ const AddServiceModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="إضافة خدمة جديدة" />
-
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row justify-content-between m-0">

@@ -16,6 +16,8 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
   const [isAddingNewMedicine, setIsAddingNewMedicine] = useState(false);
   const [isSavingTreatment, setIsSavingTreatment] = useState(false);
   const [medicinesForSelectlist, setMedicinesForSelectlist] = useState([]);
+  const [serverErrors, setServerErrors] = useState([]);
+
   const [treatmentDetails, setTreatmentDetails] = useState({
     visitId: visitId,
     saveDescriptionToMedicine: false,
@@ -95,8 +97,15 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
       })
         .then((response) => {
           if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-            setIsAddingNewMedicine(false);
+            response.json().then((result) => {
+              console.log(result);
+              const backendErrors = [];
+              for (const key in result) {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+              setServerErrors(backendErrors);
+              setIsAddingNewMedicine(false);
+            });
           }
           if (response.status === 401) {
             alert("Please login first");
@@ -120,10 +129,15 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
               })
                 .then((response) => {
                   if (response.status === 400) {
-                    response
-                      .json()
-                      .then((result) => alert(Object.values(result)[0]));
-                    setIsSavingTreatment(false);
+                    response.json().then((result) => {
+                      console.log(result);
+                      const backendErrors = [];
+                      for (const key in result) {
+                        backendErrors.push(`${key}: ${result[key]}`);
+                      }
+                      setServerErrors(backendErrors);
+                      setIsSavingTreatment(false);
+                    });
                   }
                   if (response.status === 401) {
                     alert("Please login first");
@@ -162,8 +176,15 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
       })
         .then((response) => {
           if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
-            setIsSavingTreatment(false);
+            response.json().then((result) => {
+              console.log(result);
+              const backendErrors = [];
+              for (const key in result) {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+              setServerErrors(backendErrors);
+              setIsSavingTreatment(false);
+            });
           }
           if (response.status === 401) {
             alert("Please login first");
@@ -200,6 +221,28 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
       {!isLoadingMedicines && !isSavingTreatment && (
         <form onSubmit={(_) => _.preventDefault()}>
           <h1 className="flex-fill text-center text-white">العلاج</h1>
+          {/* Server errors */}
+          {serverErrors.length > 0 && (
+            <div
+              className="alert alert-danger alert-dismissible fade show border-0"
+              role="alert"
+            >
+              <button
+                type="button"
+                className="btn-close bg-danger"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+
+              <ul className="text-danger" dir="ltr">
+                {serverErrors &&
+                  serverErrors.map((error) => {
+                    return <li key={error}>{error}</li>;
+                  })}
+              </ul>
+            </div>
+          )}
+          {/* // Server errors */}
           <div className="flex-fill">
             <SelectInput
               selectedValue={treatmentDetails.medicineId ?? ""}

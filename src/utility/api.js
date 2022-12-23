@@ -1,5 +1,5 @@
-//const BASE_URL = "https://localhost:7289/api/";
-const BASE_URL = "/api/";
+const BASE_URL = "https://localhost:7289/api/";
+// const BASE_URL = "/api/";
 export const api = {
   base_url: BASE_URL,
   account: {

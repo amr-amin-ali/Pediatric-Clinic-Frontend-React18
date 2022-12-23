@@ -18,6 +18,8 @@ const CreateMedicineModal = () => {
   };
   const [model, setModel] = useState(medicineModel);
   const [nameError, setNameError] = useState(null);
+  const [serverErrors, setServerErrors] = useState([]);
+
   const inputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
@@ -52,7 +54,15 @@ const CreateMedicineModal = () => {
     })
       .then((response) => {
         if (response.status === 400) {
-          response.json().then((result) => alert(Object.values(result)[0]));
+          response.json().then((result) => {
+            console.log(result);
+            const backendErrors = [];
+            for (const key in result) {
+              backendErrors.push(`${key}: ${result[key]}`);
+            }
+            setServerErrors(backendErrors);
+            setIsSubmitting(false);
+          });
           setIsSubmitting(false);
         }
         if (response.status === 401) {
@@ -90,6 +100,25 @@ const CreateMedicineModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="تسجيل دواء جديد" />
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {!isSubmitting && (
                 <div className="row m-0 p-2">
                   <div className="col-6 my-1">

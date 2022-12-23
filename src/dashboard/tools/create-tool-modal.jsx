@@ -13,6 +13,7 @@ const CreateToolModal = () => {
 
   const [toolName, setToolName] = useState("");
   const [error, setError] = useState(null);
+  const [serverErrors, setServerErrors] = useState([]);
 
   const toolNameChangeHandler = (event) => {
     console.log(event.target.value);
@@ -35,7 +36,15 @@ const CreateToolModal = () => {
       })
         .then((response) => {
           if (response.status === 400) {
-            response.json().then((result) => alert(Object.values(result)[0]));
+            response.json().then((result) => {
+              console.log(result);
+              const backendErrors = [];
+              for (const key in result) {
+                backendErrors.push(`${key}: ${result[key]}`);
+              }
+              setServerErrors(backendErrors);
+              setIsSubmitting(false);
+            });
             setIsSubmitting(false);
           }
           if (response.status === 401) {
@@ -74,6 +83,25 @@ const CreateToolModal = () => {
           <div className="modal-content bg-blue-light">
             <form>
               <ModalHeader title="تسجيل آداة جديدة" />
+              {serverErrors.length > 0 && (
+                <div
+                  className="alert alert-danger alert-dismissible fade show border-0"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close bg-danger"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <ul className="text-danger" dir="ltr">
+                    {serverErrors &&
+                      serverErrors.map((error) => {
+                        return <li key={error}>{error}</li>;
+                      })}
+                  </ul>
+                </div>
+              )}
               {isSubmitting && <DashboardLoader />}
               {!isSubmitting && (
                 <div className="row mx-0 mb-3">
