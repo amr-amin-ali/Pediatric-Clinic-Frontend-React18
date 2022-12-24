@@ -33,7 +33,7 @@ const CarouselManagement = () => {
     setIsUploading(true);
     await httpPOSTFile(api.slider_images.upload_slider_image, formData)
       .then((response) => {
-        if (response.status === 400) {
+        if (response.status === 400 || response.status === 422) {
           response.json().then((result) => alert(Object.values(result)[0]));
           setIsUploading(false);
         }

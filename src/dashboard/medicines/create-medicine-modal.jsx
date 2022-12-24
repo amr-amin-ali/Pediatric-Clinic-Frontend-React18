@@ -53,7 +53,7 @@ const CreateMedicineModal = () => {
       precautions: model.precautions,
     })
       .then((response) => {
-        if (response.status === 400) {
+        if (response.status === 400 || response.status === 422) {
           response.json().then((result) => {
             console.log(result);
             const backendErrors = [];

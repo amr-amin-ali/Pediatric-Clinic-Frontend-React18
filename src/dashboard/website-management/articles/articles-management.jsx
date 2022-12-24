@@ -10,6 +10,7 @@ import EditArticleModal from "./edit-article-modal";
 import DashboardLoader from "../../components/loader/dashboardLoader";
 
 const ArticlesManagement = () => {
+  document.title = "المقالات";
   const [state, dispatch] = useStore();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,7 +26,7 @@ const ArticlesManagement = () => {
           if (response.status === 404) {
             response.json().then((result) => alert(Object.values(result)[0]));
           }
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => alert(Object.values(result)[0]));
           }
           if (response.status === 401) {

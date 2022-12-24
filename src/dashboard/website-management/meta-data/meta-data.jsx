@@ -86,7 +86,7 @@ const MetaData = () => {
       );
     httpPOSTWithFile(api.metaDatas.add_meta_data, formData)
       .then((response) => {
-        if (response.status === 400) {
+        if (response.status === 400 || response.status === 422) {
           response.json().then((result) => alert(Object.values(result)[0]));
           setIsSubmitting(false);
         }

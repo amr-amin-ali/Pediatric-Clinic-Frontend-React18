@@ -25,7 +25,7 @@ const EditVisitDetailsForm = ({ visit }) => {
     setIsSavingVisitDetails(true);
     httpPUT(api.visits.update_visit, { ...visitDetails })
       .then((response) => {
-        if (response.status === 400 || response.status === 404) {
+        if (response.status === 400 || response.status === 422 || response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
           setIsSavingVisitDetails(false);
         }

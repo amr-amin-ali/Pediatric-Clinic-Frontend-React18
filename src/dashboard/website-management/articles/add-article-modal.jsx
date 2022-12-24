@@ -87,7 +87,7 @@ const AddArticleModal = () => {
 
       httpPOSTWithFile(api.articles.add_new_article, formData)
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               console.log(result);
               const backendErrors = [];

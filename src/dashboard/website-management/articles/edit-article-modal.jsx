@@ -87,7 +87,7 @@ const EditArticleModal = ({ article }) => {
       //const response =
       httpPUTWithFile(api.articles.update_article, formData)
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               const backendErrors = [];
               for (const key in result) {

@@ -95,7 +95,7 @@ const CreateVaccineModal = () => {
         dates: model.dates,
       })
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               const backendErrors = [];
               for (const key in result) {

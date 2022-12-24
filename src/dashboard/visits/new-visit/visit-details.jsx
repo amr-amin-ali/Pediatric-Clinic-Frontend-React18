@@ -50,7 +50,7 @@ const VisitDetailsForm = ({ applicationUserId, visitIdHandler }) => {
         : httpPUT(actionUrl, { ...visitDetails });
     request
       .then((response) => {
-        if (response.status === 400 || response.status === 404) {
+        if (response.status === 400 || response.status === 422 || response.status === 404) {
           response.json().then((result) => {
             console.log(result);
             const backendErrors = [];

@@ -96,7 +96,7 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
         name: treatmentDetails.medicineName,
       })
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               console.log(result);
               const backendErrors = [];
@@ -128,7 +128,7 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
                 medicineId: data.id,
               })
                 .then((response) => {
-                  if (response.status === 400) {
+                  if (response.status === 400 || response.status === 422) {
                     response.json().then((result) => {
                       console.log(result);
                       const backendErrors = [];
@@ -175,7 +175,7 @@ const AddTreatmentForm = ({ visitId, treatmentsListHandler }) => {
         ...treatmentDetails,
       })
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               console.log(result);
               const backendErrors = [];

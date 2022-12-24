@@ -22,7 +22,7 @@ const DeletePurchaseModal = ({ purchase, modalId }) => {
         if (response.status === 404) {
           response.json().then((result) => alert(Object.values(result)[0]));
         }
-        if (response.status === 400) {
+        if (response.status === 400 || response.status === 422) {
           response.json().then((result) => alert(Object.values(result)[0]));
         }
         if (response.status === 401) {

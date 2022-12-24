@@ -11,7 +11,7 @@ const Bookings = () => {
 
   const deleteBooking = async (bookingId) => {
     const response = await httpDELETE(api.bookings.delete_booking + bookingId);
-    if (response.status === 400) {
+    if (response.status === 400 || response.status === 422) {
       response.json().then((result) => alert(Object.values(result)[0]));
       return;
     }

@@ -83,7 +83,7 @@ const EditServiceModal = ({ service }) => {
 
       httpPUTWithFile(api.clinic_services.update_service, formData)
         .then((response) => {
-          if (response.status === 400) {
+          if (response.status === 400 || response.status === 422) {
             response.json().then((result) => {
               const backendErrors = [];
               for (const key in result) {
