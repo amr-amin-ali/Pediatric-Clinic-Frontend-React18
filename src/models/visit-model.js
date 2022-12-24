@@ -8,7 +8,7 @@ export const visitModel = {
   diagnose: "",
   notes: "",
   applicationUserId: 0,
-  createdAt: null,
+  createdAt: '',
 
   laboratoryStudy: {},
   imagings: [],

@@ -2,9 +2,9 @@ import { medicineModel } from "./medicine-model";
 
 export const treatmentModel = {
   id: 0,
-  description: null,
+  description: '',
   medicineId: 0,
   medicine: medicineModel,
   visitId: 0,
-  createdAt: null,
+  createdAt: '',
 };
